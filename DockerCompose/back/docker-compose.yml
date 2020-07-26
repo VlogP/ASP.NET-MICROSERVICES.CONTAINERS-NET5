@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  apigateway:
+    container_name: apigateway
+    image: vlogp/apigateway:development
+    build:
+      context: ../APIGateway
+      dockerfile: Dockerfile
+  productmicroservice:
+    container_name: productmicroservice
+    image: vlogp/productmicroservice:development
+    build:
+      context: ../ProductMicroservice
+      dockerfile: ProductMicroservice/Dockerfile
+  reportmicroservice:
+    container_name: reportmicroservice
+    image: vlogp/reportmicroservice:development
+    build:
+      context: ../ReportMicroservice
+      dockerfile: ReportMicroservice/Dockerfile

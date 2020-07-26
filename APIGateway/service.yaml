@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: apigateway
+spec:
+  type: LoadBalancer
+  selector:
+    app: apigateway-app
+  ports:
+  - protocol: TCP
+    name: http
+    port: 10000
+    targetPort: 80
+  - protocol: TCP
+    name: https
+    port: 11000
+    targetPort: 443

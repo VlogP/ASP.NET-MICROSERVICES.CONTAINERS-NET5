@@ -1,0 +1,43 @@
+{
+  "GlobalConfiguration": {
+    "BaseUrl": "https://apigateway:443"
+  },
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/api/product{path}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "DownstreamPathTemplate": "/api/product{path}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "productmicroservice",
+          "Port": 80
+        }
+      ]
+    },
+	{
+      "UpstreamPathTemplate": "/api/report{path}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "DownstreamPathTemplate": "/api/report{path}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reportmicroservice",
+          "Port": 80
+        }
+      ]
+    }
+  ]
+}

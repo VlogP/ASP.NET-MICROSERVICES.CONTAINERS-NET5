@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Certificate for Kestrel
+configMapGenerator:
+- name: sslconfig
+  files: 
+  - ./Content/https/aspnetapp.pfx
+
+resources:
+- ./ProductMicroservice/ProductMicroservice/deployment.yaml
+- ./ProductMicroservice/ProductMicroservice/service.yaml
+- ./ReportMicroservice/ReportMicroservice/deployment.yaml
+- ./ReportMicroservice/ReportMicroservice/service.yaml
+- ./APIgateway/deployment.yaml
+- ./APIgateway/service.yaml
+
+namespace: default
