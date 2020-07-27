@@ -25,18 +25,12 @@ spec:
         configMap:
           name: sslconfig
       containers:
-      - env:
-        - name: ASPNETCORE_ENVIRONMENT
-          value: Development
-        - name: ASPNETCORE_Kestrel__Certificates__Default__Password
-          value: "12345"
-        - name: ASPNETCORE_Kestrel__Certificates__Default__Path
-          value: /https/aspnetapp.pfx
-        - name: ASPNETCORE_URLS
-          value: https://+:443;http://+:80
-        name: reportmicroservice
+      - name: reportmicroservice
         image: vlogp/reportmicroservice:development
         imagePullPolicy: Always
+        envFrom:
+          - configMapRef:
+              name: envconfig
         volumeMounts:
         - mountPath: /https/aspnetapp.pfx
           name: sslcertificate

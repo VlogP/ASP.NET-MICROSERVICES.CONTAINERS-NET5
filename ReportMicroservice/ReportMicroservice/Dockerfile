@@ -6,6 +6,7 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
+ARG ENVIRONMENT
 WORKDIR /src
 COPY ["./ReportMicroservice/ReportMicroservice.csproj", ""]
 COPY ["./ReportBuisnessLayer/ReportBuisnessLayer.csproj", "../ReportBuisnessLayer/"]
@@ -13,10 +14,11 @@ COPY ["./ReportDataLayer/ReportDataLayer.csproj", "../ReportDataLayer/"]
 RUN dotnet restore "./ReportMicroservice.csproj"
 COPY . .
 WORKDIR "/src/"
-RUN dotnet build "./ReportMicroservice/ReportMicroservice.csproj" -c Development -o /app/build
+RUN dotnet build "./ReportMicroservice/ReportMicroservice.csproj" -c $ENVIRONMENT -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "./ReportMicroservice/ReportMicroservice.csproj" -c Development -o /app/publish
+ARG ENVIRONMENT
+RUN dotnet publish "./ReportMicroservice/ReportMicroservice.csproj" -c $ENVIRONMENT -o /app/publish
 
 FROM base AS final
 WORKDIR /app
