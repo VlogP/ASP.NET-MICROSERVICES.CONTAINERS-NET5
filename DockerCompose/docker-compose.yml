@@ -3,7 +3,7 @@ version: '3.4'
 services:
   apigateway:
     container_name: apigateway
-    image: vlogp/apigateway:${TAG}
+    image: ${DOCKERHUBID}/apigateway:${TAG}
     build:
       context: ../APIGateway
       dockerfile: Dockerfile
@@ -11,7 +11,7 @@ services:
         ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
   productmicroservice:
     container_name: productmicroservice
-    image: vlogp/productmicroservice:${TAG}
+    image: ${DOCKERHUBID}/productmicroservice:${TAG}
     build:
       context: ../ProductMicroservice
       dockerfile: ProductMicroservice/Dockerfile
@@ -19,7 +19,7 @@ services:
         ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
   reportmicroservice:
     container_name: reportmicroservice
-    image: vlogp/reportmicroservice:${TAG}
+    image: ${DOCKERHUBID}/reportmicroservice:${TAG}
     build:
       context: ../ReportMicroservice
       dockerfile: ReportMicroservice/Dockerfile
