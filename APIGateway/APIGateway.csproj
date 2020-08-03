@@ -31,6 +31,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="MMLib.SwaggerForOcelot" Version="2.5.0" />
     <PackageReference Include="Ocelot" Version="16.0.1" />
   </ItemGroup>
 

@@ -29,7 +29,10 @@ namespace APIGateway
         {
             services.AddControllers();
 
+            services.AddSwaggerForOcelot(Configuration);
+
             services.AddOcelot(Configuration);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +45,13 @@ namespace APIGateway
 
             app.UseHttpsRedirection();
 
+            app.UseSwaggerForOcelotUI(opt =>
+            {
+                opt.PathToSwaggerGenerator = "/swagger/docs";               
+            });
+
             await app.UseOcelot();
+        
         }
     }
 }
