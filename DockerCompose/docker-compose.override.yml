@@ -25,3 +25,11 @@ services:
       - "11002:443"
     volumes:
       - ../Content/https/:/https:ro  
+  authmicroservice:
+    env_file:
+        - .env
+    ports:
+      - "10003:80"
+      - "11003:443"
+    volumes:
+      - ../Content/https/:/https:ro

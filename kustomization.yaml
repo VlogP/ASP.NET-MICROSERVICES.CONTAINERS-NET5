@@ -20,5 +20,7 @@ resources:
 - ./ReportMicroservice/ReportMicroservice/service.yaml
 - ./APIgateway/deployment.yaml
 - ./APIgateway/service.yaml
+- ./AuthMicroservice/AuthMicroservice/service.yaml
+- ./AuthMicroservice/AuthMicroservice/deployment.yaml
 
 namespace: default

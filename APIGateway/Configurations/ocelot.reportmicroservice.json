@@ -1,0 +1,42 @@
+﻿{
+  "Routes": [
+    {
+      "SwaggerKey": "reportmicroservice",
+      "UpstreamPathTemplate": "/api/report/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "DownstreamPathTemplate": "/api/report/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reportmicroservice",
+          "Port": 80
+        }
+      ]
+    },
+    {
+      "SwaggerKey": "reportmicroservice",
+      "UpstreamPathTemplate": "/api/report/",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "DownstreamPathTemplate": "/api/report",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reportmicroservice",
+          "Port": 80
+        }
+      ]
+    }
+  ]
+}

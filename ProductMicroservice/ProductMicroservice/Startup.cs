@@ -22,17 +22,17 @@ namespace ProductMicroservice
 {
     public class Startup
     {
+        private IConfiguration _configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
+            _configuration = configuration;
+        }      
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<ProductDBContext>(o => o.UseSqlServer(Configuration.GetConnectionString("SQLServerProductDB")));
+            services.AddDbContext<ProductDBContext>(o => o.UseSqlServer(_configuration.GetConnectionString("SQLServerProductDB")));
             services.AddTransient<IProductService, ProductService>();
             services.AddScoped<IProductRepository, ProductRepository>();
 
