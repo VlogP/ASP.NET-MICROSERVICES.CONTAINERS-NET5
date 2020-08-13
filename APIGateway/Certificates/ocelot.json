@@ -1,0 +1,104 @@
+{
+  "GlobalConfiguration": {
+  },
+  "Routes": [
+    {
+      "SwaggerKey": "productmicroservice",
+      "UpstreamPathTemplate": "/api/product/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "DownstreamPathTemplate": "/api/product/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "productmicroservice",
+          "Port": 80
+        }
+      ]
+    },
+    {
+      "SwaggerKey": "productmicroservice",
+      "UpstreamPathTemplate": "/api/product/",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "DownstreamPathTemplate": "/api/product",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "productmicroservice",
+          "Port": 80
+        }
+      ]
+    },
+    {
+      "SwaggerKey": "reportmicroservice",
+      "UpstreamPathTemplate": "/api/report/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "DownstreamPathTemplate": "/api/report/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reportmicroservice",
+          "Port": 80
+        }
+      ]
+    },
+    {
+      "SwaggerKey": "reportmicroservice",
+      "UpstreamPathTemplate": "/api/report/",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "DownstreamPathTemplate": "/api/report",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reportmicroservice",
+          "Port": 80
+        }
+      ]
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "productmicroservice",
+      "Config": [
+        {
+          "Name": "APIProduct",
+          "Version": "v1",
+          "Url": "http://productmicroservice:80/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "reportmicroservice",
+      "Config": [
+        {
+          "Name": "APIReport",
+          "Version": "v1",
+          "Url": "http://reportmicroservice:80/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ]
+}

@@ -22,18 +22,18 @@ namespace ReportMicroservice
 {
     public class Startup
     {
+        private IConfiguration _configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<ReportDBContext>(o => o.UseSqlServer(Configuration.GetConnectionString("SQLServerReportDB")));
+            services.AddDbContext<ReportDBContext>(o => o.UseSqlServer(_configuration.GetConnectionString("SQLServerReportDB")));
             services.AddTransient<IReportService, ReportService>();
             services.AddScoped<IReportRepository, ReportRepository>();
 

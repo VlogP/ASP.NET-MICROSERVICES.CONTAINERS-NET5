@@ -1,0 +1,52 @@
+﻿{
+  "Routes": [
+    {
+      "SwaggerKey": "productmicroservice",
+      "UpstreamPathTemplate": "/api/product/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "DownstreamPathTemplate": "/api/product/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "productmicroservice",
+          "Port": 80
+        }
+      ],
+      "RouteClaimsRequirement": {
+        "role": "Admin"
+      }
+    },
+    {
+      "SwaggerKey": "productmicroservice",
+      "UpstreamPathTemplate": "/api/product/",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "DownstreamPathTemplate": "/api/product",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "productmicroservice",
+          "Port": 80
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "token",
+        "AllowedScopes": [ "application.read" ]
+      },
+      "RouteClaimsRequirement": {
+        "role": "User"
+      }
+    }
+  ]
+}

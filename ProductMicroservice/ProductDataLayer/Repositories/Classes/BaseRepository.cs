@@ -15,7 +15,6 @@ namespace ProductDataLayer.Repositories.Classes
         protected ProductDBContext _context;
         protected DbSet<T> _dbSet;
 
-
         public BaseRepository(ProductDBContext context)
         {
             _context = context;
