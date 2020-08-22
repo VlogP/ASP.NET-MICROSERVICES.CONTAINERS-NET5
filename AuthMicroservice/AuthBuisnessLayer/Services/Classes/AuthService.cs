@@ -38,7 +38,7 @@ namespace AuthBuisnessLayer.Services.Classes
                     ClientSecret = _configuration["IdentityServer:UserClientSecret"],
                     Scope = "application.read application.write",
                     UserName = userInfo.Email,
-                    Password = userInfo.Password,
+                    Password = userInfo.Password
                 });
 
                 token = response.AccessToken;

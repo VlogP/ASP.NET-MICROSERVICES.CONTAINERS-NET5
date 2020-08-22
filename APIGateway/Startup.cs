@@ -1,21 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IdentityServer4.AccessTokenValidation;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Ocelot.Authentication.Middleware;
-using Ocelot.Authorisation.Middleware;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using System;
+using System.Collections.Generic;
 
 namespace APIGateway
 {
@@ -32,19 +23,27 @@ namespace APIGateway
         {
             var authenticationProviderKey = "token";
 
-            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-                .AddIdentityServerAuthentication(authenticationProviderKey, opt => 
+            services.AddAuthentication(authenticationProviderKey)
+                .AddOAuth2Introspection(authenticationProviderKey, opt =>
                 {
-                    opt.Authority = _configuration["IdentityServer:URL"];
-                    opt.ApiName = _configuration["IdentityServer:UserApiName"];
-                    opt.ApiSecret = _configuration["IdentityServer:UserApiSecret"];
-                    opt.SupportedTokens = SupportedTokens.Both;
-                    opt.RequireHttpsMetadata = false;
-                    opt.IntrospectionDiscoveryPolicy = new IdentityModel.Client.DiscoveryPolicy { ValidateIssuerName = false };
+                    opt.Authority = _configuration["IdentityServer:ServerURL"];
+                    opt.ClientId = _configuration["IdentityServer:UserApiName"];
+                    opt.ClientSecret = _configuration["IdentityServer:UserApiSecret"];
+                    opt.CacheDuration = TimeSpan.FromMinutes(3600);
+                    opt.EnableCaching = true;
+                    opt.DiscoveryPolicy = new IdentityModel.Client.DiscoveryPolicy { 
+                        RequireHttps = false, 
+                        AdditionalEndpointBaseAddresses = 
+                        new List<string> 
+                            { 
+                                _configuration["IdentityServer:BaseURL"] 
+                            } 
+                    };
                 });
 
             services.AddSwaggerForOcelot(_configuration);
             services.AddControllers();
+            services.AddDistributedMemoryCache();
             services.AddOcelot(_configuration);
         }
 
@@ -55,7 +54,7 @@ namespace APIGateway
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseSwaggerForOcelotUI(opt =>
             {
