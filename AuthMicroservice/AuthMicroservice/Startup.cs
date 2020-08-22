@@ -42,7 +42,7 @@ namespace AuthMicroservice
 
             services.AddIdentityServer(opt =>
                 {
-                    //opt.IssuerUri = "http://localhost:59118/";
+                    opt.IssuerUri = _configuration["IdentityServer:IssuerUrl"];
                 })
                 .AddDeveloperSigningCredential()
                 .AddInMemoryApiResources(Config.GetAllApiResources(_configuration))
