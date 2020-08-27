@@ -1,22 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using MassTransit;
+using MassTransit.RabbitMqTransport;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using ReportBuisnessLayer.Consumers;
 using ReportBuisnessLayer.Services.Classes;
 using ReportBuisnessLayer.Services.Interfaces;
 using ReportDataLayer.Models;
 using ReportDataLayer.Repositories.Classes;
 using ReportDataLayer.Repositories.Interfaces;
+using System;
 
 namespace ReportMicroservice
 {
@@ -36,6 +33,23 @@ namespace ReportMicroservice
             services.AddDbContext<ReportDBContext>(o => o.UseSqlServer(_configuration.GetConnectionString("SQLServerReportDB")));
             services.AddTransient<IReportService, ReportService>();
             services.AddScoped<IReportRepository, ReportRepository>();
+
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<ReportConsumer>();
+
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host("rabbitmq://rabbitmqserver");
+
+                    cfg.ReceiveEndpoint("report-listener", e =>
+                    {
+                        e.ConfigureConsumer<ReportConsumer>(context);
+                    });
+                });
+            });
+
+            services.AddMassTransitHostedService();
 
             services.AddSwaggerGen(swagger =>
             {

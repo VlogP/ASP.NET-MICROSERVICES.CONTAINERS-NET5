@@ -10,6 +10,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MassTransit" Version="7.0.3" />
+    <PackageReference Include="Microservice.Messages" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ReportDataLayer\ReportDataLayer.csproj" />
   </ItemGroup>
 

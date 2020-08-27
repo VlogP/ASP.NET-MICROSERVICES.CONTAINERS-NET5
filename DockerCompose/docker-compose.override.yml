@@ -33,3 +33,12 @@ services:
       - "11003:443"
     volumes:
       - ../Content/https/:/https:ro
+  rabbitmqserver:
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - ${RABBITPATH}/RabbitMQData/etc/definitions.json:/etc/rabbitmq/definitions.json
+      - ${RABBITPATH}/RabbitMQData/etc/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+      - ${RABBITPATH}/RabbitMQData/data:/var/lib/rabbitmq/mnesia/rabbit@my-rabbit
+      - ${RABBITPATH}/RabbitMQData/logs:/var/log/rabbitmq/log
