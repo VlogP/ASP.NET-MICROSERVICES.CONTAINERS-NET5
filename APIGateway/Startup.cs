@@ -1,12 +1,20 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Protocols;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Ocelot.Administration;
+using Ocelot.Authentication.Middleware;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
 
 namespace APIGateway
 {
@@ -23,6 +31,30 @@ namespace APIGateway
         {
             var authenticationProviderKey = "token";
 
+            //Validate JWT using JWT library
+            JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
+            services
+                .AddAuthentication(opt => 
+                {
+                    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(authenticationProviderKey,opt => 
+                {
+                    opt.Authority = _configuration["IdentityServer:ServerURL"];
+                    opt.Audience = _configuration["IdentityServer:UserApiName"];
+                    opt.RequireHttpsMetadata = false;
+                    opt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidateLifetime = true
+                    };
+                });
+
+            //Validate JWT using Identity Server 4 introspection endpoing
+            /*services.AddDistributedMemoryCache();
             services.AddAuthentication(authenticationProviderKey)
                 .AddOAuth2Introspection(authenticationProviderKey, opt =>
                 {
@@ -39,12 +71,11 @@ namespace APIGateway
                                 _configuration["IdentityServer:BaseURL"] 
                             } 
                     };
-                });
+                });*/
 
             services.AddSwaggerForOcelot(_configuration);
             services.AddControllers();
-            services.AddDistributedMemoryCache();
-            services.AddOcelot(_configuration);
+            services.AddOcelot().AddAdministration("/administration","12345");
         }
 
         public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)

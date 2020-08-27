@@ -1,15 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using ProductDataLayer.Models;
 using Microsoft.EntityFrameworkCore;
 using BuisnessLogicLayer.Services.Interfaces;
@@ -17,6 +10,8 @@ using BuisnessLogicLayer.Services.Classes;
 using ProductDataLayer.Repositories.Interfaces;
 using ProductDataLayer.Repositories.Classes;
 using Microsoft.OpenApi.Models;
+using MassTransit;
+using System;
 
 namespace ProductMicroservice
 {
@@ -36,6 +31,15 @@ namespace ProductMicroservice
             services.AddTransient<IProductService, ProductService>();
             services.AddScoped<IProductRepository, ProductRepository>();
 
+            services.AddMassTransit(x =>
+            {
+                x.UsingRabbitMq((context,cfg) => {
+                    cfg.Host("rabbitmq://rabbitmqserver");            
+                });
+            });
+
+            services.AddMassTransitHostedService();
+
             services.AddSwaggerGen(swagger =>
             {
                 swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "APIProduct documentation" });
@@ -52,8 +56,6 @@ namespace ProductMicroservice
             //app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

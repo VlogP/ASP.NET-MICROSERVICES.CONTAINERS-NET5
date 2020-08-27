@@ -14,13 +14,13 @@ configMapGenerator:
   - ASPNETCORE_URLS=https://+:443;http://+:80
  
 resources:
-- ./ProductMicroservice/ProductMicroservice/deployment.yaml
-- ./ProductMicroservice/ProductMicroservice/service.yaml
-- ./ReportMicroservice/ReportMicroservice/deployment.yaml
-- ./ReportMicroservice/ReportMicroservice/service.yaml
-- ./APIgateway/deployment.yaml
-- ./APIgateway/service.yaml
-- ./AuthMicroservice/AuthMicroservice/service.yaml
-- ./AuthMicroservice/AuthMicroservice/deployment.yaml
+- ./ProductMicroservice/ProductMicroservice/Configurations/Kubernetes/deployment.yaml
+- ./ProductMicroservice/ProductMicroservice/Configurations/Kubernetes/service.yaml
+- ./ReportMicroservice/ReportMicroservice/Configurations/Kubernetes/deployment.yaml
+- ./ReportMicroservice/ReportMicroservice/Configurations/Kubernetes/service.yaml
+- ./APIgateway/Configurations/Kubernetes/deployment.yaml
+- ./APIgateway/Configurations/Kubernetes/service.yaml
+- ./AuthMicroservice/AuthMicroservice/Configurations/Kubernetes/service.yaml
+- ./AuthMicroservice/AuthMicroservice/Configurations/Kubernetes/deployment.yaml
 
 namespace: default

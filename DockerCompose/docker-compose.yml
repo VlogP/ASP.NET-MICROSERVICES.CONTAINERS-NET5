@@ -33,3 +33,6 @@ services:
       dockerfile: AuthMicroservice/Dockerfile
       args:
         ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+  rabbitmqserver:
+    container_name: rabbitmqserver
+    image: rabbitmq:3-management

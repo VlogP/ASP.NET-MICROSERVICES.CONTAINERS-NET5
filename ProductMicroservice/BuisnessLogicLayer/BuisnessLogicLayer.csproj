@@ -11,6 +11,12 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Consumers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MassTransit" Version="7.0.3" />
+    <PackageReference Include="Microservice.Messages" Version="1.0.0" />
   </ItemGroup>
 
 </Project>

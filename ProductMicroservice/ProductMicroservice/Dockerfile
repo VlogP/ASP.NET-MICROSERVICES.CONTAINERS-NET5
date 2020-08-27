@@ -8,10 +8,11 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 ARG ENVIRONMENT
 WORKDIR /src
+COPY ["./ProductMicroservice/Configurations/Docker/NuGet.Config", "./"]
 COPY ["./ProductMicroservice/ProductMicroservice.csproj", "./"]
 COPY ["./BuisnessLogicLayer/BuisnessLogicLayer.csproj", "../BuisnessLogicLayer/"]
 COPY ["./ProductDataLayer/ProductDataLayer.csproj", "../ProductDataLayer/"]
-RUN dotnet restore "ProductMicroservice.csproj"
+RUN dotnet restore "ProductMicroservice.csproj" --configfile ./NuGet.Config
 COPY . .
 WORKDIR "/src/"
 RUN dotnet build "./ProductMicroservice/ProductMicroservice.csproj" -c $ENVIRONMENT -o /app/build

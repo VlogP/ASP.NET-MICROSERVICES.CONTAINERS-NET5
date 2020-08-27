@@ -24,7 +24,7 @@ namespace APIGateway
             WebHost.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((host, config) =>
                 {
-                    config.AddOcelotWithSwaggerSupport(folder:"./Configurations");
+                    config.AddOcelotWithSwaggerSupport(folder:"./Configurations/Ocelot");
                 })
                 .UseStartup<Startup>();
     }
