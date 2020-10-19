@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-out-service
+  namespace: rabbits
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 15672
+    targetPort: 15672
+    name: management
+  selector:
+    app: rabbitmq-cluser

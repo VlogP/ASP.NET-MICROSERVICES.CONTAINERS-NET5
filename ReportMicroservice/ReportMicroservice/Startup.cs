@@ -29,22 +29,28 @@ namespace ReportMicroservice
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var rabbitMQHost = Environment.GetEnvironmentVariable("RABBITMQ_HOST");
+
             services.AddControllers();
             services.AddDbContext<ReportDBContext>(o => o.UseSqlServer(_configuration.GetConnectionString("SQLServerReportDB")));
             services.AddTransient<IReportService, ReportService>();
             services.AddScoped<IReportRepository, ReportRepository>();
-
-            services.AddMassTransit(x =>
+ 
+            services.AddMassTransit(massTransitConfig =>
             {
-                x.AddConsumer<ReportConsumer>();
+                massTransitConfig.AddConsumer<ReportConsumer>();
 
-                x.UsingRabbitMq((context, cfg) =>
+                massTransitConfig.UsingRabbitMq((context, rabbitConfig) =>
                 {
-                    cfg.Host("rabbitmq://rabbitmqserver");
-
-                    cfg.ReceiveEndpoint("report-listener", e =>
+                    rabbitConfig.Host(rabbitMQHost, config =>
                     {
-                        e.ConfigureConsumer<ReportConsumer>(context);
+                        config.Username(_configuration["RabbitMQ:Username"]);
+                        config.Password(_configuration["RabbitMQ:Password"]);
+                    });
+
+                    rabbitConfig.ReceiveEndpoint("report-listener", endpoingConfig =>
+                    {
+                        endpoingConfig.ConfigureConsumer<ReportConsumer>(context);
                     });
                 });
             });

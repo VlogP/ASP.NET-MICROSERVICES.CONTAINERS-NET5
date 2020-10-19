@@ -4,7 +4,8 @@ metadata:
   annotations:
   labels:
     app: authmicroservice-app
-  name: authmicroservice-pod
+  name: authmicroservice-deployment
+  namespace: microservice
 spec:
   selector:
     matchLabels:
@@ -21,19 +22,19 @@ spec:
         app: authmicroservice-app
     spec:
       volumes:
-      - name: sslcertificate
+      - name: ssl-certificate
         configMap:
-          name: sslconfig
+          name: ssl-config
       containers:
       - name: authmicroservice
         image: vlogp/authmicroservice:development
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
-               name: envconfig
+               name: dotnet-env-config
         volumeMounts:
         - mountPath: /https/aspnetapp.pfx
-          name: sslcertificate
+          name: ssl-certificate
           subPath: aspnetapp.pfx
         ports:
         - containerPort: 80
