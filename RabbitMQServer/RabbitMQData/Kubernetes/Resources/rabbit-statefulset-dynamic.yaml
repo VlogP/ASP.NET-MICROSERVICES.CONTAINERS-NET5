@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rabbitmq-cluser
+  namespace: rabbits
+spec:
+  serviceName: rabbitmq-headless-service
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rabbitmq-cluser
+  volumeClaimTemplates:
+  - metadata:
+        name: rabbitmq-data
+        namespace: rabbits
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "rabbit-storage-dynamic"
+      resources:
+        requests:
+          storage: 100Mi
+  template:
+    metadata:
+      labels:
+        app: rabbitmq-cluser
+    spec:     
+      volumes:
+      - name: config
+        configMap:
+          name: rabbitmq-config
+          defaultMode: 0755
+      serviceAccountName: rabbitmq-service-account
+      containers:
+      - name: rabbitmq-container
+        image: rabbitmq:3.8.9-management
+        ports:
+        - containerPort: 4369
+          name: discovery
+        - containerPort: 5672
+          name: amqp
+        - containerPort: 15672
+          name: management
+        env:
+        - name: RABBIT_POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: RABBIT_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: RABBITMQ_NODENAME
+          value: rabbit@$(RABBIT_POD_NAME).rabbitmq-headless-service.$(RABBIT_POD_NAMESPACE).svc.cluster.local
+        - name: RABBITMQ_USE_LONGNAME 
+          value: "true"
+        - name: RABBITMQ_ERLANG_COOKIE
+          valueFrom:
+            secretKeyRef:
+              name: rabbit-secret
+              key: RABBITMQ_ERLANG_COOKIE
+        - name: K8S_HOSTNAME_SUFFIX
+          value: .rabbitmq-headless-service.$(RABBIT_POD_NAMESPACE).svc.cluster.local
+        volumeMounts:
+        - name: rabbitmq-data
+          mountPath: /var/lib/rabbitmq/mnesia
+          readOnly: false
+        - name: config
+          mountPath: /etc/rabbitmq/rabbitmq.conf
+          subPath: rabbitmq.conf
+        - name: config
+          mountPath: /etc/rabbitmq/enabled_plugins
+          subPath: enabled_plugins
+        - name: config
+          mountPath: /etc/rabbitmq/definitions.json
+          subPath: definitions.json

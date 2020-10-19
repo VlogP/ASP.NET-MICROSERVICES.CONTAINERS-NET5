@@ -4,7 +4,8 @@ metadata:
   annotations:
   labels:
     app: reportmicroservice-app
-  name: reportmicroservice-pod
+  name: reportmicroservice-deployment
+  namespace: microservice
 spec:
   selector:
     matchLabels:
@@ -21,19 +22,19 @@ spec:
         app: reportmicroservice-app
     spec:
       volumes:
-      - name: sslcertificate
+      - name: ssl-certificate
         configMap:
-          name: sslconfig
+          name: ssl-config
       containers:
       - name: reportmicroservice
         image: vlogp/reportmicroservice:development
         imagePullPolicy: Always
         envFrom:
           - configMapRef:
-              name: envconfig
+              name: dotnet-env-config
         volumeMounts:
         - mountPath: /https/aspnetapp.pfx
-          name: sslcertificate
+          name: ssl-certificate
           subPath: aspnetapp.pfx
         ports:
         - containerPort: 80

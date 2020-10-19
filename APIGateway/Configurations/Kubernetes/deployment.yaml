@@ -4,7 +4,8 @@ metadata:
   annotations:
   labels:
     app: apigateway-app
-  name: apigateway-pod
+  name: apigateway-deployment
+  namespace: microservice
 spec:
   selector:
     matchLabels:
@@ -21,19 +22,19 @@ spec:
         app: apigateway-app
     spec:
       volumes:
-      - name: sslcertificate
+      - name: ssl-certificate
         configMap:
-          name: sslconfig
+          name: ssl-config
       containers:
       - name: apigateway
         image: vlogp/apigateway:development
         imagePullPolicy: Always 
         envFrom:
           - configMapRef:
-               name: envconfig    
+               name: dotnet-env-config    
         volumeMounts:
         - mountPath: /https/aspnetapp.pfx
-          name: sslcertificate
+          name: ssl-certificate
           subPath: aspnetapp.pfx
         ports:
         - containerPort: 80

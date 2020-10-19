@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.8'
 
 services:
   apigateway:
@@ -8,7 +8,7 @@ services:
       context: ../APIGateway
       dockerfile: Dockerfile
       args:
-        ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+        ENVIRONMENT: ${ENVIRONMENT}
   productmicroservice:
     container_name: productmicroservice
     image: ${DOCKERHUBID}/productmicroservice:${TAG}
@@ -16,7 +16,7 @@ services:
       context: ../ProductMicroservice
       dockerfile: ProductMicroservice/Dockerfile
       args:
-        ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+        ENVIRONMENT: ${ENVIRONMENT}
   reportmicroservice:
     container_name: reportmicroservice
     image: ${DOCKERHUBID}/reportmicroservice:${TAG}
@@ -24,7 +24,7 @@ services:
       context: ../ReportMicroservice
       dockerfile: ReportMicroservice/Dockerfile
       args:
-        ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+        ENVIRONMENT: ${ENVIRONMENT}
   authmicroservice:
     container_name: authmicroservice
     image: ${DOCKERHUBID}/authmicroservice:${TAG}
@@ -32,7 +32,17 @@ services:
       context: ../AuthMicroservice
       dockerfile: AuthMicroservice/Dockerfile
       args:
-        ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
+        ENVIRONMENT: ${ENVIRONMENT}
   rabbitmqserver:
     container_name: rabbitmqserver
-    image: rabbitmq:3-management
+    image: rabbitmq:3.8.9-management
+  rabbitmqnode1:
+    container_name: rabbitmqnode1
+    image: rabbitmq:3.8.9-management
+    depends_on:
+      - "rabbitmqserver"
+  rabbitmqnode2:
+    container_name: rabbitmqnode2
+    image: rabbitmq:3.8.9-management
+    depends_on:
+      - "rabbitmqserver"

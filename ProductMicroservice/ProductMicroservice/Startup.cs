@@ -26,15 +26,22 @@ namespace ProductMicroservice
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var rabbitMQHost = Environment.GetEnvironmentVariable("RABBITMQ_HOST");
+
             services.AddControllers();
             services.AddDbContext<ProductDBContext>(o => o.UseSqlServer(_configuration.GetConnectionString("SQLServerProductDB")));
             services.AddTransient<IProductService, ProductService>();
             services.AddScoped<IProductRepository, ProductRepository>();
 
-            services.AddMassTransit(x =>
+            services.AddMassTransit(massTransitConfig =>
             {
-                x.UsingRabbitMq((context,cfg) => {
-                    cfg.Host("rabbitmq://rabbitmqserver");            
+                massTransitConfig.UsingRabbitMq((context, rabbitConfig) => 
+                {
+                    rabbitConfig.Host(rabbitMQHost, config => 
+                    {
+                        config.Username(_configuration["RabbitMQ:Username"]);
+                        config.Password(_configuration["RabbitMQ:Password"]);
+                    });            
                 });
             });
 

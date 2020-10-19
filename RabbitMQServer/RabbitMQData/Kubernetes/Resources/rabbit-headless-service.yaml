@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-headless-service
+  namespace: rabbits
+spec:
+  clusterIP: None
+  ports:
+  - port: 4369
+    targetPort: 4369
+    name: discovery
+  - port: 5672
+    targetPort: 5672
+    name: amqp
+  selector:
+    app: rabbitmq-cluser
