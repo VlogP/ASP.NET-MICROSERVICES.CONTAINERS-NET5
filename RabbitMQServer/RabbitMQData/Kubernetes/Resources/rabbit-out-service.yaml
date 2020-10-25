@@ -9,5 +9,8 @@ spec:
   - port: 15672
     targetPort: 15672
     name: management
+  - port: 15692
+    targetPort: 15692
+    name: protehus
   selector:
     app: rabbitmq-cluser

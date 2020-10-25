@@ -14,7 +14,7 @@ services:
     image: ${DOCKERHUBID}/productmicroservice:${TAG}
     build:
       context: ../ProductMicroservice
-      dockerfile: ProductMicroservice/Dockerfile
+      dockerfile: ProductMicroservice.API/Dockerfile
       args:
         ENVIRONMENT: ${ENVIRONMENT}
   reportmicroservice:
@@ -22,7 +22,7 @@ services:
     image: ${DOCKERHUBID}/reportmicroservice:${TAG}
     build:
       context: ../ReportMicroservice
-      dockerfile: ReportMicroservice/Dockerfile
+      dockerfile: ReportMicroservice.API/Dockerfile
       args:
         ENVIRONMENT: ${ENVIRONMENT}
   authmicroservice:
@@ -30,7 +30,7 @@ services:
     image: ${DOCKERHUBID}/authmicroservice:${TAG}
     build:
       context: ../AuthMicroservice
-      dockerfile: AuthMicroservice/Dockerfile
+      dockerfile: AuthMicroservice.API/Dockerfile
       args:
         ENVIRONMENT: ${ENVIRONMENT}
   rabbitmqserver:
@@ -46,3 +46,15 @@ services:
     image: rabbitmq:3.8.9-management
     depends_on:
       - "rabbitmqserver"
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus
+    depends_on:
+      - "rabbitmqserver"
+      - "rabbitmqnode1"
+      - "rabbitmqnode2"
+  grafana:
+    container_name: grafana
+    image: grafana/grafana
+    depends_on:
+      - "prometheus"

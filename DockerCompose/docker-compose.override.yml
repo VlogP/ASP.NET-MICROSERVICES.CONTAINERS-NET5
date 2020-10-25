@@ -39,6 +39,7 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+      - "15692:15692"
     volumes:
       #- ${RABBITPATH}/RabbitMQData/.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie:ro
       - ${RABBITPATH}/RabbitMQData/RabbitMQServer/plugins/enabled_plugins:/etc/rabbitmq/enabled_plugins
@@ -52,6 +53,7 @@ services:
     ports:
       - "5673:5672"
       - "15673:15672"
+      - "15693:15692"
     volumes:
       #- ${RABBITPATH}/RabbitMQData/.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie:ro
       - ${RABBITPATH}/RabbitMQData/RabbitMQNode1/plugins/enabled_plugins:/etc/rabbitmq/enabled_plugins
@@ -65,6 +67,7 @@ services:
     ports:
       - "5674:5672"
       - "15674:15672"
+      - "15694:15692"
     volumes:
       #- ${RABBITPATH}/RabbitMQData/.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie:ro
       - ${RABBITPATH}/RabbitMQData/RabbitMQNode2/plugins/enabled_plugins:/etc/rabbitmq/enabled_plugins
@@ -72,3 +75,11 @@ services:
       - ${RABBITPATH}/RabbitMQData/RabbitMQNode2/etc/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
       - ${RABBITPATH}/RabbitMQData/RabbitMQNode2/data:/var/lib/rabbitmq/mnesia/rabbit@rabbitmqnode2 
       - ${RABBITPATH}/RabbitMQData/RabbitMQNode2/logs:/var/log/rabbitmq/log
+  prometheus:
+    ports:
+      - "9090:9090"
+    volumes:
+      - ${RABBITPATH}/RabbitMQData/Prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+  grafana:
+    ports:
+      - "3000:3000"

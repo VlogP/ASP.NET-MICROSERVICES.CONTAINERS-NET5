@@ -85,6 +85,8 @@ namespace APIGateway
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHsts();
+
             app.UseHttpsRedirection();
 
             app.UseSwaggerForOcelotUI(opt =>

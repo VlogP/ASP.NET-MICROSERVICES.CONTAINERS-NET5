@@ -33,6 +33,8 @@ spec:
           name: amqp
         - containerPort: 15672
           name: management
+        - containerPort: 15692
+          name: protehus
         env:
         - name: RABBIT_POD_NAME
           valueFrom:
