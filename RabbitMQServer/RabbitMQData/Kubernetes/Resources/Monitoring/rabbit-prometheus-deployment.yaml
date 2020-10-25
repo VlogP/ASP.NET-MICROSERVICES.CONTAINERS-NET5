@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    app: prometheus-app
+  name: prometheus-deployment
+  namespace: rabbits
+spec:
+  selector:
+    matchLabels:
+      app: prometheus-app
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: prometheus-app
+    spec:
+      volumes:
+      - name: prometheus-config
+        configMap:
+          name: prometheus-config
+      containers:
+      - name: prometheus
+        image: prom/prometheus
+        imagePullPolicy: Always
+        volumeMounts:
+        - mountPath: /etc/prometheus/prometheus.yml
+          name: prometheus-config
+          subPath: prometheus.yml
+        ports:
+        - containerPort: 9090
+        resources: 
+           requests:
+                memory: "64Mi"
+                cpu: "50m"
+           limits:
+                memory: "256Mi"
+                cpu: "500m"      

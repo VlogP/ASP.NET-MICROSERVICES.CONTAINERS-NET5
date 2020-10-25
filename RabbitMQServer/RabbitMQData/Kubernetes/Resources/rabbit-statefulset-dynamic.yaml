@@ -18,7 +18,7 @@ spec:
       storageClassName: "rabbit-storage-dynamic"
       resources:
         requests:
-          storage: 100Mi
+          storage: 1000Mi
   template:
     metadata:
       labels:
@@ -40,6 +40,8 @@ spec:
           name: amqp
         - containerPort: 15672
           name: management
+        - containerPort: 15692
+          name: protehus
         env:
         - name: RABBIT_POD_NAME
           valueFrom:

@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Configurations>Development;Production</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<ProjectReference Include="..\ProductMicroservice.DAL\ProductMicroservice.DAL.csproj" />
+    <Folder Include="Models\" />
+    <Folder Include="Consumers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MassTransit" Version="7.0.4" />
+    <PackageReference Include="Microservice.Messages" Version="1.2.5" />
+  </ItemGroup>
+
+</Project>
