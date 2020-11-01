@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microservice.Messages.Infrastructure.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 

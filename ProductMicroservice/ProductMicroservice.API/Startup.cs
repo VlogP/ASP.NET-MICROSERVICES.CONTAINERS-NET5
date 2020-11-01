@@ -19,6 +19,7 @@ using Microservice.Messages.Enums;
 using Microservice.Messages.Infrastructure.Extensions;
 using ProductMicroservice.API.Infrastructure.Filters;
 using Microsoft.Extensions.Logging;
+using ProductMicroservice.DAL.Infrastructure.UnitofWork;
 
 namespace ProductMicroservice.API
 {
@@ -38,7 +39,6 @@ namespace ProductMicroservice.API
             var sqlServerUrl = _configuration.GetConnectionString("SQLServerProductDB");
 
             currentDomain.LoadAssemblies(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], _configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME]);
-
             services.AddControllers(opt => {
                 opt.Filters.Add<ControllerExceptionFilter>();
                 opt.Filters.Add<ControllerActionFilter>();
@@ -48,6 +48,7 @@ namespace ProductMicroservice.API
                 o.UseSqlServer(sqlServerUrl);
             });
 
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
 

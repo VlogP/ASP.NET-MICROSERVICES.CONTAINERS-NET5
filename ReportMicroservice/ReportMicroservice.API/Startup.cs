@@ -15,6 +15,7 @@ using ReportMicroservice.BLL.Consumers;
 using ReportMicroservice.BLL.ResponseConsumers;
 using ReportMicroservice.BLL.Services.Classes;
 using ReportMicroservice.BLL.Services.Interfaces;
+using ReportMicroservice.DAL.Infrastructure.UnitofWork;
 using ReportMicroservice.DAL.Models;
 using ReportMicroservice.DAL.Repositories.Classes;
 using ReportMicroservice.DAL.Repositories.Interfaces;
@@ -49,7 +50,8 @@ namespace ReportMicroservice.API
             services.AddDbContext<ReportDBContext>(o => { 
                 o.UseSqlServer(sqlServerUrl);            
             });
-           
+
+            services.AddScoped<IUnitOfWork,UnitOfWork>();
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
 

@@ -1,5 +1,7 @@
 ﻿using AuthMicroservice.BLL.Models;
 using AuthMicroservice.BLL.Services.Interfaces;
+using AuthMicroservice.DAL.Infrastructure.UnitofWork;
+using AuthMicroservice.DAL.Repositories.Classes;
 using AuthMicroservice.DAL.Repositories.Interfaces;
 using IdentityModel.Client;
 using Microservice.Messages.Infrastructure.OperationResult;
@@ -14,12 +16,12 @@ namespace AuthMicroservice.BLL.Services.Classes
     public class AuthService : IAuthService
     {
         private IConfiguration _configuration;
-        private IUserRepository _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AuthService(IConfiguration configuration, IUserRepository userRepository)
+        public AuthService(IConfiguration configuration, IUnitOfWork unitOfWork)
         {
             _configuration = configuration;
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<OperationResult<string>> GetToken(UserLoginModelBL userInfo)
@@ -29,8 +31,9 @@ namespace AuthMicroservice.BLL.Services.Classes
             var isTokenReceived = false;
             var errorsList = new List<string>();
             var result = new OperationResult<string>();
+            var userRepository = _unitOfWork.GetRepository<IUserRepository>();
 
-            var dataResult = _userRepository
+            var dataResult = userRepository
                 .Get(user => user.Email.Equals(userInfo.Email) && user.Password.Equals(userInfo.Password));
 
             var user = dataResult?.Data.FirstOrDefault();

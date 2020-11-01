@@ -10,30 +10,35 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microservice.Messages.Infrastructure.OperationResult;
+using ProductMicroservice.DAL.Infrastructure.UnitofWork;
+using ProductMicroservice.DAL.Repositories.Classes;
 
 namespace ProductMicroservice.BLL.Services.Classes
 {
     public class ProductService : IProductService
     {
-        private readonly IProductRepository _productRepository;
         private readonly IPublishEndpoint _publishEndpoint;
         private readonly IRequestClient<TestMessageRequest> _client;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ProductService(IProductRepository productRepository, IPublishEndpoint publishEndpoint, IRequestClient<TestMessageRequest> client)
+        public ProductService(IPublishEndpoint publishEndpoint, IRequestClient<TestMessageRequest> client, IUnitOfWork unitOfWork)
         {
-            _productRepository = productRepository;
             _publishEndpoint = publishEndpoint;
             _client = client;
-
+            _unitOfWork = unitOfWork;
         }
 
         public OperationResult<object> Add(Product product)
         {
-            var dataResult = _productRepository.Add(product);
+            var productRepository = _unitOfWork.GetRepository<IProductRepository>();
+
+            var dataResult = productRepository.Add(product);
+            _unitOfWork.Save();
 
             var result = new OperationResult<object>()
             {
-                Type = ResultType.Success
+                Type = dataResult.Type,
+                Errors = dataResult.Errors
             };
 
             return result;
@@ -41,6 +46,7 @@ namespace ProductMicroservice.BLL.Services.Classes
 
         async public Task<OperationResult<List<Product>>> GetAll()
         {
+            var productRepository = _unitOfWork.GetRepository<IProductRepository>();
             List<TestMessageResponse> list = new List<TestMessageResponse>();
 
             for(var index = 0; index <= 10; index++)
@@ -61,7 +67,7 @@ namespace ProductMicroservice.BLL.Services.Classes
                 list.Add(result.Message.Data);
             }
 
-            return _productRepository.Get();
+            return productRepository.Get();
         }
     }
 }

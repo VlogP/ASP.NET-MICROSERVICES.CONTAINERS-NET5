@@ -29,7 +29,6 @@ namespace ProductMicroservice.DAL.Repositories.Classes
                 Data = _dbSet.Add(entity).Entity,
                 Type = ResultType.Success
             };
-            _context.SaveChanges();
 
             return result;
         }

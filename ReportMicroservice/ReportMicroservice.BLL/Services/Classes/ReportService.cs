@@ -1,6 +1,8 @@
 ﻿using Microservice.Messages.Infrastructure.OperationResult;
 using ReportMicroservice.BLL.Services.Interfaces;
+using ReportMicroservice.DAL.Infrastructure.UnitofWork;
 using ReportMicroservice.DAL.Models;
+using ReportMicroservice.DAL.Repositories.Classes;
 using ReportMicroservice.DAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,20 +12,24 @@ namespace ReportMicroservice.BLL.Services.Classes
 {
     public class ReportService : IReportService
     {
-        private readonly IReportRepository _reportRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ReportService(IReportRepository reportRepository)
+        public ReportService(IUnitOfWork unitOfWork)
         {
-            _reportRepository = reportRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public OperationResult<object> Add(Report product)
         {
-            var dataResult = _reportRepository.Add(product);
+            var reportRepository = _unitOfWork.GetRepository<IReportRepository>();
+
+            var dataResult = reportRepository.Add(product);
+            _unitOfWork.Save();
 
             var result = new OperationResult<object>
             {
-                Type = ResultType.Success
+                Type = dataResult.Type,
+                Errors = dataResult.Errors
             };
 
             return result;
@@ -31,7 +37,9 @@ namespace ReportMicroservice.BLL.Services.Classes
 
         public OperationResult<List<Report>> GetAll()
         {
-            return _reportRepository.Get();
+            var reportRepository = _unitOfWork.GetRepository<IReportRepository>();
+
+            return reportRepository.Get();
         }
     }
 }

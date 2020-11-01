@@ -27,6 +27,7 @@ using Microservice.Messages.Infrastructure.Extensions;
 using Microservice.Messages.Constants.EnvironmentVariables;
 using Microservice.Messages.Enums;
 using AuthMicroservice.API.Infrastructure.Filters;
+using AuthMicroservice.DAL.Infrastructure.UnitofWork;
 
 namespace AuthMicroservice.API
 {
@@ -67,6 +68,7 @@ namespace AuthMicroservice.API
             services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
             services.AddTransient<IProfileService, ProfileService>();
 
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
 
