@@ -1,0 +1,42 @@
+﻿{
+  "Routes": [
+    {
+      "SwaggerKey": "authmicroservice",
+      "UpstreamPathTemplate": "/api/auth/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "DownstreamPathTemplate": "/api/auth/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "authmicroservice",
+          "Port": 80
+        }
+      ]
+    },
+    {
+      "SwaggerKey": "authmicroservice",
+      "UpstreamPathTemplate": "/api/auth/",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "DownstreamPathTemplate": "/api/auth",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "authmicroservice",
+          "Port": 80
+        }
+      ]
+    }
+  ]
+}

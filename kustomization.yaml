@@ -1,18 +1,29 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+bases:
+- ./RabbitMQServer/RabbitMQData/Kubernetes/
 
 # Certificate for Kestrel
 configMapGenerator:
-- name: sslconfig
+- name: ssl-config
+  namespace: microservice
   files: 
   - ./Content/https/aspnetapp.pfx
+- name: dotnet-env-config
+  namespace: microservice
+  literals:
+  - RABBITMQ_HOST="rabbitmq://rabbitmq-headless-service.rabbits"
+  - ASPNETCORE_ENVIRONMENT="Development"
+  - ASPNETCORE_Kestrel__Certificates__Default__Password="12345"
+  - ASPNETCORE_Kestrel__Certificates__Default__Path="/https/aspnetapp.pfx"
+  - ASPNETCORE_URLS="https://+:443;http://+:80"
 
 resources:
-- ./ProductMicroservice/ProductMicroservice/deployment.yaml
-- ./ProductMicroservice/ProductMicroservice/service.yaml
-- ./ReportMicroservice/ReportMicroservice/deployment.yaml
-- ./ReportMicroservice/ReportMicroservice/service.yaml
-- ./APIgateway/deployment.yaml
-- ./APIgateway/service.yaml
-
-namespace: default
+- ./ProductMicroservice/ProductMicroservice.API/Configurations/Kubernetes/deployment.yaml
+- ./ProductMicroservice/ProductMicroservice.API/Configurations/Kubernetes/service.yaml
+- ./ReportMicroservice/ReportMicroservice.API/Configurations/Kubernetes/deployment.yaml
+- ./ReportMicroservice/ReportMicroservice.API/Configurations/Kubernetes/service.yaml
+- ./APIgateway/Configurations/Kubernetes/deployment.yaml
+- ./APIgateway/Configurations/Kubernetes/service.yaml
+- ./AuthMicroservice/AuthMicroservice.API/Configurations/Kubernetes/service.yaml
+- ./AuthMicroservice/AuthMicroservice.API/Configurations/Kubernetes/deployment.yaml

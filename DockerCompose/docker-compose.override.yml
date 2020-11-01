@@ -2,35 +2,84 @@ version: '3.4'
 
 services:
   apigateway:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=12345
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    env_file:
+      - ./Configurations/.NetMicroservice/.env
     ports:
       - "10000:80"
       - "11000:443"
     volumes:
       - ../Content/https/:/https:ro
   productmicroservice:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=12345
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    env_file:
+      - ./Configurations/.NetMicroservice/.env
     ports:
       - "10001:80"
       - "11001:443"
     volumes:
       - ../Content/https/:/https:ro
   reportmicroservice:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=12345
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    env_file:
+      - ./Configurations/.NetMicroservice/.env
     ports:
       - "10002:80"
       - "11002:443"
     volumes:
       - ../Content/https/:/https:ro  
+  authmicroservice:
+    env_file:
+      - ./Configurations/.NetMicroservice/.env
+    ports:
+      - "10003:80"
+      - "11003:443"
+    volumes:
+      - ../Content/https/:/https:ro
+  rabbitmqserver:
+    env_file:
+      - ./Configurations/RabbitMqServer/.env
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "15692:15692"
+    volumes:
+      #- ${RABBITPATH}/RabbitMQData/.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie:ro
+      - ${RABBITPATH}/RabbitMQData/RabbitMQServer/plugins/enabled_plugins:/etc/rabbitmq/enabled_plugins
+      - ${RABBITPATH}/RabbitMQData/RabbitMQServer/etc/definitions.json:/etc/rabbitmq/definitions.json
+      - ${RABBITPATH}/RabbitMQData/RabbitMQServer/etc/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+      - ${RABBITPATH}/RabbitMQData/RabbitMQServer/data:/var/lib/rabbitmq/mnesia/rabbit@rabbitmqserver 
+      - ${RABBITPATH}/RabbitMQData/RabbitMQServer/logs:/var/log/rabbitmq/log
+  rabbitmqnode1:
+    env_file:
+      - ./Configurations/RabbitMqNode1/.env
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+      - "15693:15692"
+    volumes:
+      #- ${RABBITPATH}/RabbitMQData/.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie:ro
+      - ${RABBITPATH}/RabbitMQData/RabbitMQNode1/plugins/enabled_plugins:/etc/rabbitmq/enabled_plugins
+      - ${RABBITPATH}/RabbitMQData/RabbitMQNode1/etc/definitions.json:/etc/rabbitmq/definitions.json
+      - ${RABBITPATH}/RabbitMQData/RabbitMQNode1/etc/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+      - ${RABBITPATH}/RabbitMQData/RabbitMQNode1/data:/var/lib/rabbitmq/mnesia/rabbit@rabbitmqnode1 
+      - ${RABBITPATH}/RabbitMQData/RabbitMQNode1/logs:/var/log/rabbitmq/log
+  rabbitmqnode2:
+    env_file:
+      - ./Configurations/RabbitMqNode2/.env
+    ports:
+      - "5674:5672"
+      - "15674:15672"
+      - "15694:15692"
+    volumes:
+      #- ${RABBITPATH}/RabbitMQData/.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie:ro
+      - ${RABBITPATH}/RabbitMQData/RabbitMQNode2/plugins/enabled_plugins:/etc/rabbitmq/enabled_plugins
+      - ${RABBITPATH}/RabbitMQData/RabbitMQNode2/etc/definitions.json:/etc/rabbitmq/definitions.json
+      - ${RABBITPATH}/RabbitMQData/RabbitMQNode2/etc/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+      - ${RABBITPATH}/RabbitMQData/RabbitMQNode2/data:/var/lib/rabbitmq/mnesia/rabbit@rabbitmqnode2 
+      - ${RABBITPATH}/RabbitMQData/RabbitMQNode2/logs:/var/log/rabbitmq/log
+  prometheus:
+    ports:
+      - "9090:9090"
+    volumes:
+      - ${RABBITPATH}/RabbitMQData/Prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+  grafana:
+    ports:
+      - "3000:3000"

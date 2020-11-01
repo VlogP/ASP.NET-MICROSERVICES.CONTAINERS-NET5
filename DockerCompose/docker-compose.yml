@@ -1,21 +1,60 @@
-version: '3.4'
+version: '3.8'
 
 services:
   apigateway:
     container_name: apigateway
-    image: vlogp/apigateway:development
-    #build:
-      #context: ../APIGateway
-      #dockerfile: Dockerfile
+    image: ${DOCKERHUBID}/apigateway:${TAG}
+    build:
+      context: ../APIGateway
+      dockerfile: Dockerfile
+      args:
+        ENVIRONMENT: ${ENVIRONMENT}
   productmicroservice:
     container_name: productmicroservice
-    image: vlogp/productmicroservice:development
-    #build:
-      #context: ../ProductMicroservice
-      #dockerfile: ProductMicroservice/Dockerfile
+    image: ${DOCKERHUBID}/productmicroservice:${TAG}
+    build:
+      context: ../ProductMicroservice
+      dockerfile: ProductMicroservice.API/Dockerfile
+      args:
+        ENVIRONMENT: ${ENVIRONMENT}
   reportmicroservice:
     container_name: reportmicroservice
-    image: vlogp/reportmicroservice:development
-    #build:
-      #context: ../ReportMicroservice
-      #dockerfile: ReportMicroservice/Dockerfile
+    image: ${DOCKERHUBID}/reportmicroservice:${TAG}
+    build:
+      context: ../ReportMicroservice
+      dockerfile: ReportMicroservice.API/Dockerfile
+      args:
+        ENVIRONMENT: ${ENVIRONMENT}
+  authmicroservice:
+    container_name: authmicroservice
+    image: ${DOCKERHUBID}/authmicroservice:${TAG}
+    build:
+      context: ../AuthMicroservice
+      dockerfile: AuthMicroservice.API/Dockerfile
+      args:
+        ENVIRONMENT: ${ENVIRONMENT}
+  rabbitmqserver:
+    container_name: rabbitmqserver
+    image: rabbitmq:3.8.9-management
+  rabbitmqnode1:
+    container_name: rabbitmqnode1
+    image: rabbitmq:3.8.9-management
+    depends_on:
+      - "rabbitmqserver"
+  rabbitmqnode2:
+    container_name: rabbitmqnode2
+    image: rabbitmq:3.8.9-management
+    depends_on:
+      - "rabbitmqserver"
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus
+    depends_on:
+      - "rabbitmqserver"
+      - "rabbitmqnode1"
+      - "rabbitmqnode2"
+  grafana:
+    container_name: grafana
+    image: grafana/grafana
+    depends_on:
+      - "prometheus"

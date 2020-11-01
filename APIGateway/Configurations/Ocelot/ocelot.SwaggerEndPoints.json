@@ -1,0 +1,34 @@
+﻿{
+  "SwaggerEndPoints": [
+    {
+      "Key": "productmicroservice",
+      "Config": [
+        {
+          "Name": "APIProduct",
+          "Version": "v1",
+          "Url": "http://productmicroservice:80/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "reportmicroservice",
+      "Config": [
+        {
+          "Name": "APIReport",
+          "Version": "v1",
+          "Url": "http://reportmicroservice:80/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "authmicroservice",
+      "Config": [
+        {
+          "Name": "APIAuth",
+          "Version": "v1",
+          "Url": "http://authmicroservice:80/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ]
+}

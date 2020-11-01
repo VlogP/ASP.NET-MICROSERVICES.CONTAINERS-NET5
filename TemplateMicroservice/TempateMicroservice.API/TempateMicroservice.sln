@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempateMicroservice.API", "TempateMicroservice.API.csproj", "{1CEBBE2E-6475-4864-B12D-74E06F220B53}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempateMicroservice.DAL", "..\TempateMicroservice.DAL\TempateMicroservice.DAL.csproj", "{AAE964CD-5C32-4028-9888-67F51ED58CA1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TempateMicroservice.BLL", "..\TempateMicroservice.BLL\TempateMicroservice.BLL.csproj", "{2B866C5C-E8AA-4878-A535-A4F18B7A2387}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Development|Any CPU = Development|Any CPU
+		Production|Any CPU = Production|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1CEBBE2E-6475-4864-B12D-74E06F220B53}.Debug|Any CPU.ActiveCfg = Development|Any CPU
+		{1CEBBE2E-6475-4864-B12D-74E06F220B53}.Debug|Any CPU.Build.0 = Development|Any CPU
+		{1CEBBE2E-6475-4864-B12D-74E06F220B53}.Development|Any CPU.ActiveCfg = Development|Any CPU
+		{1CEBBE2E-6475-4864-B12D-74E06F220B53}.Development|Any CPU.Build.0 = Development|Any CPU
+		{1CEBBE2E-6475-4864-B12D-74E06F220B53}.Production|Any CPU.ActiveCfg = Production|Any CPU
+		{1CEBBE2E-6475-4864-B12D-74E06F220B53}.Production|Any CPU.Build.0 = Production|Any CPU
+		{1CEBBE2E-6475-4864-B12D-74E06F220B53}.Release|Any CPU.ActiveCfg = Production|Any CPU
+		{1CEBBE2E-6475-4864-B12D-74E06F220B53}.Release|Any CPU.Build.0 = Production|Any CPU
+		{AAE964CD-5C32-4028-9888-67F51ED58CA1}.Debug|Any CPU.ActiveCfg = Development|Any CPU
+		{AAE964CD-5C32-4028-9888-67F51ED58CA1}.Debug|Any CPU.Build.0 = Development|Any CPU
+		{AAE964CD-5C32-4028-9888-67F51ED58CA1}.Development|Any CPU.ActiveCfg = Development|Any CPU
+		{AAE964CD-5C32-4028-9888-67F51ED58CA1}.Development|Any CPU.Build.0 = Development|Any CPU
+		{AAE964CD-5C32-4028-9888-67F51ED58CA1}.Production|Any CPU.ActiveCfg = Production|Any CPU
+		{AAE964CD-5C32-4028-9888-67F51ED58CA1}.Production|Any CPU.Build.0 = Production|Any CPU
+		{AAE964CD-5C32-4028-9888-67F51ED58CA1}.Release|Any CPU.ActiveCfg = Production|Any CPU
+		{AAE964CD-5C32-4028-9888-67F51ED58CA1}.Release|Any CPU.Build.0 = Production|Any CPU
+		{2B866C5C-E8AA-4878-A535-A4F18B7A2387}.Debug|Any CPU.ActiveCfg = Development|Any CPU
+		{2B866C5C-E8AA-4878-A535-A4F18B7A2387}.Debug|Any CPU.Build.0 = Development|Any CPU
+		{2B866C5C-E8AA-4878-A535-A4F18B7A2387}.Development|Any CPU.ActiveCfg = Development|Any CPU
+		{2B866C5C-E8AA-4878-A535-A4F18B7A2387}.Development|Any CPU.Build.0 = Development|Any CPU
+		{2B866C5C-E8AA-4878-A535-A4F18B7A2387}.Production|Any CPU.ActiveCfg = Production|Any CPU
+		{2B866C5C-E8AA-4878-A535-A4F18B7A2387}.Production|Any CPU.Build.0 = Production|Any CPU
+		{2B866C5C-E8AA-4878-A535-A4F18B7A2387}.Release|Any CPU.ActiveCfg = Production|Any CPU
+		{2B866C5C-E8AA-4878-A535-A4F18B7A2387}.Release|Any CPU.Build.0 = Production|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {560B9760-C3D5-47F8-8135-5E3A2CD6E666}
+	EndGlobalSection
+EndGlobal
