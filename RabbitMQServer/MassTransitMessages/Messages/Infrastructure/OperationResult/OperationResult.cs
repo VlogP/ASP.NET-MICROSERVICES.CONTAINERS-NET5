@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microservice.Messages.Infrastructure.Extensions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace Microservice.Messages.Infrastructure.OperationResult
         where T : class
     {
         public ResultType Type { get; set; }
+
+        public string Description { get { return Type.GetDisplayName(); } }
 
         public T Data { get; set; }
 

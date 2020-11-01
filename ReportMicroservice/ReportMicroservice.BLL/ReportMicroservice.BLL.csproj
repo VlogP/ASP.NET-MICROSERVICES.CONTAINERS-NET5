@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="MassTransit" Version="7.0.4" />
-    <PackageReference Include="Microservice.Messages" Version="1.2.5" />
+    <PackageReference Include="Microservice.Messages" Version="1.*" />
   </ItemGroup>
 
   <ItemGroup>

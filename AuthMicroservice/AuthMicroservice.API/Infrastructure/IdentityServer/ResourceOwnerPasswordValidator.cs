@@ -9,23 +9,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AuthMicroservice.DAL.Infrastructure.UnitofWork;
+using AuthMicroservice.DAL.Repositories.Classes;
 
 namespace AuthMicroservice.API.Infrastructure.IdentityServer
 {
     public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
     {
-        private IUserRepository _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ResourceOwnerPasswordValidator(IUserRepository userRepository)
+        public ResourceOwnerPasswordValidator(IUnitOfWork unitOfWork)
         {
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {
             try
             {
-                var user = _userRepository
+                var userRepository = _unitOfWork.GetRepository<IUserRepository>();
+                var user = userRepository
                     .GetUserWithRole(context.UserName, context.Password);
 
                 var userClaims = new UserClaimsModelBL
