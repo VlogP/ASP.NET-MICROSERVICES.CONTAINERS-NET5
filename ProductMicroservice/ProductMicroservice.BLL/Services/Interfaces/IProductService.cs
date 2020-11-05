@@ -1,4 +1,5 @@
 ﻿using Microservice.Messages.Infrastructure.OperationResult;
+using ProductMicroservice.BLL.Models.DTO;
 using ProductMicroservice.DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -9,8 +10,8 @@ namespace ProductMicroservice.BLL.Services.Interfaces
 {
     public interface IProductService
     {
-        Task<OperationResult<List<Product>>> GetAll();
+        Task<OperationResult<List<ProductDTO>>> GetAll();
 
-        OperationResult<object> Add(Product product);
+        OperationResult<ProductDTO> Add(ProductDTO product);
     }
 }

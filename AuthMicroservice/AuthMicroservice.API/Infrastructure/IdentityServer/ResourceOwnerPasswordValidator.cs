@@ -1,16 +1,12 @@
-﻿using AuthMicroservice.BLL.Models;
-using AuthMicroservice.DAL.Repositories.Interfaces;
-using IdentityModel;
+﻿using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Validation;
 using System;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AuthMicroservice.DAL.Infrastructure.UnitofWork;
-using AuthMicroservice.DAL.Repositories.Classes;
+using Microservice.Messages.Infrastructure.UnitofWork;
+using AuthMicroservice.DAL.Repositories.Interfaces;
+using Microservice.Messages.Infrastructure.OperationResult;
 
 namespace AuthMicroservice.API.Infrastructure.IdentityServer
 {
@@ -31,13 +27,13 @@ namespace AuthMicroservice.API.Infrastructure.IdentityServer
                 var user = userRepository
                     .GetUserWithRole(context.UserName, context.Password);
 
-                var userClaims = new UserClaimsModelBL
+                var userClaims = new UserClaims
                 {
                     Id = user?.Data.Id.ToString(),
                     Role = user?.Data.Role?.Name
                 };
 
-                if (user != null)
+                if (user.Type == ResultType.Success)
                 {
                     context.Result = new GrantValidationResult(
                         subject: user.Data.Id.ToString(),
@@ -57,7 +53,7 @@ namespace AuthMicroservice.API.Infrastructure.IdentityServer
             }
         }
 
-        public static Claim[] GetUserClaims(UserClaimsModelBL claims)
+        public static Claim[] GetUserClaims(UserClaims claims)
         {
             return new Claim[]
             {

@@ -1,4 +1,5 @@
-﻿using AuthMicroservice.BLL.Models;
+﻿using AuthMicroservice.BLL.Models.DTO.User;
+using AuthMicroservice.BLL.Models.User;
 using Microservice.Messages.Infrastructure.OperationResult;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,8 @@ namespace AuthMicroservice.BLL.Services.Interfaces
 {
     public interface IAuthService
     {
-       Task<OperationResult<string>> GetToken(UserLoginModelBL userInfo);
+       Task<OperationResult<string>> GetToken(UserLogin userInfo);
+       
+       OperationResult<UserDTO> Add(UserRegister newUser);       
     }
 }

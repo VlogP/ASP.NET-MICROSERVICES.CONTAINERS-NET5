@@ -4,7 +4,7 @@
       "Key": "productmicroservice",
       "Config": [
         {
-          "Name": "APIProduct",
+          "Name": "ProductAPI",
           "Version": "v1",
           "Url": "http://productmicroservice:80/swagger/v1/swagger.json"
         }
@@ -14,7 +14,7 @@
       "Key": "reportmicroservice",
       "Config": [
         {
-          "Name": "APIReport",
+          "Name": "ReportAPI",
           "Version": "v1",
           "Url": "http://reportmicroservice:80/swagger/v1/swagger.json"
         }
@@ -24,7 +24,7 @@
       "Key": "authmicroservice",
       "Config": [
         {
-          "Name": "APIAuth",
+          "Name": "AuthAPI",
           "Version": "v1",
           "Url": "http://authmicroservice:80/swagger/v1/swagger.json"
         }

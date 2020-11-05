@@ -62,7 +62,7 @@ namespace AuthMicroservice.API.Infrastructure.IdentityServer
                         "application.read",
                         "application.write"
                     },                   
-                    AccessTokenLifetime = 3600
+                    AccessTokenLifetime = 100000
                 }
             };
         }

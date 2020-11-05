@@ -1,8 +1,10 @@
+using AutoMapper;
 using MassTransit;
-using MassTransit.RabbitMqTransport;
 using Microservice.Messages.Constants.EnvironmentVariables;
 using Microservice.Messages.Enums;
 using Microservice.Messages.Infrastructure.Extensions;
+using Microservice.Messages.Infrastructure.Filters;
+using Microservice.Messages.Infrastructure.UnitofWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -10,15 +12,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using ReportMicroservice.API.Infrastructure.Filters;
+using ReportMicroservice.API.Infrasrtucture.Automapper;
 using ReportMicroservice.BLL.Consumers;
 using ReportMicroservice.BLL.ResponseConsumers;
-using ReportMicroservice.BLL.Services.Classes;
-using ReportMicroservice.BLL.Services.Interfaces;
-using ReportMicroservice.DAL.Infrastructure.UnitofWork;
 using ReportMicroservice.DAL.Models;
-using ReportMicroservice.DAL.Repositories.Classes;
-using ReportMicroservice.DAL.Repositories.Interfaces;
+using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -45,15 +43,17 @@ namespace ReportMicroservice.API
             services.AddControllers(opt => {
                 opt.Filters.Add<ControllerExceptionFilter>();
                 opt.Filters.Add<ControllerActionFilter>();
+                opt.Filters.Add<ControllerResultFilter>();
             });
 
             services.AddDbContext<ReportDBContext>(o => { 
                 o.UseSqlServer(sqlServerUrl);            
             });
 
-            services.AddScoped<IUnitOfWork,UnitOfWork>();
+            services.AddScoped<IUnitOfWork,UnitOfWork<ReportDBContext>>();
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
+            services.AddAutoMapper(typeof(AutomapperProfile));
 
             services.AddMassTransit(massTransitConfig =>
             {
@@ -79,7 +79,8 @@ namespace ReportMicroservice.API
 
             services.AddSwaggerGen(swagger =>
             {
-                swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "APIReport documentation" });
+                swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "ReportAPI Documentation" });
+                swagger.AddFluentValidationRules();
             });
         }
 
@@ -105,7 +106,7 @@ namespace ReportMicroservice.API
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "APIReport documentation");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ReportAPI Documentation");
             });
         }
     }

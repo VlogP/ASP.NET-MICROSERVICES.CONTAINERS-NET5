@@ -17,9 +17,11 @@ using Microservice.Messages.Messages.Test;
 using System.Reflection;
 using Microservice.Messages.Enums;
 using Microservice.Messages.Infrastructure.Extensions;
-using TempateMicroservice.API.Infrastructure.Filters;
-using Microsoft.Extensions.Logging;
-using TempateMicroservice.DAL.Infrastructure.UnitofWork;
+using Microservice.Messages.Infrastructure.Filters;
+using Microservice.Messages.Infrastructure.UnitofWork;
+using AutoMapper;
+using TempateMicroservice.API.Infrastructure.Automapper;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace TempateMicroservice.API
 {
@@ -42,15 +44,17 @@ namespace TempateMicroservice.API
             services.AddControllers(opt => {
                 opt.Filters.Add<ControllerExceptionFilter>();
                 opt.Filters.Add<ControllerActionFilter>();
+                opt.Filters.Add<ControllerResultFilter>();
             });
 
-            services.AddDbContext<TempateDBContext>(o => {
+            services.AddDbContext<TemplateDBContext>(o => {
                 o.UseSqlServer(sqlServerUrl);
             });
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork<TemplateDBContext>>();
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
+            services.AddAutoMapper(typeof(AutomapperProfile));
 
             services.AddMassTransit(massTransitConfig =>
             {
@@ -73,6 +77,7 @@ namespace TempateMicroservice.API
             services.AddSwaggerGen(swagger =>
             {
                 swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "APIProduct documentation" });
+                swagger.AddFluentValidationRules();
             });
         }
 

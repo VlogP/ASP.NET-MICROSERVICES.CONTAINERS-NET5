@@ -33,7 +33,7 @@ namespace TempateMicroservice.API.Controllers
         [HttpPost]
         public ActionResult AddProducts()
         {
-            var result = _productService.Add(new TempateMicroservice.DAL.Models.TempateModel { Id = Guid.NewGuid(), Name = "Test"});
+            var result = _productService.Add(new TempateMicroservice.DAL.Models.TemplateModel { Id = Guid.NewGuid(), Name = "Test"});
 
             return Ok(result);
         }
