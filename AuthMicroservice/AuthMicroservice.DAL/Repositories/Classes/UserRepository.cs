@@ -1,11 +1,11 @@
-﻿using AuthMicroservice.DAL.Models;
+﻿using AuthMicroservice.DAL.Infrastructure.PasswordHasher;
+using AuthMicroservice.DAL.Models;
 using AuthMicroservice.DAL.Repositories.Interfaces;
 using Microservice.Messages.Infrastructure.OperationResult;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace AuthMicroservice.DAL.Repositories.Classes
 {
@@ -20,11 +20,49 @@ namespace AuthMicroservice.DAL.Repositories.Classes
 
         public OperationResult<User> GetUserWithRole(string email, string password)
         {
-           var data = _users
+            var result = new OperationResult<User>();
+            var data = _users
                 .Include(option => option.Role)
-                .FirstOrDefault(option => option.Email.Equals(email) && option.Password.Equals(password));
+                .FirstOrDefault(option => option.Email.Equals(email));
+
+            var isEmailCorrect = data != null;
+            var isPasswordCorrect = isEmailCorrect ? PasswordHasher.Check(data.Salt, data.Password, password) : false;
+
+            if (isPasswordCorrect)
+            {
+                result.Data = data;
+                result.Type = ResultType.Success;
+            }
+            else
+            {
+                result.Type = ResultType.BadRequest;
+            }
+
+            return result;
+        }
+
+        public OperationResult<User> GetUserWithRole(string email)
+        {
+            var data = _users
+                 .Include(option => option.Role)
+                 .FirstOrDefault(option => option.Email.Equals(email));
 
             var result = new OperationResult<User>
+            {
+                Data = data,
+                Type = ResultType.Success
+            };
+
+            return result;
+        }
+
+        public OperationResult<List<User>> GetUsersWithRole()
+        {
+            var data = _users
+                 .Include(option => option.Role)
+                 .ToList();
+
+            var result = new OperationResult<List<User>>
             {
                 Data = data,
                 Type = ResultType.Success

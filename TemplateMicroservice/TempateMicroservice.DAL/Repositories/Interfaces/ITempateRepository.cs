@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TempateMicroservice.DAL.Repositories.Interfaces
 {
-    public interface ITempateRepository : IBaseRepository<TempateModel> 
+    public interface ITempateRepository : IBaseRepository<TemplateModel> 
     {
     }
 }

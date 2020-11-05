@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microservice.Messages.Infrastructure.OperationResult;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ReportMicroservice.API.Models;
+using ReportMicroservice.BLL.Models.DTO;
 using ReportMicroservice.BLL.Services.Interfaces;
-using ReportMicroservice.DAL.Models;
+using System.Collections.Generic;
 
 namespace ReportMicroservice.API.Controllers
 {
@@ -23,6 +22,7 @@ namespace ReportMicroservice.API.Controllers
         }
 
         [HttpGet]
+        [Produces(typeof(OperationResult<List<ReportDTO>>))]
         public ActionResult GetReports()
         {
             var result = _reportService.GetAll();
@@ -31,9 +31,12 @@ namespace ReportMicroservice.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddReport()
+        [Produces(typeof(OperationResult<ReportDTO>))]
+        public ActionResult AddReport([FromBody] ReportAPI report)
         {
-            var result = _reportService.Add(new Report { Name = "New Report" });
+            var result = _reportService.Add(new ReportDTO { 
+                Name = report.Name 
+            });
 
             return Ok(result);
         }

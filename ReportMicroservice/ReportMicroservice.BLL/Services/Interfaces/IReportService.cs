@@ -1,4 +1,5 @@
 ﻿using Microservice.Messages.Infrastructure.OperationResult;
+using ReportMicroservice.BLL.Models.DTO;
 using ReportMicroservice.DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,8 @@ namespace ReportMicroservice.BLL.Services.Interfaces
 {
     public interface IReportService
     {
-        OperationResult<List<Report>> GetAll();
+        OperationResult<List<ReportDTO>> GetAll();
 
-        OperationResult<object> Add(Report report);
+        OperationResult<ReportDTO> Add(ReportDTO newReport);
     }
 }

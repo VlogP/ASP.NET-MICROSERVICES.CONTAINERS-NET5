@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microservice.Messages.Infrastructure.OperationResult;
-using TempateMicroservice.DAL.Infrastructure.UnitofWork;
+using Microservice.Messages.Infrastructure.UnitofWork;
 using TempateMicroservice.DAL.Repositories.Classes;
 
 namespace TempateMicroservice.BLL.Services.Classes
@@ -28,9 +28,9 @@ namespace TempateMicroservice.BLL.Services.Classes
             _unitOfWork = unitOfWork;
         }
 
-        public OperationResult<object> Add(TempateModel product)
+        public OperationResult<object> Add(TemplateModel product)
         {
-            var productRepository = _unitOfWork.GetRepository<TempateRepository>();
+            var productRepository = _unitOfWork.GetRepository<ITempateRepository>();
 
             var dataResult = productRepository.Add(product);
             _unitOfWork.Save();
@@ -44,9 +44,9 @@ namespace TempateMicroservice.BLL.Services.Classes
             return result;
         }
 
-        async public Task<OperationResult<List<TempateModel>>> GetAll()
+        async public Task<OperationResult<List<TemplateModel>>> GetAll()
         {
-            var productRepository = _unitOfWork.GetRepository<TempateRepository>();
+            var productRepository = _unitOfWork.GetRepository<ITempateRepository>();
             List<TestMessageResponse> list = new List<TestMessageResponse>();
 
             for(var index = 0; index <= 10; index++)

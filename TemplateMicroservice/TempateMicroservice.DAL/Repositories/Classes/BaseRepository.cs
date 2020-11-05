@@ -13,10 +13,10 @@ namespace TempateMicroservice.DAL.Repositories.Classes
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        protected TempateDBContext _context;
+        protected TemplateDBContext _context;
         protected DbSet<T> _dbSet;
 
-        public BaseRepository(TempateDBContext context)
+        public BaseRepository(TemplateDBContext context)
         {
             _context = context;
             _dbSet = context.Set<T>();
