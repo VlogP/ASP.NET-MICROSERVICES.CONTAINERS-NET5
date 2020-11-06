@@ -22,6 +22,13 @@ namespace AuthMicroservice.DAL.Models
         [Required]
         public string Salt { get; set; }
 
+        [MaxLength(200)]
+        [Required]
+        public string ActivationCode { get; set; }
+
+        [Required]
+        public bool IsActivated { get; set; }
+
         [Required]
         public int RoleId { get; set; }
 

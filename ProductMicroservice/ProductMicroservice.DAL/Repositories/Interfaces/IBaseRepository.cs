@@ -15,7 +15,7 @@ namespace ProductMicroservice.DAL.Repositories.Interfaces
 
         public OperationResult<T> Update(T entity);
 
-        public void Delete(T entity);
+        public OperationResult<object> Delete(T entity);
 
         public OperationResult<T> Add(T entity);
     }

@@ -46,5 +46,25 @@ namespace AuthMicroservice.DAL.Infrastructure.PasswordHasher
 
             return isHashCorrect;
         }
+
+        public static string ActivationHash()
+        {
+            var salt = new byte[128 / 8];
+            byte[] hash;
+
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(salt);
+            }
+
+            using (SHA512 shaM = new SHA512Managed())
+            {
+                hash = shaM.ComputeHash(salt);
+            }
+
+            var result = Convert.ToBase64String(hash);
+
+            return result;
+        }
     }
 }

@@ -33,9 +33,16 @@ namespace TempateMicroservice.DAL.Repositories.Classes
             return result;
         }
 
-        public void Delete(T entity)
+        public OperationResult<object> Delete(T entity)
         {
             _dbSet.Remove(entity);
+
+            var result = new OperationResult<object>
+            {
+                Type = ResultType.Success
+            };
+
+            return result;
         }
 
         public OperationResult<List<T>> Get()

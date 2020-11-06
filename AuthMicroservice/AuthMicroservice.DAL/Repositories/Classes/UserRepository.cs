@@ -43,15 +43,26 @@ namespace AuthMicroservice.DAL.Repositories.Classes
 
         public OperationResult<User> GetUserWithRole(string email)
         {
+            var result = new OperationResult<User>();
             var data = _users
                  .Include(option => option.Role)
                  .FirstOrDefault(option => option.Email.Equals(email));
 
-            var result = new OperationResult<User>
+            if (data != null)
             {
-                Data = data,
-                Type = ResultType.Success
-            };
+                result = new OperationResult<User>
+                {
+                    Data = data,
+                    Type = ResultType.Success
+                };
+            }
+            else
+            {
+                result = new OperationResult<User>
+                {
+                    Type = ResultType.BadRequest
+                };
+            }
 
             return result;
         }
