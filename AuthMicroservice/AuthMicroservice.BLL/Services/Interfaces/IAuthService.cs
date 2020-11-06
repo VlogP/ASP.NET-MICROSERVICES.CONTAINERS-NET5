@@ -10,8 +10,10 @@ namespace AuthMicroservice.BLL.Services.Interfaces
 {
     public interface IAuthService
     {
-       Task<OperationResult<string>> GetToken(UserLogin userInfo);
-       
-       OperationResult<UserDTO> Add(UserRegister newUser);       
+        Task<OperationResult<string>> GetToken(UserLogin userInfo);
+
+        Task<OperationResult<UserDTO>> Add(UserRegister newUser);
+
+        OperationResult<object> ActivateUser(string activationCode, string activationEmail);
     }
 }

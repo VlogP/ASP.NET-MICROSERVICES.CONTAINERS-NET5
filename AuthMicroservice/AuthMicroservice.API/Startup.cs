@@ -52,7 +52,7 @@ namespace AuthMicroservice.API
 
             services.AddIdentityServer(opt =>
                 {
-                    opt.IssuerUri = _configuration["IdentityServer:IssuerUrl"];
+                    opt.IssuerUri = _configuration[MicroserviceEnvironmentVariables.IdentityServer.ISSUER_URL];
                 })
                 .AddDeveloperSigningCredential()
                 .AddInMemoryApiResources(Config.GetAllApiResources(_configuration))

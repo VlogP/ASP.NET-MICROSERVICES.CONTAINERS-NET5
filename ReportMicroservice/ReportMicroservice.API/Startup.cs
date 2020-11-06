@@ -1,4 +1,5 @@
 using AutoMapper;
+using FluentValidation.AspNetCore;
 using MassTransit;
 using Microservice.Messages.Constants.EnvironmentVariables;
 using Microservice.Messages.Enums;
@@ -18,8 +19,6 @@ using ReportMicroservice.BLL.ResponseConsumers;
 using ReportMicroservice.DAL.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
-using System.Linq;
-using System.Reflection;
 
 namespace ReportMicroservice.API
 {
@@ -35,7 +34,7 @@ namespace ReportMicroservice.API
         public void ConfigureServices(IServiceCollection services)
         {
             var currentDomain = AppDomain.CurrentDomain;
-            var rabbitMQHost = Environment.GetEnvironmentVariable(MicroserviceEnvironmentVariables.RABBITMQ_HOST);
+            var rabbitMQHost = Environment.GetEnvironmentVariable(MicroserviceEnvironmentVariables.Rabbitmq.RABBITMQ_HOST);
             var sqlServerUrl = _configuration.GetConnectionString("SQLServerReportDB");
 
             currentDomain.LoadAssemblies(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], _configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME]);
@@ -44,9 +43,12 @@ namespace ReportMicroservice.API
                 opt.Filters.Add<ControllerExceptionFilter>();
                 opt.Filters.Add<ControllerActionFilter>();
                 opt.Filters.Add<ControllerResultFilter>();
+            }).AddFluentValidation(fv =>
+            {
+                fv.RegisterValidatorsFromAssemblyContaining<Startup>();
             });
 
-            services.AddDbContext<ReportDBContext>(o => { 
+            services.AddDbContext<ReportDBContext>(o => {
                 o.UseSqlServer(sqlServerUrl);            
             });
 
