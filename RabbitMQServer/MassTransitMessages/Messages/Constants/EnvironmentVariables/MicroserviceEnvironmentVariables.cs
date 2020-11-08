@@ -22,10 +22,18 @@ namespace Microservice.Messages.Constants.EnvironmentVariables
         public static class Rabbitmq
         {
             public const string RABBITMQ_HOST = "RABBITMQ_HOST";
+
+            public const string RABBITMQ_USER = "RabbitMQ:Username";
+
+            public const string RABBITMQ_PASSWORD = "RabbitMQ:Password";
         }
 
         public static class IdentityServer
         {
+            public const string SERVER_URL = "IdentityServer:ServerURL";
+
+            public const string BASE_URL = "IdentityServer:BaseURL";
+
             public const string USER_CLIENT_ID = "IdentityServer:UserClientId";
 
             public const string USER_CLIENT_SECRET = "IdentityServer:UserClientSecret";

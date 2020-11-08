@@ -1,3 +1,4 @@
+using Microservice.Messages.Constants.EnvironmentVariables;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -41,8 +42,8 @@ namespace APIGateway
                 })
                 .AddJwtBearer(authenticationProviderKey,opt => 
                 {
-                    opt.Authority = _configuration["IdentityServer:ServerURL"];
-                    opt.Audience = _configuration["IdentityServer:UserApiName"];
+                    opt.Authority = _configuration[MicroserviceEnvironmentVariables.IdentityServer.SERVER_URL];
+                    opt.Audience = _configuration[MicroserviceEnvironmentVariables.IdentityServer.USER_API_NAME];
                     opt.RequireHttpsMetadata = false;
                     opt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                     {
@@ -59,8 +60,8 @@ namespace APIGateway
                 .AddOAuth2Introspection(authenticationProviderKey, opt =>
                 {
                     opt.Authority = _configuration["IdentityServer:ServerURL"];
-                    opt.ClientId = _configuration["IdentityServer:UserApiName"];
-                    opt.ClientSecret = _configuration["IdentityServer:UserApiSecret"];
+                    opt.ClientId = _configuration[MicroserviceEnvironmentVariables.IdentityServer.USER_API_NAME];
+                    opt.ClientSecret = _configuration[MicroserviceEnvironmentVariables.IdentityServer.USER_API_SECRET];
                     opt.CacheDuration = TimeSpan.FromMinutes(3600);
                     opt.EnableCaching = true;
                     opt.DiscoveryPolicy = new IdentityModel.Client.DiscoveryPolicy { 
@@ -68,7 +69,7 @@ namespace APIGateway
                         AdditionalEndpointBaseAddresses = 
                         new List<string> 
                             { 
-                                _configuration["IdentityServer:BaseURL"] 
+                                _configuration[MicroserviceEnvironmentVariables.IdentityServer.BASE_URL] 
                             } 
                     };
                 });*/

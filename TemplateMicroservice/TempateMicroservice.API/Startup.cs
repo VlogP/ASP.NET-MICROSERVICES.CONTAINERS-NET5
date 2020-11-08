@@ -5,16 +5,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using TempateMicroservice.DAL.Models;
 using Microsoft.EntityFrameworkCore;
-using TempateMicroservice.BLL.Services.Interfaces;
-using TempateMicroservice.BLL.Services.Classes;
-using TempateMicroservice.DAL.Repositories.Interfaces;
-using TempateMicroservice.DAL.Repositories.Classes;
 using Microservice.Messages.Constants.EnvironmentVariables;
 using Microsoft.OpenApi.Models;
 using MassTransit;
 using System;
 using Microservice.Messages.Messages.Test;
-using System.Reflection;
 using Microservice.Messages.Enums;
 using Microservice.Messages.Infrastructure.Extensions;
 using Microservice.Messages.Infrastructure.Filters;
@@ -22,6 +17,7 @@ using Microservice.Messages.Infrastructure.UnitofWork;
 using AutoMapper;
 using TempateMicroservice.API.Infrastructure.Automapper;
 using Swashbuckle.AspNetCore.Swagger;
+using FluentValidation.AspNetCore;
 
 namespace TempateMicroservice.API
 {
@@ -37,7 +33,7 @@ namespace TempateMicroservice.API
         public void ConfigureServices(IServiceCollection services)
         {
             var currentDomain = AppDomain.CurrentDomain;
-            var rabbitMQHost = Environment.GetEnvironmentVariable(MicroserviceEnvironmentVariables.RABBITMQ_HOST);
+            var rabbitMQHost = Environment.GetEnvironmentVariable(MicroserviceEnvironmentVariables.Rabbitmq.RABBITMQ_HOST);
             var sqlServerUrl = _configuration.GetConnectionString("SQLServerProductDB");
 
             currentDomain.LoadAssemblies(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], _configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME]);
@@ -45,6 +41,9 @@ namespace TempateMicroservice.API
                 opt.Filters.Add<ControllerExceptionFilter>();
                 opt.Filters.Add<ControllerActionFilter>();
                 opt.Filters.Add<ControllerResultFilter>();
+            }).AddFluentValidation(fv =>
+            {
+                fv.RegisterValidatorsFromAssemblyContaining<Startup>();
             });
 
             services.AddDbContext<TemplateDBContext>(o => {
@@ -64,8 +63,8 @@ namespace TempateMicroservice.API
                 {
                     rabbitConfig.Host(rabbitMQHost, config => 
                     {
-                        config.Username(_configuration["RabbitMQ:Username"]);
-                        config.Password(_configuration["RabbitMQ:Password"]);
+                        config.Username(_configuration[MicroserviceEnvironmentVariables.Rabbitmq.RABBITMQ_USER]);
+                        config.Password(_configuration[MicroserviceEnvironmentVariables.Rabbitmq.RABBITMQ_PASSWORD]);
                     });            
                 });
 

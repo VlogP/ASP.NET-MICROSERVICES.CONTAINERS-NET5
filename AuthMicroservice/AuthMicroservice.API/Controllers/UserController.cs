@@ -11,12 +11,10 @@ namespace AuthMicroservice.API.Controllers
     [Route("api/Auth/[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly ILogger<AuthController> _logger;
         private readonly IUserService _userService;
 
-        public UserController(ILogger<AuthController> logger, IUserService userService)
+        public UserController(IUserService userService)
         {
-            _logger = logger;
             _userService = userService;
         }
 

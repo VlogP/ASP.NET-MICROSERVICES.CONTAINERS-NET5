@@ -19,6 +19,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using AuthMicroservice.DAL.Models;
 using AuthMicroservice.API.Infrastructure.IdentityServer;
 using AuthMicroservice.API.Infrasrtucture.Automapper;
+using Microsoft.Extensions.Logging;
 
 namespace AuthMicroservice.API
 {
