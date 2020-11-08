@@ -58,10 +58,13 @@ namespace TempateMicroservice.DAL.Repositories.Classes
 
         public OperationResult<List<T>> Get(Expression<Func<T,bool>> predicate)
         {
+            var data = _dbSet.Where(predicate).ToList();
+            var type = data.Count == 0 ? ResultType.BadRequest : ResultType.Success;
+
             var result = new OperationResult<List<T>>
             {
-                Data = _dbSet.Where(predicate).ToList(),
-                Type = ResultType.Success
+                Data = data,
+                Type = type
             };
 
             return result;

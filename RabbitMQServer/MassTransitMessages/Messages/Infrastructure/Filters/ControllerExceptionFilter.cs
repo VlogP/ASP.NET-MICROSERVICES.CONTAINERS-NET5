@@ -3,6 +3,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,10 +14,12 @@ namespace Microservice.Messages.Infrastructure.Filters
     public class ControllerExceptionFilter : IAsyncExceptionFilter
     {
         private readonly IHostingEnvironment _environment;
-        
-        public ControllerExceptionFilter(IHostingEnvironment environment)
+        private readonly ILogger _logger;
+
+        public ControllerExceptionFilter(IHostingEnvironment environment, ILogger<ControllerExceptionFilter> logger)
         {           
             _environment = environment;
+            _logger = logger;
         }
 
         public async Task OnExceptionAsync(ExceptionContext context)
@@ -26,6 +29,7 @@ namespace Microservice.Messages.Infrastructure.Filters
             var isDevEnv = _environment.IsDevelopment();
 
             errorList.Add(context.Exception.Message);
+            _logger.LogError(context.Exception, context.Exception.Message);
 
             if (isDevEnv)
             {

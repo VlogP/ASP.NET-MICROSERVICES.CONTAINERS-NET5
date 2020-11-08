@@ -25,6 +25,9 @@ spec:
       - name: ssl-certificate
         configMap:
           name: ssl-config
+      - name: logs-data
+        persistentVolumeClaim:
+          claimName: logs-pvc
       containers:
       - name: productmicroservice
         image: vlogp/productmicroservice:development
@@ -36,6 +39,8 @@ spec:
         - mountPath: /https/aspnetapp.pfx
           name: ssl-certificate
           subPath: aspnetapp.pfx
+        - mountPath: /app/Logs/Product
+          name: logs-data
         ports:
         - containerPort: 80
         - containerPort: 443

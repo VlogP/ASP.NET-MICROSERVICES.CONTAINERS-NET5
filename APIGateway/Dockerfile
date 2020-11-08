@@ -8,8 +8,9 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 ARG ENVIRONMENT
 WORKDIR /src
+COPY ["Configurations/Docker/NuGet.Config", "./"]
 COPY ["APIGateway.csproj", "./"]
-RUN dotnet restore "APIGateway.csproj"
+RUN dotnet restore "APIGateway.csproj" --configfile ./NuGet.Config
 COPY . .
 WORKDIR "/src/"
 RUN dotnet build "APIGateway.csproj" -c $ENVIRONMENT -o /app/build

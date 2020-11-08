@@ -63,8 +63,8 @@ namespace ProductMicroservice.API
                 {
                     rabbitConfig.Host(rabbitMQHost, config => 
                     {
-                        config.Username(_configuration["RabbitMQ:Username"]);
-                        config.Password(_configuration["RabbitMQ:Password"]);
+                        config.Username(_configuration[MicroserviceEnvironmentVariables.Rabbitmq.RABBITMQ_USER]);
+                        config.Password(_configuration[MicroserviceEnvironmentVariables.Rabbitmq.RABBITMQ_PASSWORD]);
                     });            
                 });
 
