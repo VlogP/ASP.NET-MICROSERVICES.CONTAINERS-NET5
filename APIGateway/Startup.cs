@@ -7,10 +7,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.IdentityModel.Tokens;
 using Ocelot.Administration;
 using Ocelot.Authentication.Middleware;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Ocelot.Provider.Consul;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -35,17 +37,15 @@ namespace APIGateway
             //Validate JWT using JWT library
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
             services
-                .AddAuthentication(opt => 
-                {
+                .AddAuthentication(opt => {
                     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
-                .AddJwtBearer(authenticationProviderKey,opt => 
-                {
+                .AddJwtBearer(authenticationProviderKey, opt => {
                     opt.Authority = _configuration[MicroserviceEnvironmentVariables.IdentityServer.SERVER_URL];
                     opt.Audience = _configuration[MicroserviceEnvironmentVariables.IdentityServer.USER_API_NAME];
                     opt.RequireHttpsMetadata = false;
-                    opt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    opt.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
                         ValidateAudience = true,
@@ -57,8 +57,7 @@ namespace APIGateway
             //Validate JWT using Identity Server 4 introspection endpoing
             /*services.AddDistributedMemoryCache();
             services.AddAuthentication(authenticationProviderKey)
-                .AddOAuth2Introspection(authenticationProviderKey, opt =>
-                {
+                .AddOAuth2Introspection(authenticationProviderKey, opt => {
                     opt.Authority = _configuration["IdentityServer:ServerURL"];
                     opt.ClientId = _configuration[MicroserviceEnvironmentVariables.IdentityServer.USER_API_NAME];
                     opt.ClientSecret = _configuration[MicroserviceEnvironmentVariables.IdentityServer.USER_API_SECRET];
@@ -75,8 +74,14 @@ namespace APIGateway
                 });*/
 
             services.AddSwaggerForOcelot(_configuration);
-            services.AddControllers();
-            services.AddOcelot().AddAdministration("/administration","12345");
+            services.AddOcelot()
+                .AddConsul()
+                .AddAdministration("/administration", opt => {
+                    opt.ApiName = _configuration[MicroserviceEnvironmentVariables.IdentityServer.USER_API_NAME];
+                    opt.Authority = _configuration[MicroserviceEnvironmentVariables.IdentityServer.SERVER_URL];
+                    opt.ApiSecret = _configuration[MicroserviceEnvironmentVariables.IdentityServer.USER_API_SECRET];
+                    opt.RequireHttpsMetadata = false;
+                });
         }
 
         public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
