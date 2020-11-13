@@ -12,25 +12,39 @@ services:
   productmicroservice:
     env_file:
       - ./Configurations/.NetMicroservice/.env
+    environment:
+      - MICROSERVICE_HOST=productmicroservice
+      - CONSUL_SERVICE_NAME=productmicroservice
     ports:
       - "10001:80"
       - "11001:443"
+    volumes:
+      - ../Content/https/:/https:ro
+  productmicroservice2:
+    env_file:
+      - ./Configurations/.NetMicroservice/.env
+    environment:
+      - MICROSERVICE_HOST=productmicroservice2
+      - CONSUL_SERVICE_NAME=productmicroservice
+    ports:
+      - "10002:80"
+      - "11002:443"
     volumes:
       - ../Content/https/:/https:ro
   reportmicroservice:
     env_file:
       - ./Configurations/.NetMicroservice/.env
     ports:
-      - "10002:80"
-      - "11002:443"
+      - "10003:80"
+      - "11003:443"
     volumes:
       - ../Content/https/:/https:ro  
   authmicroservice:
     env_file:
       - ./Configurations/.NetMicroservice/.env
     ports:
-      - "10003:80"
-      - "11003:443"
+      - "10004:80"
+      - "11004:443"
     volumes:
       - ../Content/https/:/https:ro
   rabbitmqserver:
@@ -83,3 +97,6 @@ services:
   grafana:
     ports:
       - "3000:3000"
+  consul:
+    ports:
+      - "8500:8500"

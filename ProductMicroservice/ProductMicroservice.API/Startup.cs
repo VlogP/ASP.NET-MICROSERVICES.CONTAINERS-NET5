@@ -73,6 +73,8 @@ namespace ProductMicroservice.API
 
             services.AddMassTransitHostedService();
 
+            services.AddConsulConfig(_configuration);
+
             services.AddSwaggerGen(swagger =>
             {
                 swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "ProductAPI Documentation" });
@@ -90,6 +92,8 @@ namespace ProductMicroservice.API
             //app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseConsul();
 
             app.UseEndpoints(endpoints =>
             {

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: consul
+  namespace: microservice
+spec:
+  type: LoadBalancer
+  selector:
+    app: consul-app
+  ports:
+  - protocol: TCP
+    name: http
+    port: 8500
+    targetPort: 8500

@@ -46,5 +46,14 @@ namespace Microservice.Messages.Constants.EnvironmentVariables
 
             public const string ISSUER_URL = "IdentityServer:IssuerUrl";
         }
+
+        public static class CONSUL
+        {
+            public const string MICROSERVICE_HOST = "MICROSERVICE_HOST";
+
+            public const string CONSUL_SERVICE_NAME = "CONSUL_SERVICE_NAME";
+
+            public const string CONSUL_URL = "Consul:Server";
+        }
     }
 }
