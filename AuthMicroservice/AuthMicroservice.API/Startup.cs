@@ -1,33 +1,24 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AuthMicroservice.BLL.Services.Classes;
-using AuthMicroservice.BLL.Services.Interfaces;
-using AuthMicroservice.DAL.Models;
-using AuthMicroservice.DAL.Repositories.Classes;
-using AuthMicroservice.DAL.Repositories.Interfaces;
-using AuthMicroservice.API.Infrastructure.IdentityServer;
-using IdentityServer4.Configuration;
 using IdentityServer4.Services;
-using IdentityServer4.Stores;
 using IdentityServer4.Validation;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Microservice.Messages.Infrastructure.Extensions;
 using Microservice.Messages.Constants.EnvironmentVariables;
 using Microservice.Messages.Enums;
-using AuthMicroservice.API.Infrastructure.Filters;
-using AuthMicroservice.DAL.Infrastructure.UnitofWork;
+using Microservice.Messages.Infrastructure.Filters;
+using Microservice.Messages.Infrastructure.UnitofWork;
+using AutoMapper;
+using FluentValidation.AspNetCore;
+using Swashbuckle.AspNetCore.Swagger;
+using AuthMicroservice.DAL.Models;
+using AuthMicroservice.API.Infrastructure.IdentityServer;
+using AuthMicroservice.API.Infrasrtucture.Automapper;
 
 namespace AuthMicroservice.API
 {
@@ -47,6 +38,10 @@ namespace AuthMicroservice.API
             services.AddControllers(opt => {
                 opt.Filters.Add<ControllerExceptionFilter>();
                 opt.Filters.Add<ControllerActionFilter>();
+                opt.Filters.Add<ControllerResultFilter>();
+            }).AddFluentValidation(fv =>
+            {
+                fv.RegisterValidatorsFromAssemblyContaining<Startup>();
             });
 
             services.AddDbContext<AuthDBContext>(o => {
@@ -57,7 +52,7 @@ namespace AuthMicroservice.API
 
             services.AddIdentityServer(opt =>
                 {
-                    opt.IssuerUri = _configuration["IdentityServer:IssuerUrl"];
+                    opt.IssuerUri = _configuration[MicroserviceEnvironmentVariables.IdentityServer.ISSUER_URL];
                 })
                 .AddDeveloperSigningCredential()
                 .AddInMemoryApiResources(Config.GetAllApiResources(_configuration))
@@ -68,13 +63,15 @@ namespace AuthMicroservice.API
             services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
             services.AddTransient<IProfileService, ProfileService>();
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork<AuthDBContext>>();
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
+            services.AddAutoMapper(typeof(AutomapperProfile));
 
             services.AddSwaggerGen(swagger =>
             {
-                swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "APIAuth documentation" });
+                swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "AuthAPI Documentation" });
+                swagger.AddFluentValidationRules();
             });
         }
 
@@ -100,7 +97,7 @@ namespace AuthMicroservice.API
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "APIAuth documentation");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "AuthAPI Documentation");
             });
         }
     }

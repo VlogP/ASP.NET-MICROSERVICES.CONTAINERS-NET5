@@ -1,5 +1,11 @@
 ﻿{
   "GlobalConfiguration": {
-    "BaseUrl": "https://apigateway:443"
+    "BaseUrl": "https://apigateway:443",
+    "ServiceDiscoveryProvider": {
+      "Host": "consul",
+      "Port": 8500,
+      "Type": "PollConsul",
+      "PollingInterval": 100
+    } 
   }
 }

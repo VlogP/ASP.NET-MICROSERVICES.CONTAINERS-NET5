@@ -1,35 +1,60 @@
-﻿using AuthMicroservice.BLL.Models;
-using AuthMicroservice.BLL.Services.Interfaces;
-using AuthMicroservice.API.Models;
-using IdentityModel.Client;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Net.Http;
 using System.Threading.Tasks;
+using AuthMicroservice.BLL.Models.User;
+using Microservice.Messages.Infrastructure.OperationResult;
+using AuthMicroservice.BLL.Models.DTO.User;
+using AuthMicroservice.BLL.Services.Interfaces;
+using System.Web;
+using AuthMicroservice.API.Models.User;
 
 namespace AuthMicroservice.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/Auth")]
     public class AuthController: ControllerBase
     {
-        private readonly ILogger<AuthController> _logger;
         private readonly IAuthService _authService;
 
-        public AuthController(ILogger<AuthController> logger, IAuthService authService)
+        public AuthController(IAuthService authService)
         {
-            _logger = logger;
             _authService = authService;
         }
 
         [HttpPost]
-        public async Task<ActionResult> GetToken([FromBody] UserLoginModelWeb userInfo)
+        [Route("token")]
+        [Produces(typeof(OperationResult<string>))]
+        public async Task<ActionResult> GetToken([FromBody] UserLoginAPI userInfo)
         {
-            var result = await _authService.GetToken(new UserLoginModelBL 
+            var result = await _authService.GetToken(new UserLogin 
             { 
                 Email = userInfo.Email,
                 Password = userInfo.Password
             });
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("adduser")]
+        [Produces(typeof(OperationResult<UserDTO>))]
+        public async Task<ActionResult> AddUser([FromBody] UserRegisterAPI userInfo)
+        {
+            var result = await _authService.Add(new UserRegister
+            {
+                Email = userInfo.Email,
+                Password = userInfo.Password
+            });
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("activate")]
+        [Produces(typeof(OperationResult<object>))]
+        public ActionResult ActivateUser([FromQuery] UserActivationAPI activation)
+        {
+            var result = _authService.ActivateUser(activation.ActivationCode, activation.ActivationEmail);
 
             return Ok(result);
         }

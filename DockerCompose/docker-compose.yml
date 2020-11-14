@@ -12,6 +12,16 @@ services:
   productmicroservice:
     container_name: productmicroservice
     image: ${DOCKERHUBID}/productmicroservice:${TAG}
+    command: ['sh', '-c', "until wget http://consul:8500/v1/status/leader; do echo waiting for consul; sleep 2; done"]
+    build:
+      context: ../ProductMicroservice
+      dockerfile: ProductMicroservice.API/Dockerfile
+      args:
+        ENVIRONMENT: ${ENVIRONMENT}
+  productmicroservice2:
+    container_name: productmicroservice2
+    image: ${DOCKERHUBID}/productmicroservice:${TAG}
+    command: ['sh', '-c', "until wget http://consul:8500/v1/status/leader; do echo waiting for consul; sleep 2; done"]
     build:
       context: ../ProductMicroservice
       dockerfile: ProductMicroservice.API/Dockerfile
@@ -58,3 +68,9 @@ services:
     image: grafana/grafana
     depends_on:
       - "prometheus"
+  consul:
+    container_name: consul
+    image: consul
+    depends_on:
+      - "productmicroservice"
+      - "productmicroservice2"

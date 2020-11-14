@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace TempateMicroservice.DAL.Repositories.Classes
 {
-    public class TempateRepository : BaseRepository<TempateModel>, ITempateRepository
+    public class TempateRepository : BaseRepository<TemplateModel>, ITempateRepository
     {
-        public TempateRepository(TempateDBContext context) : base(context)
+        public TempateRepository(TemplateDBContext context) : base(context)
         {
 
         }

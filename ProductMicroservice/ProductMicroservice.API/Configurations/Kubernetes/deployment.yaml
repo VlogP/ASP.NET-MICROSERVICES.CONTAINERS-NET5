@@ -10,12 +10,12 @@ spec:
   selector:
     matchLabels:
       app: productmicroservice-app
-  replicas: 1
+  replicas: 2
   strategy:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
-      maxUnavailable: 0
+      maxUnavailable: 1
   template:
     metadata:
       labels:
@@ -25,6 +25,13 @@ spec:
       - name: ssl-certificate
         configMap:
           name: ssl-config
+      - name: logs-data
+        persistentVolumeClaim:
+          claimName: logs-pvc
+      initContainers:
+      - name: init-myservice
+        image: busybox:1.28
+        command: ['sh', '-c', "until wget http://consul:8500/v1/status/leader; do echo waiting for consul; sleep 2; done"]
       containers:
       - name: productmicroservice
         image: vlogp/productmicroservice:development
@@ -32,10 +39,19 @@ spec:
         envFrom:
           - configMapRef:
                name: dotnet-env-config
+        env:
+          - name: MICROSERVICE_HOST
+            valueFrom:
+                fieldRef:
+                    fieldPath: status.podIP
+          - name: CONSUL_SERVICE_NAME
+            value: "productmicroservice"
         volumeMounts:
         - mountPath: /https/aspnetapp.pfx
           name: ssl-certificate
           subPath: aspnetapp.pfx
+        - mountPath: /app/Logs/Product
+          name: logs-data
         ports:
         - containerPort: 80
         - containerPort: 443

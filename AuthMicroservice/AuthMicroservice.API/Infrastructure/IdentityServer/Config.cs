@@ -2,6 +2,7 @@
 using IdentityModel.Client;
 using IdentityServer4;
 using IdentityServer4.Models;
+using Microservice.Messages.Constants.EnvironmentVariables;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +20,7 @@ namespace AuthMicroservice.API.Infrastructure.IdentityServer
             return new List<ApiResource>
             {
                 new ApiResource {
-                    Name = configuration["IdentityServer:UserApiName"],
+                    Name = configuration[MicroserviceEnvironmentVariables.IdentityServer.USER_API_NAME],
                     DisplayName = "User data resource",
                     ApiSecrets = { new Secret(configuration["IdentityServer:UserApiSecret"].Sha256()) },
                     Scopes = 
@@ -51,18 +52,18 @@ namespace AuthMicroservice.API.Infrastructure.IdentityServer
             {
                 new Client
                 {
-                    ClientId = configuration["IdentityServer:UserClientId"],
+                    ClientId = configuration[MicroserviceEnvironmentVariables.IdentityServer.USER_CLIENT_ID],
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     ClientSecrets =
                     {
-                        new Secret(configuration["IdentityServer:UserClientSecret"].Sha256())
+                        new Secret(configuration[MicroserviceEnvironmentVariables.IdentityServer.USER_CLIENT_SECRET].Sha256())
                     },
                     AllowedScopes = 
                     {
                         "application.read",
                         "application.write"
                     },                   
-                    AccessTokenLifetime = 3600
+                    AccessTokenLifetime = 100000
                 }
             };
         }

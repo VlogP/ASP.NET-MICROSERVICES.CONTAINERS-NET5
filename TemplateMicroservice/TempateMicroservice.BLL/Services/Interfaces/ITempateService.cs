@@ -9,8 +9,8 @@ namespace TempateMicroservice.BLL.Services.Interfaces
 {
     public interface ITempateService
     {
-        Task<OperationResult<List<TempateModel>>> GetAll();
+        Task<OperationResult<List<TemplateModel>>> GetAll();
 
-        OperationResult<object> Add(TempateModel product);
+        OperationResult<object> Add(TemplateModel product);
     }
 }

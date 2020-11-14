@@ -1,0 +1,207 @@
+2020-11-07 20:03:50.1983 Info Message Template Auto Format enabled
+2020-11-07 20:03:50.1983 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 20:03:50.2426 Info Adding target FileTarget(Name=allfile)
+2020-11-07 20:03:50.2426 Info Adding target FileTarget(Name=ownFile)
+2020-11-07 20:03:50.2426 Info Adding target ConsoleTarget(Name=console)
+2020-11-07 20:03:50.2590 Info Validating config: TargetNames=console, allfile, ownFile, ConfigItems=49, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-07 20:03:50.2590 Info Configuration initialized.
+2020-11-07 20:03:50.2590 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-07 20:11:46.6259 Info Message Template Auto Format enabled
+2020-11-07 20:11:46.6259 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 20:11:46.6602 Info Adding target FileTarget(Name=allfile)
+2020-11-07 20:11:46.6602 Info Adding target FileTarget(Name=ownFile)
+2020-11-07 20:11:46.6602 Info Adding target ConsoleTarget(Name=console)
+2020-11-07 20:11:46.6767 Info Validating config: TargetNames=console, allfile, ownFile, ConfigItems=49, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-07 20:11:46.6876 Info Configuration initialized.
+2020-11-07 20:11:46.6876 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-07 20:14:41.7744 Info Message Template Auto Format enabled
+2020-11-07 20:14:41.7793 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 20:14:41.8095 Info Adding target FileTarget(Name=allfile)
+2020-11-07 20:14:41.8095 Info Adding target FileTarget(Name=ownFile)
+2020-11-07 20:14:41.8095 Warn Skipping element name: target(Name=console) in section: targets because property type is blank
+2020-11-07 20:14:41.8095 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Target 'console' not found for logging rule: *.
+2020-11-07 20:14:41.8266 Info Validating config: TargetNames=allfile, ownFile, ConfigItems=35, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-07 20:14:41.8266 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: allfile
+2020-11-07 20:14:41.8266 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: ownFile
+2020-11-07 20:14:41.8381 Info Configuration initialized.
+2020-11-07 20:14:41.8381 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-07 20:22:22.8218 Info Message Template Auto Format enabled
+2020-11-07 20:22:22.8218 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 20:22:22.8498 Info Adding target FileTarget(Name=logfile)
+2020-11-07 20:22:22.8498 Info Adding target ConsoleTarget(Name=logconsole)
+2020-11-07 20:22:22.8668 Info Validating config: TargetNames=logconsole, logfile, ConfigItems=26, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-07 20:22:22.8779 Info Configuration initialized.
+2020-11-07 20:22:22.8779 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-07 20:24:13.1789 Info Message Template Auto Format enabled
+2020-11-07 20:24:13.1892 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 20:24:13.2130 Info Adding target FileTarget(Name=logfile)
+2020-11-07 20:24:13.2130 Info Adding target ConsoleTarget(Name=logconsole)
+2020-11-07 20:24:13.2292 Info Validating config: TargetNames=logconsole, logfile, ConfigItems=26, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-07 20:24:13.2292 Info Configuration initialized.
+2020-11-07 20:24:13.2292 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-07 20:26:02.4714 Info Message Template Auto Format enabled
+2020-11-07 20:26:02.4811 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 20:26:02.5042 Info Adding target FileTarget(Name=logfile)
+2020-11-07 20:26:02.5042 Info Adding target ConsoleTarget(Name=logconsole)
+2020-11-07 20:26:02.5198 Info Validating config: TargetNames=logconsole, logfile, ConfigItems=26, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-07 20:26:02.5308 Info Configuration initialized.
+2020-11-07 20:26:02.5308 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-07 20:28:50.8039 Info Message Template Auto Format enabled
+2020-11-07 20:28:50.8130 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 20:28:50.8383 Info Adding target FileTarget(Name=logfile)
+2020-11-07 20:28:50.8383 Info Adding target ColoredConsoleTarget(Name=console)
+2020-11-07 20:28:50.8599 Info Validating config: TargetNames=console, logfile, ConfigItems=24, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-07 20:28:50.8711 Info Configuration initialized.
+2020-11-07 20:28:50.8711 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-07 20:48:21.1863 Info Message Template Auto Format enabled
+2020-11-07 20:48:21.2064 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 20:48:21.2379 Info Adding target FileTarget(Name=logfile)
+2020-11-07 20:48:21.2379 Info Adding target ColoredConsoleTarget(Name=console)
+2020-11-07 20:48:21.2574 Info Validating config: TargetNames=console, logfile, ConfigItems=32, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-07 20:48:21.2681 Info Configuration initialized.
+2020-11-07 20:48:21.2681 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-07 21:05:31.4781 Info Message Template Auto Format enabled
+2020-11-07 21:05:31.4781 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 21:05:31.5189 Error Error parsing layout brief will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'brief'
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 21:05:31.6000 Info Adding target FileTarget(Name=logfile)
+2020-11-07 21:05:31.6073 Info Adding target ColoredConsoleTarget(Name=console)
+2020-11-07 21:05:31.6226 Info Validating config: TargetNames=console, logfile, ConfigItems=22, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-07 21:05:31.6226 Info Configuration initialized.
+2020-11-07 21:05:31.6343 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-07 21:11:50.9120 Info Message Template Auto Format enabled
+2020-11-07 21:11:50.9207 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 21:11:50.9514 Error Error parsing layout brief will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'brief'
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 21:11:50.9784 Info Adding target FileTarget(Name=logfile)
+2020-11-07 21:11:50.9784 Info Adding target ColoredConsoleTarget(Name=console)
+2020-11-07 21:11:50.9988 Info Validating config: TargetNames=console, logfile, ConfigItems=22, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-07 21:11:51.0112 Info Configuration initialized.
+2020-11-07 21:11:51.0112 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-07 21:16:55.5007 Info Message Template Auto Format enabled
+2020-11-07 21:16:55.5095 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 21:16:55.5393 Error Error parsing layout brief will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'brief'
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 21:16:55.5596 Info Adding target FileTarget(Name=logfile)
+2020-11-07 21:16:55.5596 Info Adding target ColoredConsoleTarget(Name=console)
+2020-11-07 21:16:55.5833 Info Validating config: TargetNames=console, logfile, ConfigItems=38, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-07 21:16:55.5940 Info Configuration initialized.
+2020-11-07 21:16:55.5940 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-07 21:35:35.0735 Info Message Template Auto Format enabled
+2020-11-07 21:35:35.0735 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 21:35:35.1129 Info Adding target FileTarget(Name=logfile)
+2020-11-07 21:35:35.1259 Info Adding target ColoredConsoleTarget(Name=info-console)
+2020-11-07 21:35:35.1259 Info Adding target ColoredConsoleTarget(Name=error-console)
+2020-11-07 21:35:35.1439 Info Validating config: TargetNames=info-console, error-console, logfile, ConfigItems=54, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-07 21:35:35.1551 Info Configuration initialized.
+2020-11-07 21:35:35.1551 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-07 21:52:06.4522 Info Message Template Auto Format enabled
+2020-11-07 21:52:06.4624 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 21:52:06.4919 Error Error parsing layout trace will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'trace'
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 21:52:06.5141 Info Adding target FileTarget(Name=logfile)
+2020-11-07 21:52:06.5297 Info Adding target ColoredConsoleTarget(Name=info-console)
+2020-11-07 21:52:06.5297 Info Adding target ColoredConsoleTarget(Name=error-console)
+2020-11-07 21:52:06.5501 Info Validating config: TargetNames=info-console, error-console, logfile, ConfigItems=40, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-07 21:52:06.5615 Info Configuration initialized.
+2020-11-07 21:52:06.5615 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-07 21:53:24.0268 Info Message Template Auto Format enabled
+2020-11-07 21:53:24.0268 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 21:53:24.0678 Error Error parsing layout trace will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'trace'
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 21:53:24.0906 Info Adding target FileTarget(Name=logfile)
+2020-11-07 21:53:24.1073 Info Adding target ColoredConsoleTarget(Name=info-console)
+2020-11-07 21:53:24.1073 Info Adding target ColoredConsoleTarget(Name=error-console)
+2020-11-07 21:53:24.1249 Info Validating config: TargetNames=info-console, error-console, logfile, ConfigItems=40, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-07 21:53:24.1362 Info Configuration initialized.
+2020-11-07 21:53:24.1362 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-07 22:04:34.7166 Info Message Template Auto Format enabled
+2020-11-07 22:04:34.7166 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 22:04:34.7559 Error Error parsing layout trace will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'trace'
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 22:04:34.7798 Info Adding target FileTarget(Name=logfile)
+2020-11-07 22:04:34.7957 Info Adding target ColoredConsoleTarget(Name=info-console)
+2020-11-07 22:04:34.7957 Info Adding target ColoredConsoleTarget(Name=error-console)
+2020-11-07 22:04:34.8137 Info Validating config: TargetNames=info-console, error-console, logfile, ConfigItems=40, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-07 22:04:34.8239 Info Configuration initialized.
+2020-11-07 22:04:34.8239 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-07 22:13:48.0978 Info Message Template Auto Format enabled
+2020-11-07 22:13:48.1085 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 22:13:48.1383 Error Error parsing layout trace will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'trace'
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 22:13:48.1632 Info Adding target FileTarget(Name=logfile)
+2020-11-07 22:13:48.1790 Info Adding target ColoredConsoleTarget(Name=info-console)
+2020-11-07 22:13:48.1790 Info Adding target ColoredConsoleTarget(Name=error-console)
+2020-11-07 22:13:48.1994 Info Validating config: TargetNames=info-console, error-console, logfile, ConfigItems=40, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-07 22:13:48.1994 Info Configuration initialized.
+2020-11-07 22:13:48.1994 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-07 22:43:31.1737 Info Message Template Auto Format enabled
+2020-11-07 22:43:31.1861 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 22:43:31.2191 Error Error parsing layout trace will be ignored. Exception: System.ArgumentException: LayoutRenderer cannot be found: 'trace'
+   at NLog.Config.Factory`2.CreateInstance(String itemName)
+   at NLog.Layouts.LayoutParser.GetLayoutRenderer(ConfigurationItemFactory configurationItemFactory, String name, Nullable`1 throwConfigExceptions)
+2020-11-07 22:43:31.2457 Info Adding target FileTarget(Name=logfile)
+2020-11-07 22:43:31.2634 Info Adding target ColoredConsoleTarget(Name=info-console)
+2020-11-07 22:43:31.2634 Info Adding target ColoredConsoleTarget(Name=error-console)
+2020-11-07 22:43:31.2829 Info Validating config: TargetNames=info-console, error-console, logfile, ConfigItems=40, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-07 22:43:31.2932 Info Configuration initialized.
+2020-11-07 22:43:31.2932 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-07 23:39:05.7962 Info Message Template Auto Format enabled
+2020-11-07 23:39:05.8057 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-07 23:39:05.8389 Info Adding target FileTarget(Name=logfile)
+2020-11-07 23:39:05.8529 Info Adding target ColoredConsoleTarget(Name=info-console)
+2020-11-07 23:39:05.8529 Info Adding target ColoredConsoleTarget(Name=error-console)
+2020-11-07 23:39:05.8710 Info Validating config: TargetNames=info-console, error-console, logfile, ConfigItems=50, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-07 23:39:05.8710 Info Configuration initialized.
+2020-11-07 23:39:05.8710 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-08 00:14:20.0850 Info Message Template Auto Format enabled
+2020-11-08 00:14:20.0976 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 00:14:20.1299 Info Adding target FileTarget(Name=logfile)
+2020-11-08 00:14:20.1434 Info Adding target ColoredConsoleTarget(Name=info-console)
+2020-11-08 00:14:20.1434 Info Adding target ColoredConsoleTarget(Name=error-console)
+2020-11-08 00:14:20.1614 Info Validating config: TargetNames=info-console, error-console, logfile, ConfigItems=50, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-08 00:14:20.1722 Info Configuration initialized.
+2020-11-08 00:14:20.1722 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-08 00:17:29.2607 Info Message Template Auto Format enabled
+2020-11-08 00:17:29.2607 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 00:17:29.3034 Info Adding target FileTarget(Name=logfile-trace)
+2020-11-08 00:17:29.3034 Info Adding target FileTarget(Name=logfile-info)
+2020-11-08 00:17:29.3194 Info Adding target ColoredConsoleTarget(Name=info-console)
+2020-11-08 00:17:29.3194 Info Adding target ColoredConsoleTarget(Name=error-console)
+2020-11-08 00:17:29.3369 Info Validating config: TargetNames=info-console, error-console, logfile-info, logfile-trace, ConfigItems=68, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-08 00:17:29.3482 Info Configuration initialized.
+2020-11-08 00:17:29.3482 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-08 00:17:57.3367 Info Message Template Auto Format enabled
+2020-11-08 00:17:57.3583 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 00:17:57.3923 Info Adding target FileTarget(Name=logfile-trace)
+2020-11-08 00:17:57.3923 Info Adding target FileTarget(Name=logfile-info)
+2020-11-08 00:17:57.4053 Info Adding target ColoredConsoleTarget(Name=info-console)
+2020-11-08 00:17:57.4053 Info Adding target ColoredConsoleTarget(Name=error-console)
+2020-11-08 00:17:57.4233 Info Validating config: TargetNames=info-console, error-console, logfile-info, logfile-trace, ConfigItems=64, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-08 00:17:57.4343 Info Configuration initialized.
+2020-11-08 00:17:57.4343 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-08 00:18:39.6381 Info Message Template Auto Format enabled
+2020-11-08 00:18:39.6564 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 00:18:39.6952 Info Adding target FileTarget(Name=logfile-trace)
+2020-11-08 00:18:39.6952 Info Adding target FileTarget(Name=logfile-info)
+2020-11-08 00:18:39.7088 Info Adding target ColoredConsoleTarget(Name=info-console)
+2020-11-08 00:18:39.7088 Info Adding target ColoredConsoleTarget(Name=error-console)
+2020-11-08 00:18:39.7274 Info Validating config: TargetNames=info-console, error-console, logfile-info, logfile-trace, ConfigItems=64, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-08 00:18:39.7428 Info Configuration initialized.
+2020-11-08 00:18:39.7434 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False
+2020-11-08 01:09:42.9178 Info Message Template Auto Format enabled
+2020-11-08 01:09:42.9178 Info Loading assembly: NLog.Web.AspNetCore
+2020-11-08 01:09:42.9694 Info Adding target FileTarget(Name=logfile-trace)
+2020-11-08 01:09:42.9694 Info Adding target FileTarget(Name=logfile-info)
+2020-11-08 01:09:42.9843 Info Adding target ColoredConsoleTarget(Name=info-console)
+2020-11-08 01:09:42.9843 Info Adding target ColoredConsoleTarget(Name=error-console)
+2020-11-08 01:09:43.0044 Info Validating config: TargetNames=info-console, error-console, logfile-info, logfile-trace, ConfigItems=64, FilePath=D:\Visual Studio Repos\MyMicroserviceProject\AuthMicroservice\AuthMicroservice.API\bin\Development\netcoreapp3.1\NLog.config
+2020-11-08 01:09:43.0151 Info Configuration initialized.
+2020-11-08 01:09:43.0151 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.2.11786. Product version: 4.7.2+024896f64b840a743d3fd89e29c2186681e7795f. GlobalAssemblyCache: False

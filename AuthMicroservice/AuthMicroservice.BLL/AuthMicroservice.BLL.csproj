@@ -10,7 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="IdentityServer4.Storage" Version="4.1.1" />
+    <PackageReference Include="MailKit" Version="2.9.0" />
     <PackageReference Include="Microservice.Messages" Version="1.*" />
   </ItemGroup>
 

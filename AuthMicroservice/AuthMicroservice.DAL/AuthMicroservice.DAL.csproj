@@ -6,7 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20201104163056_Update-User.cs" />
+    <Compile Remove="Migrations\20201104163056_Update-User.Designer.cs" />
+    <Compile Remove="Migrations\20201104163135_Update-User.cs" />
+    <Compile Remove="Migrations\20201104163135_Update-User.Designer.cs" />
+    <Compile Remove="Migrations\20201104203718_HashSalt.cs" />
+    <Compile Remove="Migrations\20201104203718_HashSalt.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microservice.Messages" Version="1.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.9">
       <PrivateAssets>all</PrivateAssets>

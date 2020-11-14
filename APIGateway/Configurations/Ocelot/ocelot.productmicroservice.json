@@ -2,6 +2,17 @@
   "Routes": [
     {
       "SwaggerKey": "productmicroservice",
+      "ServiceName": "productmicroservice",
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 10,
+        "Limit": 5
+      },
       "UpstreamPathTemplate": "/api/product/{everything}",
       "UpstreamHttpMethod": [
         "Get",
@@ -19,11 +30,22 @@
         }
       ],
       "RouteClaimsRequirement": {
-        "role": "Admin"
+        "role": "User"
       }
     },
     {
       "SwaggerKey": "productmicroservice",
+      "ServiceName": "productmicroservice",
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 10,
+        "Limit": 5
+      },
       "UpstreamPathTemplate": "/api/product/",
       "UpstreamHttpMethod": [
         "Get",

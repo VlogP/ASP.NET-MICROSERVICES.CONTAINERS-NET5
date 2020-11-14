@@ -5,21 +5,19 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using TempateMicroservice.DAL.Models;
 using Microsoft.EntityFrameworkCore;
-using TempateMicroservice.BLL.Services.Interfaces;
-using TempateMicroservice.BLL.Services.Classes;
-using TempateMicroservice.DAL.Repositories.Interfaces;
-using TempateMicroservice.DAL.Repositories.Classes;
 using Microservice.Messages.Constants.EnvironmentVariables;
 using Microsoft.OpenApi.Models;
 using MassTransit;
 using System;
 using Microservice.Messages.Messages.Test;
-using System.Reflection;
 using Microservice.Messages.Enums;
 using Microservice.Messages.Infrastructure.Extensions;
-using TempateMicroservice.API.Infrastructure.Filters;
-using Microsoft.Extensions.Logging;
-using TempateMicroservice.DAL.Infrastructure.UnitofWork;
+using Microservice.Messages.Infrastructure.Filters;
+using Microservice.Messages.Infrastructure.UnitofWork;
+using AutoMapper;
+using TempateMicroservice.API.Infrastructure.Automapper;
+using Swashbuckle.AspNetCore.Swagger;
+using FluentValidation.AspNetCore;
 
 namespace TempateMicroservice.API
 {
@@ -35,22 +33,27 @@ namespace TempateMicroservice.API
         public void ConfigureServices(IServiceCollection services)
         {
             var currentDomain = AppDomain.CurrentDomain;
-            var rabbitMQHost = Environment.GetEnvironmentVariable(MicroserviceEnvironmentVariables.RABBITMQ_HOST);
+            var rabbitMQHost = Environment.GetEnvironmentVariable(MicroserviceEnvironmentVariables.Rabbitmq.RABBITMQ_HOST);
             var sqlServerUrl = _configuration.GetConnectionString("SQLServerProductDB");
 
             currentDomain.LoadAssemblies(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], _configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME]);
             services.AddControllers(opt => {
                 opt.Filters.Add<ControllerExceptionFilter>();
                 opt.Filters.Add<ControllerActionFilter>();
+                opt.Filters.Add<ControllerResultFilter>();
+            }).AddFluentValidation(fv =>
+            {
+                fv.RegisterValidatorsFromAssemblyContaining<Startup>();
             });
 
-            services.AddDbContext<TempateDBContext>(o => {
+            services.AddDbContext<TemplateDBContext>(o => {
                 o.UseSqlServer(sqlServerUrl);
             });
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork<TemplateDBContext>>();
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
+            services.AddAutoMapper(typeof(AutomapperProfile));
 
             services.AddMassTransit(massTransitConfig =>
             {
@@ -60,8 +63,8 @@ namespace TempateMicroservice.API
                 {
                     rabbitConfig.Host(rabbitMQHost, config => 
                     {
-                        config.Username(_configuration["RabbitMQ:Username"]);
-                        config.Password(_configuration["RabbitMQ:Password"]);
+                        config.Username(_configuration[MicroserviceEnvironmentVariables.Rabbitmq.RABBITMQ_USER]);
+                        config.Password(_configuration[MicroserviceEnvironmentVariables.Rabbitmq.RABBITMQ_PASSWORD]);
                     });            
                 });
 
@@ -73,6 +76,7 @@ namespace TempateMicroservice.API
             services.AddSwaggerGen(swagger =>
             {
                 swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "APIProduct documentation" });
+                swagger.AddFluentValidationRules();
             });
         }
 
