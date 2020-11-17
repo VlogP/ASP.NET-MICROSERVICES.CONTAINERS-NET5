@@ -34,17 +34,42 @@ services:
   reportmicroservice:
     env_file:
       - ./Configurations/.NetMicroservice/.env
+    environment:
+      - MICROSERVICE_HOST=reportmicroservice
+      - CONSUL_SERVICE_NAME=reportmicroservice
     ports:
       - "10003:80"
       - "11003:443"
     volumes:
       - ../Content/https/:/https:ro  
+  reportmicroservice2:
+    env_file:
+      - ./Configurations/.NetMicroservice/.env
+    environment:
+      - MICROSERVICE_HOST=reportmicroservice
+      - CONSUL_SERVICE_NAME=reportmicroservice
+    ports:
+      - "10004:80"
+      - "11004:443"
+    volumes:
+      - ../Content/https/:/https:ro  
+  reportmicroservice3:
+    env_file:
+      - ./Configurations/.NetMicroservice/.env
+    environment:
+      - MICROSERVICE_HOST=reportmicroservice
+      - CONSUL_SERVICE_NAME=reportmicroservice
+    ports:
+      - "10005:80"
+      - "11005:443"
+    volumes:
+      - ../Content/https/:/https:ro
   authmicroservice:
     env_file:
       - ./Configurations/.NetMicroservice/.env
     ports:
-      - "10004:80"
-      - "11004:443"
+      - "10006:80"
+      - "11006:443"
     volumes:
       - ../Content/https/:/https:ro
   rabbitmqserver:

@@ -2,6 +2,10 @@
   "Routes": [
     {
       "SwaggerKey": "reportmicroservice",
+      "ServiceName": "reportmicroservice",
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
       "UpstreamPathTemplate": "/api/report/{everything}",
       "UpstreamHttpMethod": [
         "Get",
@@ -21,6 +25,10 @@
     },
     {
       "SwaggerKey": "reportmicroservice",
+      "ServiceName": "reportmicroservice",
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
       "UpstreamPathTemplate": "/api/report/",
       "UpstreamHttpMethod": [
         "Get",

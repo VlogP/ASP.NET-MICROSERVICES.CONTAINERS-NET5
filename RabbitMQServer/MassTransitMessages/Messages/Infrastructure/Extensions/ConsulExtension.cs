@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Microservice.Messages.Infrastructure.Extensions
 {
@@ -25,7 +26,7 @@ namespace Microservice.Messages.Infrastructure.Extensions
             return services;
         }
 
-        public static IApplicationBuilder UseConsul(this IApplicationBuilder app)
+        public static async Task<IApplicationBuilder> UseConsul(this IApplicationBuilder app)
         {
             var host = Environment.GetEnvironmentVariable(MicroserviceEnvironmentVariables.CONSUL.MICROSERVICE_HOST);
             var serviceName = Environment.GetEnvironmentVariable(MicroserviceEnvironmentVariables.CONSUL.CONSUL_SERVICE_NAME);
@@ -46,13 +47,13 @@ namespace Microservice.Messages.Infrastructure.Extensions
             };
 
             logger.LogInformation("Registering with Consul");
-            consulClient.Agent.ServiceDeregister(registration.ID).Wait();
-            consulClient.Agent.ServiceRegister(registration).Wait();
+            await consulClient.Agent.ServiceDeregister(registration.ID);
+            await consulClient.Agent.ServiceRegister(registration);
 
-            lifetime.ApplicationStopping.Register(() =>
+            lifetime.ApplicationStopping.Register(async () =>
             {
                 logger.LogInformation("Unregistering from Consul");
-                consulClient.Agent.ServiceDeregister(registration.ID).Wait();
+                await consulClient.Agent.ServiceDeregister(registration.ID);
             });
 
             return app;

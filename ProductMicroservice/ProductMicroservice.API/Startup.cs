@@ -18,6 +18,8 @@ using AutoMapper;
 using ProductMicroservice.API.Infrasrtucture.Automapper;
 using Swashbuckle.AspNetCore.Swagger;
 using FluentValidation.AspNetCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ProductMicroservice.API
 {
@@ -35,6 +37,25 @@ namespace ProductMicroservice.API
             var currentDomain = AppDomain.CurrentDomain;
             var rabbitMQHost = Environment.GetEnvironmentVariable(MicroserviceEnvironmentVariables.Rabbitmq.RABBITMQ_HOST);
             var sqlServerUrl = _configuration.GetConnectionString("SQLServerProductDB");
+            var openApiSecurityScheme = new OpenApiSecurityScheme {
+                Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                Name = "Authorization",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.Http,
+                Scheme = "bearer",
+                BearerFormat = "JWT"
+            };
+            var openApiSecurityRequirement = new OpenApiSecurityRequirement {
+                {
+                    new OpenApiSecurityScheme {
+                        Reference = new OpenApiReference {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer" 
+                        }
+                    }, 
+                    new List<string>()
+                }
+            };
 
             currentDomain.LoadAssemblies(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], _configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME]);
             services.AddControllers(opt => {
@@ -79,6 +100,8 @@ namespace ProductMicroservice.API
             {
                 swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "ProductAPI Documentation" });
                 swagger.AddFluentValidationRules();
+                swagger.AddSecurityDefinition("Bearer", openApiSecurityScheme);
+                swagger.AddSecurityRequirement(openApiSecurityRequirement);
             });
         }
 
@@ -93,7 +116,7 @@ namespace ProductMicroservice.API
 
             app.UseRouting();
 
-            app.UseConsul();
+            app.UseConsul().Wait();
 
             app.UseEndpoints(endpoints =>
             {

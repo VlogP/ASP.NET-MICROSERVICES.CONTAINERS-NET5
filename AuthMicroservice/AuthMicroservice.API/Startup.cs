@@ -19,6 +19,8 @@ using Swashbuckle.AspNetCore.Swagger;
 using AuthMicroservice.DAL.Models;
 using AuthMicroservice.API.Infrastructure.IdentityServer;
 using AuthMicroservice.API.Infrasrtucture.Automapper;
+using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AuthMicroservice.API
 {
@@ -34,6 +36,26 @@ namespace AuthMicroservice.API
         public void ConfigureServices(IServiceCollection services)
         {
             var currentDomain = AppDomain.CurrentDomain;
+            var openApiSecurityScheme = new OpenApiSecurityScheme
+            {
+                Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                Name = "Authorization",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.Http,
+                Scheme = "bearer",
+                BearerFormat = "JWT"
+            };
+            var openApiSecurityRequirement = new OpenApiSecurityRequirement {
+                {
+                    new OpenApiSecurityScheme {
+                        Reference = new OpenApiReference {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    new List<string>()
+                }
+            };
 
             services.AddControllers(opt => {
                 opt.Filters.Add<ControllerExceptionFilter>();
@@ -54,7 +76,7 @@ namespace AuthMicroservice.API
                 {
                     opt.IssuerUri = _configuration[MicroserviceEnvironmentVariables.IdentityServer.ISSUER_URL];
                 })
-                .AddDeveloperSigningCredential()
+                .AddSigningCredential(new X509Certificate2(_configuration[MicroserviceEnvironmentVariables.IdentityServer.CERTIFICATE_PATH], _configuration[MicroserviceEnvironmentVariables.IdentityServer.CERTIFICATE_PASSWORD]))
                 .AddInMemoryApiResources(Config.GetAllApiResources(_configuration))
                 .AddInMemoryApiScopes(Config.GetAllScopes())
                 .AddInMemoryClients(Config.GetClients(_configuration))
@@ -72,6 +94,8 @@ namespace AuthMicroservice.API
             {
                 swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "AuthAPI Documentation" });
                 swagger.AddFluentValidationRules();
+                swagger.AddSecurityDefinition("Bearer", openApiSecurityScheme);
+                swagger.AddSecurityRequirement(openApiSecurityRequirement);
             });
         }
 
