@@ -24,4 +24,9 @@ RUN dotnet publish "./AuthMicroservice.API/AuthMicroservice.API.csproj" -c $ENVI
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+ADD ./AuthMicroservice.API/Certificates/authcredential.pfx /app/Certificates/authcredential.pfx
+ADD ./AuthMicroservice.API/Certificates/authmicroservice.crt /usr/local/share/ca-certificates/authmicroservice.crt
+RUN update-ca-certificates
+
 ENTRYPOINT ["dotnet", "AuthMicroservice.API.dll"]

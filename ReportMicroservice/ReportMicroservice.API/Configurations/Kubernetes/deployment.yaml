@@ -10,12 +10,12 @@ spec:
   selector:
     matchLabels:
       app: reportmicroservice-app
-  replicas: 1
+  replicas: 5
   strategy:
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 1
-      maxUnavailable: 0
+      maxUnavailable: 1
   template:
     metadata:
       labels:
@@ -28,6 +28,10 @@ spec:
       - name: logs-data
         persistentVolumeClaim:
           claimName: logs-pvc
+      initContainers:
+      - name: init-myservice
+        image: busybox:1.28
+        command: ['sh', '-c', "until wget http://consul:8500/v1/status/leader; do echo waiting for consul; sleep 2; done"]
       containers:
       - name: reportmicroservice
         image: vlogp/reportmicroservice:development
@@ -35,11 +39,18 @@ spec:
         envFrom:
           - configMapRef:
               name: dotnet-env-config
+        env:
+          - name: MICROSERVICE_HOST
+            valueFrom:
+                fieldRef:
+                    fieldPath: status.podIP
+          - name: CONSUL_SERVICE_NAME
+            value: "reportmicroservice"
         volumeMounts:
         - mountPath: /https/aspnetapp.pfx
           name: ssl-certificate
           subPath: aspnetapp.pfx
-        - mountPath: /app/Logs/Report
+        - mountPath: /app/Logs
           name: logs-data
         ports:
         - containerPort: 80
@@ -49,5 +60,5 @@ spec:
                 memory: "64Mi"
                 cpu: "50m"
            limits:
-                memory: "256Mi"
-                cpu: "500m"      
+                memory: "512Mi"
+                cpu: "750m"      

@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace APIGateway
 {
@@ -84,7 +85,7 @@ namespace APIGateway
                 });
         }
 
-        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -100,7 +101,7 @@ namespace APIGateway
                 opt.PathToSwaggerGenerator = "/swagger/docs";               
             });
 
-            await app.UseOcelot();     
+            app.UseOcelot().Wait();     
         }
     }
 }

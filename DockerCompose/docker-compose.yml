@@ -18,6 +18,8 @@ services:
       dockerfile: ProductMicroservice.API/Dockerfile
       args:
         ENVIRONMENT: ${ENVIRONMENT}
+    depends_on:
+      - "consul"
   productmicroservice2:
     container_name: productmicroservice2
     image: ${DOCKERHUBID}/productmicroservice:${TAG}
@@ -27,6 +29,8 @@ services:
       dockerfile: ProductMicroservice.API/Dockerfile
       args:
         ENVIRONMENT: ${ENVIRONMENT}
+    depends_on:
+      - "consul"
   reportmicroservice:
     container_name: reportmicroservice
     image: ${DOCKERHUBID}/reportmicroservice:${TAG}
@@ -35,6 +39,28 @@ services:
       dockerfile: ReportMicroservice.API/Dockerfile
       args:
         ENVIRONMENT: ${ENVIRONMENT}
+    depends_on:
+      - "consul"
+  reportmicroservice2:
+    container_name: reportmicroservice2
+    image: ${DOCKERHUBID}/reportmicroservice:${TAG}
+    build:
+      context: ../ReportMicroservice
+      dockerfile: ReportMicroservice.API/Dockerfile
+      args:
+        ENVIRONMENT: ${ENVIRONMENT}
+    depends_on:
+      - "consul"
+  reportmicroservice3:
+    container_name: reportmicroservice3
+    image: ${DOCKERHUBID}/reportmicroservice:${TAG}
+    build:
+      context: ../ReportMicroservice
+      dockerfile: ReportMicroservice.API/Dockerfile
+      args:
+        ENVIRONMENT: ${ENVIRONMENT}
+    depends_on:
+      - "consul"
   authmicroservice:
     container_name: authmicroservice
     image: ${DOCKERHUBID}/authmicroservice:${TAG}
@@ -69,8 +95,5 @@ services:
     depends_on:
       - "prometheus"
   consul:
-    container_name: consul
+    container_name: consul1
     image: consul
-    depends_on:
-      - "productmicroservice"
-      - "productmicroservice2"

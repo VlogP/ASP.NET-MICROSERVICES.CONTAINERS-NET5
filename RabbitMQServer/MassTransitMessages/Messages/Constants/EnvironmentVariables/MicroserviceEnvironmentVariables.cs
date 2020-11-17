@@ -45,6 +45,10 @@ namespace Microservice.Messages.Constants.EnvironmentVariables
             public const string ACCESS_TOKEN_URL = "IdentityServer:AccessTokenUrl";
 
             public const string ISSUER_URL = "IdentityServer:IssuerUrl";
+
+            public const string CERTIFICATE_PATH = "IdentityServer:CertificatePath";
+
+            public const string CERTIFICATE_PASSWORD = "IdentityServer:CertificatePassword";
         }
 
         public static class CONSUL
