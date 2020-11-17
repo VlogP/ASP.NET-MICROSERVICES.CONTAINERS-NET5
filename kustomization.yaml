@@ -12,7 +12,7 @@ configMapGenerator:
 - name: dotnet-env-config
   namespace: microservice
   literals:
-  - RABBITMQ_HOST="rabbitmq://rabbitmq-headless-service.rabbits"
+  - RABBITMQ_HOST="rabbitmq-headless-service.rabbits"
   - ASPNETCORE_ENVIRONMENT="Development"
   - ASPNETCORE_Kestrel__Certificates__Default__Password="12345"
   - ASPNETCORE_Kestrel__Certificates__Default__Path="/https/aspnetapp.pfx"
@@ -27,5 +27,5 @@ resources:
 - ./APIgateway/Configurations/Kubernetes/service.yaml
 - ./AuthMicroservice/AuthMicroservice.API/Configurations/Kubernetes/service.yaml
 - ./AuthMicroservice/AuthMicroservice.API/Configurations/Kubernetes/deployment.yaml
-- ./Consul/service.yaml
-- ./Consul/deployment.yaml
+- ./Consul/Kubernetes/service.yaml
+- ./Consul/Kubernetes/deployment.yaml

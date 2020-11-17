@@ -56,21 +56,22 @@ namespace ProductMicroservice.BLL.Services.Classes
             var productRepository = _unitOfWork.GetRepository<IProductRepository>();
             List<TestMessageResponse> list = new List<TestMessageResponse>();
 
-            for(var index = 0; index <= 10; index++)
-            {
-                await _publishEndpoint.Publish(new TestMessagePublish { 
-                    Id = Guid.NewGuid(),
-                    Text = "TestText",
-                    Value = 5                             
-                });
-            }
-
-            for (var index = 0; index <= 10; index++)
+            for (var index = 0; index < 1; index++)
             {
                 var response = await _client.GetResponse<OperationResult<TestMessageResponse>>(new TestMessageRequest { Text = index.ToString() });
 
                 list.Add(response.Message.Data);
             }
+     
+            Parallel.For(1, 1000, async index =>
+            {
+                await _publishEndpoint.Publish(new TestMessagePublish
+                {
+                    Id = Guid.NewGuid(),
+                    Text = "TestText",
+                    Value = index
+                });
+            });
 
             var productsResult = productRepository.Get();
             var resultData = new OperationResult<List<ProductDTO>>

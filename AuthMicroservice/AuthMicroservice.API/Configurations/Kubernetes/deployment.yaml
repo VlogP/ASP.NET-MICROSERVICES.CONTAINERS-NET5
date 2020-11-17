@@ -39,7 +39,7 @@ spec:
         - mountPath: /https/aspnetapp.pfx
           name: ssl-certificate
           subPath: aspnetapp.pfx
-        - mountPath: /app/Logs/Auth
+        - mountPath: /app/Logs
           name: logs-data
         ports:
         - containerPort: 80
