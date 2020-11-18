@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TempateMicroservice.BLL.Models.DTO;
 using TempateMicroservice.DAL.Models;
+using TempateMicroservice.DAL.Models.SQLServer;
 
 namespace TempateMicroservice.API.Infrastructure.Automapper
 {

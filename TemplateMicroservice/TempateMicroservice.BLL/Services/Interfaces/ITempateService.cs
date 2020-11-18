@@ -1,9 +1,7 @@
 ﻿using Microservice.Messages.Infrastructure.OperationResult;
-using TempateMicroservice.DAL.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using TempateMicroservice.DAL.Models.SQLServer;
 
 namespace TempateMicroservice.BLL.Services.Interfaces
 {

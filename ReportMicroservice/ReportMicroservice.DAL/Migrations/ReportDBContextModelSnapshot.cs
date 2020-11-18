@@ -3,12 +3,11 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ReportMicroservice.DAL.Models;
+using ReportMicroservice.DAL.Models.SQLServer;
 
 namespace ReportMicroservice.DAL.Migrations
 {
-    [DbContext(typeof(ReportDBContext))]
+    [DbContext(typeof(ReportSQLServerDBContext))]
     partial class ReportDBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -19,7 +18,7 @@ namespace ReportMicroservice.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ReportMicroservice.DAL.Models.Report", b =>
+            modelBuilder.Entity("ReportMicroservice.DAL.Models.SQLServer.Report", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata minClientVersion="2.12">
     <id>Microservice.Messages</id>
-    <version>1.4.5</version>
+    <version>1.5.2</version>
     <title>MassTransit messages</title>
     <authors>Vladislav</authors>
     <owners>Vladislav</owners>
@@ -17,6 +17,7 @@
 			<dependency id="Microsoft.EntityFrameworkCore" version="5.0.0" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="5.0.0" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.Extensions.Hosting.Abstractions" version="5.0.0" exclude="Build,Analyzers" />
+			<dependency id="MongoDB.Driver" version="2.11.4" exclude="Build,Analyzers" />
 			<dependency id="System.ComponentModel.Annotations" version="5.0.0" exclude="Build,Analyzers" />
 		</group>
 	</dependencies>	

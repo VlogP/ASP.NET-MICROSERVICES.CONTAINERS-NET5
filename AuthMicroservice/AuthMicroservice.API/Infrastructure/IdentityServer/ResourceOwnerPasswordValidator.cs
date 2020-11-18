@@ -5,8 +5,8 @@ using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microservice.Messages.Infrastructure.UnitofWork;
-using AuthMicroservice.DAL.Repositories.Interfaces;
 using Microservice.Messages.Infrastructure.OperationResult;
+using AuthMicroservice.DAL.Repositories.SQLServer.Interfaces;
 
 namespace AuthMicroservice.API.Infrastructure.IdentityServer
 {
@@ -23,7 +23,7 @@ namespace AuthMicroservice.API.Infrastructure.IdentityServer
         {
             try
             {
-                var userRepository = _unitOfWork.GetRepository<IUserRepository>();
+                var userRepository = _unitOfWork.GetRepository<IUserSQLServerRepository>();
                 var user = userRepository
                     .GetUserWithRole(context.UserName, context.Password);
 
