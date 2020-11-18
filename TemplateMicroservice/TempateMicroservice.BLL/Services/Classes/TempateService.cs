@@ -2,8 +2,6 @@
 using MassTransit;
 using MassTransit.Audit;
 using Microservice.Messages.Messages.Test;
-using TempateMicroservice.DAL.Models;
-using TempateMicroservice.DAL.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microservice.Messages.Infrastructure.OperationResult;
 using Microservice.Messages.Infrastructure.UnitofWork;
-using TempateMicroservice.DAL.Repositories.Classes;
+using TempateMicroservice.DAL.Models.SQLServer;
+using TempateMicroservice.DAL.Repositories.SQLServer.Interfaces;
 
 namespace TempateMicroservice.BLL.Services.Classes
 {
@@ -30,7 +29,7 @@ namespace TempateMicroservice.BLL.Services.Classes
 
         public OperationResult<object> Add(TemplateModel product)
         {
-            var productRepository = _unitOfWork.GetRepository<ITempateRepository>();
+            var productRepository = _unitOfWork.GetRepository<ITempateSQLServerRepository>();
 
             var dataResult = productRepository.Add(product);
             _unitOfWork.Save();
@@ -46,7 +45,7 @@ namespace TempateMicroservice.BLL.Services.Classes
 
         async public Task<OperationResult<List<TemplateModel>>> GetAll()
         {
-            var productRepository = _unitOfWork.GetRepository<ITempateRepository>();
+            var productRepository = _unitOfWork.GetRepository<ITempateSQLServerRepository>();
             List<TestMessageResponse> list = new List<TestMessageResponse>();
 
             for(var index = 0; index <= 10; index++)

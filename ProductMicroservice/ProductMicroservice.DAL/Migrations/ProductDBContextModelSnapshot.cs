@@ -3,12 +3,11 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProductMicroservice.DAL.Models;
+using ProductMicroservice.DAL.Models.SQLServer;
 
 namespace ProductMicroservice.DAL.Migrations
 {
-    [DbContext(typeof(ProductDBContext))]
+    [DbContext(typeof(ProductSQLServerDBContext))]
     partial class ProductDBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -19,7 +18,7 @@ namespace ProductMicroservice.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ProductMicroservice.DAL.Models.Product", b =>
+            modelBuilder.Entity("ProductMicroservice.DAL.Models.SQLServer.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

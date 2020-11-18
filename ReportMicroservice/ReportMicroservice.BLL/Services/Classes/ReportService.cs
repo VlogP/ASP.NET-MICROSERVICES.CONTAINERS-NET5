@@ -3,9 +3,8 @@ using Microservice.Messages.Infrastructure.OperationResult;
 using Microservice.Messages.Infrastructure.UnitofWork;
 using ReportMicroservice.BLL.Models.DTO;
 using ReportMicroservice.BLL.Services.Interfaces;
-using ReportMicroservice.DAL.Models;
-using ReportMicroservice.DAL.Repositories.Classes;
-using ReportMicroservice.DAL.Repositories.Interfaces;
+using ReportMicroservice.DAL.Models.SQLServer;
+using ReportMicroservice.DAL.Repositories.Interfaces.SQLServer;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -26,7 +25,7 @@ namespace ReportMicroservice.BLL.Services.Classes
         public OperationResult<ReportDTO> Add(ReportDTO newReport)
         {
             newReport.Id = Guid.NewGuid();
-            var reportRepository = _unitOfWork.GetRepository<IReportRepository>();
+            var reportRepository = _unitOfWork.GetRepository<IReportSQLServerRepository>();
             var report = _mapper.Map<Report>(newReport);
 
             var dataResult = reportRepository.Add(report);
@@ -44,7 +43,7 @@ namespace ReportMicroservice.BLL.Services.Classes
 
         public OperationResult<List<ReportDTO>> GetAll()
         {
-            var reportRepository = _unitOfWork.GetRepository<IReportRepository>();
+            var reportRepository = _unitOfWork.GetRepository<IReportSQLServerRepository>();
 
             var reportData = reportRepository.Get();
             var result = new OperationResult<List<ReportDTO>>

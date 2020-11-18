@@ -16,11 +16,11 @@ using Microservice.Messages.Infrastructure.UnitofWork;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using Swashbuckle.AspNetCore.Swagger;
-using AuthMicroservice.DAL.Models;
 using AuthMicroservice.API.Infrastructure.IdentityServer;
 using AuthMicroservice.API.Infrasrtucture.Automapper;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using AuthMicroservice.DAL.Models.SQLServer;
 
 namespace AuthMicroservice.API
 {
@@ -66,7 +66,7 @@ namespace AuthMicroservice.API
                 fv.RegisterValidatorsFromAssemblyContaining<Startup>();
             });
 
-            services.AddDbContext<AuthDBContext>(o => {
+            services.AddDbContext<AuthSQLServerDbContext>(o => {
                 o.UseSqlServer(_configuration.GetConnectionString("SQLServerAuthDB"));
             });
 
@@ -85,7 +85,7 @@ namespace AuthMicroservice.API
             services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
             services.AddTransient<IProfileService, ProfileService>();
 
-            services.AddScoped<IUnitOfWork, UnitOfWork<AuthDBContext>>();
+            services.AddScoped<IUnitOfWork, UnitOfWork<AuthSQLServerDbContext>>();
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
             services.AddAutoMapper(typeof(AutomapperProfile));

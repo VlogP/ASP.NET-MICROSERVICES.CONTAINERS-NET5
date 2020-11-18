@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ProductMicroservice.BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using ProductMicroservice.BLL.Models.DTO;
 using ProductMicroservice.API.Models;
 using Microservice.Messages.Infrastructure.OperationResult;
@@ -17,7 +13,7 @@ namespace ProductMicroservice.API.Controllers
     {
         private readonly IProductService _productService;
 
-        public ProductController(ILogger<ProductController> logger, IProductService productService)
+        public ProductController(IProductService productService)
         {
             _productService = productService;
         }

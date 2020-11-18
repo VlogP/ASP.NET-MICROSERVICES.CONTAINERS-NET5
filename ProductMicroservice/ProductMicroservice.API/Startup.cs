@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using ProductMicroservice.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microservice.Messages.Constants.EnvironmentVariables;
 using Microsoft.OpenApi.Models;
@@ -19,7 +18,8 @@ using ProductMicroservice.API.Infrasrtucture.Automapper;
 using Swashbuckle.AspNetCore.Swagger;
 using FluentValidation.AspNetCore;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using ProductMicroservice.DAL.Models.SQLServer;
+using ProductMicroservice.DAL.Models.Mongo;
 
 namespace ProductMicroservice.API
 {
@@ -62,16 +62,16 @@ namespace ProductMicroservice.API
                 opt.Filters.Add<ControllerExceptionFilter>();
                 opt.Filters.Add<ControllerActionFilter>();
                 opt.Filters.Add<ControllerResultFilter>();
-            }).AddFluentValidation(fv =>
-            {
+            }).AddFluentValidation(fv => {
                 fv.RegisterValidatorsFromAssemblyContaining<Startup>();
             });
 
-            services.AddDbContext<ProductDBContext>(o => {
+            services.AddDbContext<ProductSQLServerDBContext>(o => {
                 o.UseSqlServer(sqlServerUrl);
             });
+            services.AddMongoDbContext<ProductMongoDBContext>(_configuration.GetConnectionString("MongoProductDB"));
 
-            services.AddScoped<IUnitOfWork, UnitOfWork<ProductDBContext>>();
+            services.AddScoped<IUnitOfWork, UnitOfWork<ProductSQLServerDBContext>>();
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
             services.AddAutoMapper(typeof(AutomapperProfile));

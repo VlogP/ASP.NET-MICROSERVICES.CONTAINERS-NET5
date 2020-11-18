@@ -1,6 +1,6 @@
 ﻿using AuthMicroservice.BLL.Models.DTO.User;
 using AuthMicroservice.BLL.Services.Interfaces;
-using AuthMicroservice.DAL.Repositories.Interfaces;
+using AuthMicroservice.DAL.Repositories.SQLServer.Interfaces;
 using AutoMapper;
 using Microservice.Messages.Infrastructure.OperationResult;
 using Microservice.Messages.Infrastructure.UnitofWork;
@@ -23,7 +23,7 @@ namespace AuthMicroservice.BLL.Services.Classes
 
         public OperationResult<List<UserDTO>> GetUsers()
         {
-            var userRepository = _unitOfWork.GetRepository<IUserRepository>();
+            var userRepository = _unitOfWork.GetRepository<IUserSQLServerRepository>();
             var usersResult = userRepository.GetUsersWithRole();
 
             var result = new OperationResult<List<UserDTO>>

@@ -95,5 +95,5 @@ services:
     depends_on:
       - "prometheus"
   consul:
-    container_name: consul1
+    container_name: consul
     image: consul

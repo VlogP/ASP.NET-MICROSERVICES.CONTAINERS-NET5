@@ -3,8 +3,8 @@ using AuthMicroservice.BLL.Models.User;
 using AuthMicroservice.BLL.Services.Interfaces;
 using AuthMicroservice.DAL.Infrastructure.Enums;
 using AuthMicroservice.DAL.Infrastructure.PasswordHasher;
-using AuthMicroservice.DAL.Models;
-using AuthMicroservice.DAL.Repositories.Interfaces;
+using AuthMicroservice.DAL.Models.SQLServer;
+using AuthMicroservice.DAL.Repositories.SQLServer.Interfaces;
 using AutoMapper;
 using IdentityModel.Client;
 using MailKit.Net.Smtp;
@@ -42,7 +42,7 @@ namespace AuthMicroservice.BLL.Services.Classes
             var isTokenReceived = false;
             var errorsList = new List<string>();
             var result = new OperationResult<string>();
-            var userRepository = _unitOfWork.GetRepository<IUserRepository>();
+            var userRepository = _unitOfWork.GetRepository<IUserSQLServerRepository>();
 
             var dataResult = userRepository
                 .GetUserWithRole(userInfo.Email, userInfo.Password);
@@ -88,7 +88,7 @@ namespace AuthMicroservice.BLL.Services.Classes
         
         public async Task<OperationResult<UserDTO>> Add(UserRegister newUser)
         {
-            var userRepository = _unitOfWork.GetRepository<IUserRepository>();
+            var userRepository = _unitOfWork.GetRepository<IUserSQLServerRepository>();
             var isUserExist = userRepository.Get(element => element.Email.Equals(newUser.Email)).Data.Count != 0;
             var result = new OperationResult<UserDTO>();
 
@@ -131,7 +131,7 @@ namespace AuthMicroservice.BLL.Services.Classes
 
         public OperationResult<object> ActivateUser(string activationCode, string activationEmail)
         {
-            var userRepository = _unitOfWork.GetRepository<IUserRepository>();
+            var userRepository = _unitOfWork.GetRepository<IUserSQLServerRepository>();
             var result = new OperationResult<object>();
 
             var userResult = userRepository.Get(item => item.Email.Equals(activationEmail));

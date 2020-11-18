@@ -13,10 +13,12 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.4" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Infrastructure\BaseRepository\MongoBaseRepository\" />
     <Folder Include="Infrastructure\Exceptions\" />
     <Folder Include="Infrastructure\UnitOfWork\" />
   </ItemGroup>

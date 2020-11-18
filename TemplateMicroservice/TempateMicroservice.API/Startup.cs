@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using TempateMicroservice.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microservice.Messages.Constants.EnvironmentVariables;
 using Microsoft.OpenApi.Models;
@@ -18,6 +17,7 @@ using AutoMapper;
 using TempateMicroservice.API.Infrastructure.Automapper;
 using Swashbuckle.AspNetCore.Swagger;
 using FluentValidation.AspNetCore;
+using TempateMicroservice.DAL.Models.SQLServer;
 
 namespace TempateMicroservice.API
 {
@@ -46,11 +46,11 @@ namespace TempateMicroservice.API
                 fv.RegisterValidatorsFromAssemblyContaining<Startup>();
             });
 
-            services.AddDbContext<TemplateDBContext>(o => {
+            services.AddDbContext<TemplateSQLServerDBContext>(o => {
                 o.UseSqlServer(sqlServerUrl);
             });
 
-            services.AddScoped<IUnitOfWork, UnitOfWork<TemplateDBContext>>();
+            services.AddScoped<IUnitOfWork, UnitOfWork<TemplateSQLServerDBContext>>();
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
             services.AddAutoMapper(typeof(AutomapperProfile));

@@ -17,6 +17,7 @@ using ReportMicroservice.API.Infrasrtucture.Automapper;
 using ReportMicroservice.BLL.Consumers;
 using ReportMicroservice.BLL.ResponseConsumers;
 using ReportMicroservice.DAL.Models;
+using ReportMicroservice.DAL.Models.SQLServer;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
@@ -70,11 +71,11 @@ namespace ReportMicroservice.API
                 fv.RegisterValidatorsFromAssemblyContaining<Startup>();
             });
 
-            services.AddDbContext<ReportDBContext>(o => {
+            services.AddDbContext<ReportSQLServerDBContext>(o => {
                 o.UseSqlServer(sqlServerUrl);            
             });
 
-            services.AddScoped<IUnitOfWork,UnitOfWork<ReportDBContext>>();
+            services.AddScoped<IUnitOfWork,UnitOfWork<ReportSQLServerDBContext>>();
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
             services.AddAutoMapper(typeof(AutomapperProfile));
