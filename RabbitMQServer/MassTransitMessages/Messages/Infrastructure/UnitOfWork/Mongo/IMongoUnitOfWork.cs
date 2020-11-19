@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microservice.Messages.Infrastructure.UnitofWork
+namespace Microservice.Messages.Infrastructure.UnitofWork.Mongo
 {
-    public interface IUnitOfWork
+    public interface IMongoUnitOfWork
     {
+        public void CreateSession();
+
+        public Task CreateSessionAsync();
+
+        public void CloseSession();
+
+        public Task CloseSessionAsync();
+
         public void CreateTransaction();
 
         public Task CreateTransactionAsync();
@@ -14,10 +22,6 @@ namespace Microservice.Messages.Infrastructure.UnitofWork
         public void Rollback();
 
         public Task RollbackAsync();
-
-        public void Save();
-
-        public Task SaveAsync();
 
         public TRepository GetRepository<TRepository>() where TRepository : class;
     }

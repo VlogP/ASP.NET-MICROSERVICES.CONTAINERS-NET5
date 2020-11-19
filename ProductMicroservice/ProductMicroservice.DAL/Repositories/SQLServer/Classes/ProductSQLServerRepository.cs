@@ -4,10 +4,10 @@ using ProductMicroservice.DAL.Repositories.SQLServer.Interfaces;
 
 namespace ProductMicroservice.DAL.Repositories.SQLServer.Classes
 {
-    public class ProductSQLServerRepository : SQLBaseRepository<ProductSQLServerDBContext, Product>, IProductSQLServerRepository
+    public class ProductSQLServerRepository : SQLBaseRepository<ProductSQLServerDbContext, Product>, IProductSQLServerRepository
     {
 
-        public ProductSQLServerRepository(ProductSQLServerDBContext context) : base(context)
+        public ProductSQLServerRepository(ProductSQLServerDbContext context) : base(context)
         {
         }
 

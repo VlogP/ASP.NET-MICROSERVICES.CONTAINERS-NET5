@@ -8,7 +8,7 @@ using ProductMicroservice.DAL.Models.SQLServer;
 
 namespace ProductMicroservice.DAL.Migrations
 {
-    [DbContext(typeof(ProductSQLServerDBContext))]
+    [DbContext(typeof(ProductSQLServerDbContext))]
     [Migration("20200626214335_Initial")]
     partial class Initial
     {

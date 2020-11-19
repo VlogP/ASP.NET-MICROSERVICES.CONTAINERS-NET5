@@ -5,9 +5,9 @@ using System.Text;
 
 namespace ProductMicroservice.DAL.Models.SQLServer
 {
-    public class ProductSQLServerDBContext : DbContext
+    public class ProductSQLServerDbContext : DbContext
     {
-        public ProductSQLServerDBContext(DbContextOptions<ProductSQLServerDBContext> options) : base(options)
+        public ProductSQLServerDbContext(DbContextOptions<ProductSQLServerDbContext> options) : base(options)
         {
         }
 

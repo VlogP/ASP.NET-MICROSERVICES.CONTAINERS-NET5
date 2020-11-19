@@ -7,7 +7,7 @@ using ProductMicroservice.DAL.Models.SQLServer;
 
 namespace ProductMicroservice.DAL.Migrations
 {
-    [DbContext(typeof(ProductSQLServerDBContext))]
+    [DbContext(typeof(ProductSQLServerDbContext))]
     partial class ProductDBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

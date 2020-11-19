@@ -1,9 +1,15 @@
-﻿using ProductMicroservice.DAL.Repositories.Mongo.Interfaces;
+﻿using Microservice.Messages.Infrastructure.BaseRepository.MongoBaseRepository;
+using ProductMicroservice.DAL.Models.Mongo;
+using ProductMicroservice.DAL.Repositories.Mongo.Interfaces;
 
 
 namespace ProductMicroservice.DAL.Repositories.Mongo.Classes
 {
-    public class ProductMongoRepository : IProductMongoRepository
+    public class ProductMongoRepository : MongoBaseRepository<ProductMongoDbContext, Product>, IProductMongoRepository
     {
+        public ProductMongoRepository(ProductMongoDbContext context) : base(context)
+        {
+
+        }
     }
 }
