@@ -18,9 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Infrastructure\BaseRepository\MongoBaseRepository\" />
     <Folder Include="Infrastructure\Exceptions\" />
-    <Folder Include="Infrastructure\UnitOfWork\" />
   </ItemGroup>
 
 </Project>
