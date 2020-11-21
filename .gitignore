@@ -8,13 +8,13 @@
 
 # MyProject-specific files
 *.nupkg
-RabbitMQServer/RabbitMQData/RabbitMQServer/data/
-RabbitMQServer/RabbitMQData/RabbitMQNode1/data/
-RabbitMQServer/RabbitMQData/RabbitMQNode2/data/
+RabbitMQServer/RabbitMQServer/data/
+RabbitMQServer/RabbitMQNode1/data/
+RabbitMQServer/RabbitMQNode2/data/
 
-RabbitMQServer/RabbitMQData/RabbitMQServer/logs/
-RabbitMQServer/RabbitMQData/RabbitMQNode1/logs/
-RabbitMQServer/RabbitMQData/RabbitMQNode2/logs/
+RabbitMQServer/RabbitMQServer/logs/
+RabbitMQServer/RabbitMQNode1/logs/
+RabbitMQServer/RabbitMQNode2/logs/
 
 # Build results
 
