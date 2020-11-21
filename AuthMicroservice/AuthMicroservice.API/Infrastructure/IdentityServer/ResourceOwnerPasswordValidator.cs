@@ -4,26 +4,26 @@ using IdentityServer4.Validation;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microservice.Messages.Infrastructure.UnitofWork;
-using Microservice.Messages.Infrastructure.OperationResult;
+using Microservice.Core.Infrastructure.OperationResult;
 using AuthMicroservice.DAL.Repositories.SQLServer.Interfaces;
+using Microservice.Core.Infrastructure.UnitofWork.SQL;
 
 namespace AuthMicroservice.API.Infrastructure.IdentityServer
 {
     public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ISQLUnitOfWork _sqlUnitOfWork;
 
-        public ResourceOwnerPasswordValidator(IUnitOfWork unitOfWork)
+        public ResourceOwnerPasswordValidator(ISQLUnitOfWork sqlUnitOfWork)
         {
-            _unitOfWork = unitOfWork;
+            _sqlUnitOfWork = sqlUnitOfWork;
         }
 
         public async Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {
             try
             {
-                var userRepository = _unitOfWork.GetRepository<IUserSQLServerRepository>();
+                var userRepository = _sqlUnitOfWork.GetRepository<IUserSQLServerRepository>();
                 var user = userRepository
                     .GetUserWithRole(context.UserName, context.Password);
 

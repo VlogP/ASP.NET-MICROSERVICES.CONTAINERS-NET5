@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microservice.Messages.Constants.EnvironmentVariables;
+using Microservice.Core.Constants.EnvironmentVariables;
 using Microsoft.OpenApi.Models;
 using MassTransit;
 using System;
-using Microservice.Messages.Messages.Test;
-using Microservice.Messages.Enums;
-using Microservice.Messages.Infrastructure.Extensions;
-using Microservice.Messages.Infrastructure.Filters;
+using Microservice.Core.Messages.Test;
+using Microservice.Core.Enums;
+using Microservice.Core.Infrastructure.Extensions;
+using Microservice.Core.Infrastructure.Filters;
 using AutoMapper;
 using ProductMicroservice.API.Infrasrtucture.Automapper;
 using Swashbuckle.AspNetCore.Swagger;
@@ -19,8 +19,8 @@ using FluentValidation.AspNetCore;
 using System.Collections.Generic;
 using ProductMicroservice.DAL.Models.SQLServer;
 using ProductMicroservice.DAL.Models.Mongo;
-using Microservice.Messages.Infrastructure.UnitofWork.SQL;
-using Microservice.Messages.Infrastructure.UnitofWork.Mongo;
+using Microservice.Core.Infrastructure.UnitofWork.SQL;
+using Microservice.Core.Infrastructure.UnitofWork.Mongo;
 
 namespace ProductMicroservice.API
 {

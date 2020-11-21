@@ -1,5 +1,5 @@
 ﻿using AuthMicroservice.BLL.Models.DTO.User;
-using Microservice.Messages.Infrastructure.OperationResult;
+using Microservice.Core.Infrastructure.OperationResult;
 using System;
 using System.Collections.Generic;
 using System.Text;

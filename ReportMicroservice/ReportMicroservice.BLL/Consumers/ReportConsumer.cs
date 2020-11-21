@@ -1,5 +1,5 @@
 ﻿using MassTransit;
-using Microservice.Messages.Messages.Test;
+using Microservice.Core.Messages.Test;
 using System;
 using System.Collections.Generic;
 using System.Text;

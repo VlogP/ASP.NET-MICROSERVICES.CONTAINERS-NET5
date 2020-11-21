@@ -1,4 +1,4 @@
-﻿using Microservice.Messages.Infrastructure.OperationResult;
+﻿using Microservice.Core.Infrastructure.OperationResult;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ReportMicroservice.API.Models;

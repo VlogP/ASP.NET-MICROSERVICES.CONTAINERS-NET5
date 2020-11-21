@@ -1,4 +1,4 @@
-﻿using Microservice.Messages.Infrastructure.Mongo.DependencyInjection;
+﻿using Microservice.Core.Infrastructure.Mongo.DependencyInjection;
 using MongoDB.Driver;
 
 namespace ProductMicroservice.DAL.Models.Mongo

@@ -1,6 +1,6 @@
 ﻿using MassTransit;
-using Microservice.Messages.Infrastructure.OperationResult;
-using Microservice.Messages.Messages.Test;
+using Microservice.Core.Infrastructure.OperationResult;
+using Microservice.Core.Messages.Test;
 using System;
 using System.Collections.Generic;
 using System.Text;
