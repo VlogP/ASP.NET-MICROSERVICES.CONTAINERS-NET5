@@ -1,7 +1,7 @@
 ﻿using AuthMicroservice.DAL.Models;
 using AuthMicroservice.DAL.Models.SQLServer;
-using Microservice.Messages.Infrastructure.OperationResult;
-using Microservice.Messages.Infrastructure.SQLBaseRepository;
+using Microservice.Core.Infrastructure.OperationResult;
+using Microservice.Core.Infrastructure.SQLBaseRepository;
 using System.Collections.Generic;
 
 namespace AuthMicroservice.DAL.Repositories.SQLServer.Interfaces

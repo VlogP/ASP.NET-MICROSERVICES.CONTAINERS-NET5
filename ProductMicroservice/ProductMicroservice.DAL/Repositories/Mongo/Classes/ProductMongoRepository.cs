@@ -1,4 +1,4 @@
-﻿using Microservice.Messages.Infrastructure.BaseRepository.MongoBaseRepository;
+﻿using Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository;
 using ProductMicroservice.DAL.Models.Mongo;
 using ProductMicroservice.DAL.Repositories.Mongo.Interfaces;
 

@@ -1,4 +1,4 @@
-﻿using Microservice.Messages.Infrastructure.OperationResult;
+﻿using Microservice.Core.Infrastructure.OperationResult;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TempateMicroservice.DAL.Models.SQLServer;

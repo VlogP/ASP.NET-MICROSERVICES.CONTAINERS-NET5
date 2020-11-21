@@ -1,8 +1,8 @@
 ﻿using AuthMicroservice.DAL.Infrastructure.PasswordHasher;
 using AuthMicroservice.DAL.Models.SQLServer;
 using AuthMicroservice.DAL.Repositories.SQLServer.Interfaces;
-using Microservice.Messages.Infrastructure.OperationResult;
-using Microservice.Messages.Infrastructure.SQLBaseRepository;
+using Microservice.Core.Infrastructure.OperationResult;
+using Microservice.Core.Infrastructure.SQLBaseRepository;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;

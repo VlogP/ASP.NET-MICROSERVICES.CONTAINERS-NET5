@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using AuthMicroservice.BLL.Models.User;
-using Microservice.Messages.Infrastructure.OperationResult;
+using Microservice.Core.Infrastructure.OperationResult;
 using AuthMicroservice.BLL.Models.DTO.User;
 using AuthMicroservice.BLL.Services.Interfaces;
 using System.Web;

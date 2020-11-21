@@ -1,4 +1,4 @@
-﻿using Microservice.Messages.Infrastructure.OperationResult;
+﻿using Microservice.Core.Infrastructure.OperationResult;
 using ReportMicroservice.BLL.Models.DTO;
 using ReportMicroservice.DAL.Models;
 using System;

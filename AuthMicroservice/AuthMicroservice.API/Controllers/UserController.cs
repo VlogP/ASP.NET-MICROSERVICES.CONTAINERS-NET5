@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AuthMicroservice.BLL.Services.Interfaces;
-using Microservice.Messages.Infrastructure.OperationResult;
+using Microservice.Core.Infrastructure.OperationResult;
 using System.Collections.Generic;
 using AuthMicroservice.BLL.Models.DTO.User;
 

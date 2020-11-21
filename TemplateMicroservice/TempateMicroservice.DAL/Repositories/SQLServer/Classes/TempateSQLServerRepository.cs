@@ -1,4 +1,4 @@
-﻿using Microservice.Messages.Infrastructure.SQLBaseRepository;
+﻿using Microservice.Core.Infrastructure.SQLBaseRepository;
 using TempateMicroservice.DAL.Models.SQLServer;
 using TempateMicroservice.DAL.Repositories.SQLServer.Interfaces;
 

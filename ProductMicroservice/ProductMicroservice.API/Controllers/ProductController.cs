@@ -3,7 +3,7 @@ using ProductMicroservice.BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using ProductMicroservice.BLL.Models.DTO;
 using ProductMicroservice.API.Models;
-using Microservice.Messages.Infrastructure.OperationResult;
+using Microservice.Core.Infrastructure.OperationResult;
 
 namespace ProductMicroservice.API.Controllers
 {

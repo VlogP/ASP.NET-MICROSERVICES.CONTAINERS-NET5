@@ -1,5 +1,5 @@
-﻿using Microservice.Messages.Infrastructure.Attributes.Mongo;
-using Microservice.Messages.Infrastructure.Mongo.Models;
+﻿using Microservice.Core.Infrastructure.Attributes.Mongo;
+using Microservice.Core.Infrastructure.Mongo.Models;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;

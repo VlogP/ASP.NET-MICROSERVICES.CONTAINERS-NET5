@@ -1,4 +1,4 @@
-﻿using Microservice.Messages.Infrastructure.SQLBaseRepository;
+﻿using Microservice.Core.Infrastructure.SQLBaseRepository;
 using ReportMicroservice.DAL.Models.SQLServer;
 
 namespace ReportMicroservice.DAL.Repositories.Interfaces.SQLServer

@@ -1,11 +1,11 @@
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using MassTransit;
-using Microservice.Messages.Constants.EnvironmentVariables;
-using Microservice.Messages.Enums;
-using Microservice.Messages.Infrastructure.Extensions;
-using Microservice.Messages.Infrastructure.Filters;
-using Microservice.Messages.Infrastructure.UnitofWork;
+using Microservice.Core.Constants.EnvironmentVariables;
+using Microservice.Core.Enums;
+using Microservice.Core.Infrastructure.Extensions;
+using Microservice.Core.Infrastructure.Filters;
+using Microservice.Core.Infrastructure.UnitofWork.SQL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +16,6 @@ using Microsoft.OpenApi.Models;
 using ReportMicroservice.API.Infrasrtucture.Automapper;
 using ReportMicroservice.BLL.Consumers;
 using ReportMicroservice.BLL.ResponseConsumers;
-using ReportMicroservice.DAL.Models;
 using ReportMicroservice.DAL.Models.SQLServer;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
@@ -75,7 +74,7 @@ namespace ReportMicroservice.API
                 o.UseSqlServer(sqlServerUrl);            
             });
 
-            services.AddScoped<IUnitOfWork,UnitOfWork<ReportSQLServerDBContext>>();
+            services.AddScoped<ISQLUnitOfWork,SQLUnitOfWork<ReportSQLServerDBContext>>();
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
             services.AddAutoMapper(typeof(AutomapperProfile));

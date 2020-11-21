@@ -2,7 +2,7 @@
 using IdentityModel.Client;
 using IdentityServer4;
 using IdentityServer4.Models;
-using Microservice.Messages.Constants.EnvironmentVariables;
+using Microservice.Core.Constants.EnvironmentVariables;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;

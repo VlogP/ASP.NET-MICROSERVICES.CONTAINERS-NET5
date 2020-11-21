@@ -27,5 +27,5 @@ resources:
 - ./APIgateway/Configurations/Kubernetes/service.yaml
 - ./AuthMicroservice/AuthMicroservice.API/Configurations/Kubernetes/service.yaml
 - ./AuthMicroservice/AuthMicroservice.API/Configurations/Kubernetes/deployment.yaml
-- ./Consul/Kubernetes/service.yaml
-- ./Consul/Kubernetes/deployment.yaml
+- ./Kubernetes/Consul/service.yaml
+- ./Kubernetes/Consul/deployment.yaml

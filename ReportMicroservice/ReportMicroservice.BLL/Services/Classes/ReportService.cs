@@ -1,35 +1,34 @@
 ﻿using AutoMapper;
-using Microservice.Messages.Infrastructure.OperationResult;
-using Microservice.Messages.Infrastructure.UnitofWork;
+using Microservice.Core.Infrastructure.OperationResult;
+using Microservice.Core.Infrastructure.UnitofWork.SQL;
 using ReportMicroservice.BLL.Models.DTO;
 using ReportMicroservice.BLL.Services.Interfaces;
 using ReportMicroservice.DAL.Models.SQLServer;
 using ReportMicroservice.DAL.Repositories.Interfaces.SQLServer;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ReportMicroservice.BLL.Services.Classes
 {
     public class ReportService : IReportService
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ISQLUnitOfWork _sqlUnitOfWork;
         private readonly IMapper _mapper;
 
-        public ReportService(IUnitOfWork unitOfWork, IMapper mapper)
+        public ReportService(ISQLUnitOfWork sqlUnitOfWork, IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
+            _sqlUnitOfWork = sqlUnitOfWork;
             _mapper = mapper;
         }
 
         public OperationResult<ReportDTO> Add(ReportDTO newReport)
         {
             newReport.Id = Guid.NewGuid();
-            var reportRepository = _unitOfWork.GetRepository<IReportSQLServerRepository>();
+            var reportRepository = _sqlUnitOfWork.GetRepository<IReportSQLServerRepository>();
             var report = _mapper.Map<Report>(newReport);
 
             var dataResult = reportRepository.Add(report);
-            _unitOfWork.Save();
+            _sqlUnitOfWork.Save();
 
             var result = new OperationResult<ReportDTO>
             {
@@ -43,7 +42,7 @@ namespace ReportMicroservice.BLL.Services.Classes
 
         public OperationResult<List<ReportDTO>> GetAll()
         {
-            var reportRepository = _unitOfWork.GetRepository<IReportSQLServerRepository>();
+            var reportRepository = _sqlUnitOfWork.GetRepository<IReportSQLServerRepository>();
 
             var reportData = reportRepository.Get();
             var result = new OperationResult<List<ReportDTO>>

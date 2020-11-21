@@ -1,16 +1,16 @@
 ﻿using ProductMicroservice.BLL.Services.Interfaces;
 using MassTransit;
-using Microservice.Messages.Messages.Test;
+using Microservice.Core.Messages.Test;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microservice.Messages.Infrastructure.OperationResult;
+using Microservice.Core.Infrastructure.OperationResult;
 using AutoMapper;
 using ProductMicroservice.BLL.Models.DTO;
 using ProductMicroservice.DAL.Repositories.SQLServer.Interfaces;
 using ProductMicroservice.DAL.Models.SQLServer;
-using Microservice.Messages.Infrastructure.UnitofWork.SQL;
-using Microservice.Messages.Infrastructure.UnitofWork.Mongo;
+using Microservice.Core.Infrastructure.UnitofWork.SQL;
+using Microservice.Core.Infrastructure.UnitofWork.Mongo;
 using ProductMicroservice.DAL.Repositories.Mongo.Interfaces;
 
 namespace ProductMicroservice.BLL.Services.Classes

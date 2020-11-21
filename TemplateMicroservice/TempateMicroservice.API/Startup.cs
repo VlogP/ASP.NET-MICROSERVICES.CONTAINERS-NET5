@@ -4,20 +4,20 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microservice.Messages.Constants.EnvironmentVariables;
+using Microservice.Core.Constants.EnvironmentVariables;
 using Microsoft.OpenApi.Models;
 using MassTransit;
 using System;
-using Microservice.Messages.Messages.Test;
-using Microservice.Messages.Enums;
-using Microservice.Messages.Infrastructure.Extensions;
-using Microservice.Messages.Infrastructure.Filters;
-using Microservice.Messages.Infrastructure.UnitofWork;
+using Microservice.Core.Messages.Test;
+using Microservice.Core.Enums;
+using Microservice.Core.Infrastructure.Extensions;
+using Microservice.Core.Infrastructure.Filters;
 using AutoMapper;
 using TempateMicroservice.API.Infrastructure.Automapper;
 using Swashbuckle.AspNetCore.Swagger;
 using FluentValidation.AspNetCore;
 using TempateMicroservice.DAL.Models.SQLServer;
+using Microservice.Core.Infrastructure.UnitofWork.SQL;
 
 namespace TempateMicroservice.API
 {
@@ -50,7 +50,7 @@ namespace TempateMicroservice.API
                 o.UseSqlServer(sqlServerUrl);
             });
 
-            services.AddScoped<IUnitOfWork, UnitOfWork<TemplateSQLServerDBContext>>();
+            services.AddScoped<ISQLUnitOfWork, SQLUnitOfWork<TemplateSQLServerDBContext>>();
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
             services.AddAutoMapper(typeof(AutomapperProfile));
