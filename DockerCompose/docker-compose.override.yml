@@ -80,12 +80,12 @@ services:
       - "15672:15672"
       - "15692:15692"
     volumes:
-      #- ${RABBITPATH}/RabbitMQData/.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie:ro
-      - ${RABBITPATH}/RabbitMQData/RabbitMQServer/plugins/enabled_plugins:/etc/rabbitmq/enabled_plugins
-      - ${RABBITPATH}/RabbitMQData/RabbitMQServer/etc/definitions.json:/etc/rabbitmq/definitions.json
-      - ${RABBITPATH}/RabbitMQData/RabbitMQServer/etc/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
-      - ${RABBITPATH}/RabbitMQData/RabbitMQServer/data:/var/lib/rabbitmq/mnesia/rabbit@rabbitmqserver 
-      - ${RABBITPATH}/RabbitMQData/RabbitMQServer/logs:/var/log/rabbitmq/log
+      #- ${RABBITPATH}/.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie:ro
+      - ${RABBITPATH}/RabbitMQServer/plugins/enabled_plugins:/etc/rabbitmq/enabled_plugins
+      - ${RABBITPATH}/RabbitMQServer/etc/definitions.json:/etc/rabbitmq/definitions.json
+      - ${RABBITPATH}/RabbitMQServer/etc/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+      - ${RABBITPATH}/RabbitMQServer/data:/var/lib/rabbitmq/mnesia/rabbit@rabbitmqserver 
+      - ${RABBITPATH}/RabbitMQServer/logs:/var/log/rabbitmq/log
   rabbitmqnode1:
     env_file:
       - ./Configurations/RabbitMqNode1/.env
@@ -94,12 +94,12 @@ services:
       - "15673:15672"
       - "15693:15692"
     volumes:
-      #- ${RABBITPATH}/RabbitMQData/.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie:ro
-      - ${RABBITPATH}/RabbitMQData/RabbitMQNode1/plugins/enabled_plugins:/etc/rabbitmq/enabled_plugins
-      - ${RABBITPATH}/RabbitMQData/RabbitMQNode1/etc/definitions.json:/etc/rabbitmq/definitions.json
-      - ${RABBITPATH}/RabbitMQData/RabbitMQNode1/etc/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
-      - ${RABBITPATH}/RabbitMQData/RabbitMQNode1/data:/var/lib/rabbitmq/mnesia/rabbit@rabbitmqnode1 
-      - ${RABBITPATH}/RabbitMQData/RabbitMQNode1/logs:/var/log/rabbitmq/log
+      #- ${RABBITPATH}/.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie:ro
+      - ${RABBITPATH}/RabbitMQNode1/plugins/enabled_plugins:/etc/rabbitmq/enabled_plugins
+      - ${RABBITPATH}/RabbitMQNode1/etc/definitions.json:/etc/rabbitmq/definitions.json
+      - ${RABBITPATH}/RabbitMQNode1/etc/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+      - ${RABBITPATH}/RabbitMQNode1/data:/var/lib/rabbitmq/mnesia/rabbit@rabbitmqnode1 
+      - ${RABBITPATH}/RabbitMQNode1/logs:/var/log/rabbitmq/log
   rabbitmqnode2:
     env_file:
       - ./Configurations/RabbitMqNode2/.env
@@ -108,17 +108,17 @@ services:
       - "15674:15672"
       - "15694:15692"
     volumes:
-      #- ${RABBITPATH}/RabbitMQData/.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie:ro
-      - ${RABBITPATH}/RabbitMQData/RabbitMQNode2/plugins/enabled_plugins:/etc/rabbitmq/enabled_plugins
-      - ${RABBITPATH}/RabbitMQData/RabbitMQNode2/etc/definitions.json:/etc/rabbitmq/definitions.json
-      - ${RABBITPATH}/RabbitMQData/RabbitMQNode2/etc/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
-      - ${RABBITPATH}/RabbitMQData/RabbitMQNode2/data:/var/lib/rabbitmq/mnesia/rabbit@rabbitmqnode2 
-      - ${RABBITPATH}/RabbitMQData/RabbitMQNode2/logs:/var/log/rabbitmq/log
+      #- ${RABBITPATH}/.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie:ro
+      - ${RABBITPATH}/RabbitMQNode2/plugins/enabled_plugins:/etc/rabbitmq/enabled_plugins
+      - ${RABBITPATH}/RabbitMQNode2/etc/definitions.json:/etc/rabbitmq/definitions.json
+      - ${RABBITPATH}/RabbitMQNode2/etc/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+      - ${RABBITPATH}/RabbitMQNode2/data:/var/lib/rabbitmq/mnesia/rabbit@rabbitmqnode2 
+      - ${RABBITPATH}/RabbitMQNode2/logs:/var/log/rabbitmq/log
   prometheus:
     ports:
       - "9090:9090"
     volumes:
-      - ${RABBITPATH}/RabbitMQData/Prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ${RABBITPATH}/Prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
   grafana:
     ports:
       - "3000:3000"
