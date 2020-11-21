@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30330.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microservice.Core", "Microservice.Core.csproj", "{E8BFB5A7-AE5B-446C-B5C5-412E0DC50DFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservice.Core.Messages", "..\Microservice.Core.Messages\Microservice.Core.Messages.csproj", "{9E8D9011-75A3-4571-AFE9-2BB13419D199}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E8BFB5A7-AE5B-446C-B5C5-412E0DC50DFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8BFB5A7-AE5B-446C-B5C5-412E0DC50DFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8BFB5A7-AE5B-446C-B5C5-412E0DC50DFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8BFB5A7-AE5B-446C-B5C5-412E0DC50DFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E8D9011-75A3-4571-AFE9-2BB13419D199}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E8D9011-75A3-4571-AFE9-2BB13419D199}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E8D9011-75A3-4571-AFE9-2BB13419D199}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E8D9011-75A3-4571-AFE9-2BB13419D199}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9B7C9E25-89AD-409D-A0EC-E3D9C765E41A}
+	EndGlobalSection
+EndGlobal

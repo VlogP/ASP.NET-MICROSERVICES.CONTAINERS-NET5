@@ -8,19 +8,19 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Microservice.Messages.Infrastructure.Extensions;
-using Microservice.Messages.Constants.EnvironmentVariables;
-using Microservice.Messages.Enums;
-using Microservice.Messages.Infrastructure.Filters;
-using Microservice.Messages.Infrastructure.UnitofWork;
+using Microservice.Core.Infrastructure.Extensions;
+using Microservice.Core.Constants.EnvironmentVariables;
+using Microservice.Core.Enums;
+using Microservice.Core.Infrastructure.Filters;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using Swashbuckle.AspNetCore.Swagger;
-using AuthMicroservice.DAL.Models;
 using AuthMicroservice.API.Infrastructure.IdentityServer;
 using AuthMicroservice.API.Infrasrtucture.Automapper;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using AuthMicroservice.DAL.Models.SQLServer;
+using Microservice.Core.Infrastructure.UnitofWork.SQL;
 
 namespace AuthMicroservice.API
 {
@@ -66,7 +66,7 @@ namespace AuthMicroservice.API
                 fv.RegisterValidatorsFromAssemblyContaining<Startup>();
             });
 
-            services.AddDbContext<AuthDBContext>(o => {
+            services.AddDbContext<AuthSQLServerDbContext>(o => {
                 o.UseSqlServer(_configuration.GetConnectionString("SQLServerAuthDB"));
             });
 
@@ -85,7 +85,7 @@ namespace AuthMicroservice.API
             services.AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>();
             services.AddTransient<IProfileService, ProfileService>();
 
-            services.AddScoped<IUnitOfWork, UnitOfWork<AuthDBContext>>();
+            services.AddScoped<ISQLUnitOfWork, SQLUnitOfWork<AuthSQLServerDbContext>>();
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
             services.AddAutoMapper(typeof(AutomapperProfile));

@@ -4,7 +4,7 @@
     "ServiceDiscoveryProvider": {
       "Host": "consul",
       "Port": 8500,
-      "Type": "PollConsul",
+      "Type": "Consul",
       "PollingInterval": 100
     } 
   }

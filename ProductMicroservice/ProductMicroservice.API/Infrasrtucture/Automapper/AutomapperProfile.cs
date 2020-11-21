@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using ProductMicroservice.BLL.Models.DTO;
-using ProductMicroservice.DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ProductMicroservice.DAL.Models.SQLServer;
 
 namespace ProductMicroservice.API.Infrasrtucture.Automapper
 {

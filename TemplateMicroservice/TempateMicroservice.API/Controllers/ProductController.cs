@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using TempateMicroservice.BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using TempateMicroservice.DAL.Models.SQLServer;
 
 namespace TempateMicroservice.API.Controllers
 {
@@ -33,7 +34,7 @@ namespace TempateMicroservice.API.Controllers
         [HttpPost]
         public ActionResult AddProducts()
         {
-            var result = _productService.Add(new TempateMicroservice.DAL.Models.TemplateModel { Id = Guid.NewGuid(), Name = "Test"});
+            var result = _productService.Add(new TemplateModel { Id = Guid.NewGuid(), Name = "Test"});
 
             return Ok(result);
         }

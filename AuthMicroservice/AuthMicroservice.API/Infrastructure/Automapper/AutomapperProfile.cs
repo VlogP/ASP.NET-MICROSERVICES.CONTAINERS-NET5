@@ -1,6 +1,7 @@
 ﻿using AuthMicroservice.BLL.Models.DTO.User;
 using AuthMicroservice.BLL.Models.User;
 using AuthMicroservice.DAL.Models;
+using AuthMicroservice.DAL.Models.SQLServer;
 using AutoMapper;
 
 namespace AuthMicroservice.API.Infrasrtucture.Automapper

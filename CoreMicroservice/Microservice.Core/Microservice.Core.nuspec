@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata minClientVersion="2.12">
+    <id>Microservice.Core.SDK</id>
+    <version>1.0.0</version>
+    <title>Microservice SDK</title>
+    <authors>Vladislav</authors>
+    <owners>Vladislav</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Microservice SDK</description>
+	<dependencies>
+		<group targetFramework=".NETStandard2.1">
+			<dependency id="Consul" version="1.6.1.1" exclude="Build,Analyzers" />
+			<dependency id="MassTransit.Extensions.DependencyInjection" version="7.0.6" exclude="Build,Analyzers" />
+			<dependency id="Microsoft.AspNetCore.Mvc.Abstractions" version="2.2.0" exclude="Build,Analyzers" />
+			<dependency id="Microsoft.AspNetCore.Mvc.Core" version="2.2.5" exclude="Build,Analyzers" />
+			<dependency id="Microsoft.EntityFrameworkCore" version="5.0.0" exclude="Build,Analyzers" />
+			<dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="5.0.0" exclude="Build,Analyzers" />
+			<dependency id="Microsoft.Extensions.Hosting.Abstractions" version="5.0.0" exclude="Build,Analyzers" />
+			<dependency id="MongoDB.Driver" version="2.11.4" exclude="Build,Analyzers" />
+			<dependency id="System.ComponentModel.Annotations" version="5.0.0" exclude="Build,Analyzers" />
+		</group>
+	</dependencies>	
+  </metadata>
+  <files>
+    <file src="bin\Release\netstandard2.1\Microservice.Core.dll" target="lib\netstandard2.1\Microservice.Core.dll" />
+	<file src="..\Microservice.Core.Messages\bin\Release\netstandard2.1\Microservice.Core.Messages.dll" target="lib\netstandard2.1\Microservice.Core.Messages.dll" />
+  </files>
+</package>

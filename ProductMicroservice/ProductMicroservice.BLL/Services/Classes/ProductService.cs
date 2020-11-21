@@ -1,19 +1,17 @@
 ﻿using ProductMicroservice.BLL.Services.Interfaces;
 using MassTransit;
-using MassTransit.Audit;
-using Microservice.Messages.Messages.Test;
-using ProductMicroservice.DAL.Models;
-using ProductMicroservice.DAL.Repositories.Interfaces;
+using Microservice.Core.Messages.Test;
 using System;
 using System.Collections.Generic;
-
-using System.Text;
 using System.Threading.Tasks;
-using Microservice.Messages.Infrastructure.OperationResult;
-using ProductMicroservice.DAL.Repositories.Classes;
-using Microservice.Messages.Infrastructure.UnitofWork;
+using Microservice.Core.Infrastructure.OperationResult;
 using AutoMapper;
 using ProductMicroservice.BLL.Models.DTO;
+using ProductMicroservice.DAL.Repositories.SQLServer.Interfaces;
+using ProductMicroservice.DAL.Models.SQLServer;
+using Microservice.Core.Infrastructure.UnitofWork.SQL;
+using Microservice.Core.Infrastructure.UnitofWork.Mongo;
+using ProductMicroservice.DAL.Repositories.Mongo.Interfaces;
 
 namespace ProductMicroservice.BLL.Services.Classes
 {
@@ -21,25 +19,30 @@ namespace ProductMicroservice.BLL.Services.Classes
     {
         private readonly IPublishEndpoint _publishEndpoint;
         private readonly IRequestClient<TestMessageRequest> _client;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ISQLUnitOfWork _sqlUnitOfWork;
+        private readonly IMongoUnitOfWork _mongoUnitOfWork;
         private readonly IMapper _mapper;
 
-        public ProductService(IPublishEndpoint publishEndpoint, IRequestClient<TestMessageRequest> client, IUnitOfWork unitOfWork, IMapper mapper)
+        public ProductService(IPublishEndpoint publishEndpoint, IRequestClient<TestMessageRequest> client, ISQLUnitOfWork unitOfWork, IMapper mapper, IMongoUnitOfWork mongoUnitOfWork)
         {
             _publishEndpoint = publishEndpoint;
             _client = client;
-            _unitOfWork = unitOfWork;
+            _sqlUnitOfWork = unitOfWork;
             _mapper = mapper;
+            _mongoUnitOfWork = mongoUnitOfWork;
         }
 
         public OperationResult<ProductDTO> Add(ProductDTO newProduct)
         {
             newProduct.Id = Guid.NewGuid();
-            var productRepository = _unitOfWork.GetRepository<IProductRepository>();
+            var sqlProductRepository = _sqlUnitOfWork.GetRepository<IProductSQLServerRepository>();
+            var mongoProductRepository = _mongoUnitOfWork.GetRepository<IProductMongoRepository>();
+            var testMongo = mongoProductRepository.Get(item => true);
+
             var product = _mapper.Map<Product>(newProduct);
 
-            var dataResult = productRepository.Add(product);
-            _unitOfWork.Save();
+            var dataResult = sqlProductRepository.Add(product);
+            _sqlUnitOfWork.Save();
 
             var result = new OperationResult<ProductDTO>()
             {
@@ -53,19 +56,18 @@ namespace ProductMicroservice.BLL.Services.Classes
 
         async public Task<OperationResult<List<ProductDTO>>> GetAll()
         {
-            var productRepository = _unitOfWork.GetRepository<IProductRepository>();
+            var productRepository = _sqlUnitOfWork.GetRepository<IProductSQLServerRepository>();
             List<TestMessageResponse> list = new List<TestMessageResponse>();
 
             for (var index = 0; index < 1; index++)
             {
                 var response = await _client.GetResponse<OperationResult<TestMessageResponse>>(new TestMessageRequest { Text = index.ToString() });
-
                 list.Add(response.Message.Data);
             }
      
-            Parallel.For(1, 1000, async index =>
+            Parallel.For(1, 1000, index =>
             {
-                await _publishEndpoint.Publish(new TestMessagePublish
+                _publishEndpoint.Publish(new TestMessagePublish
                 {
                     Id = Guid.NewGuid(),
                     Text = "TestText",

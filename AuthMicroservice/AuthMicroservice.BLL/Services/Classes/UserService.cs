@@ -1,9 +1,9 @@
 ﻿using AuthMicroservice.BLL.Models.DTO.User;
 using AuthMicroservice.BLL.Services.Interfaces;
-using AuthMicroservice.DAL.Repositories.Interfaces;
+using AuthMicroservice.DAL.Repositories.SQLServer.Interfaces;
 using AutoMapper;
-using Microservice.Messages.Infrastructure.OperationResult;
-using Microservice.Messages.Infrastructure.UnitofWork;
+using Microservice.Core.Infrastructure.OperationResult;
+using Microservice.Core.Infrastructure.UnitofWork.SQL;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,18 +12,18 @@ namespace AuthMicroservice.BLL.Services.Classes
 {
     public class UserService: IUserService
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ISQLUnitOfWork _sqlUnitOfWork;
         private readonly IMapper _mapper;
 
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
+        public UserService(ISQLUnitOfWork sqlUnitOfWork, IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
+            _sqlUnitOfWork = sqlUnitOfWork;
             _mapper = mapper;
         }
 
         public OperationResult<List<UserDTO>> GetUsers()
         {
-            var userRepository = _unitOfWork.GetRepository<IUserRepository>();
+            var userRepository = _sqlUnitOfWork.GetRepository<IUserSQLServerRepository>();
             var usersResult = userRepository.GetUsersWithRole();
 
             var result = new OperationResult<List<UserDTO>>

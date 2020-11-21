@@ -3,23 +3,24 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using ProductMicroservice.DAL.Models;
 using Microsoft.EntityFrameworkCore;
-using Microservice.Messages.Constants.EnvironmentVariables;
+using Microservice.Core.Constants.EnvironmentVariables;
 using Microsoft.OpenApi.Models;
 using MassTransit;
 using System;
-using Microservice.Messages.Messages.Test;
-using Microservice.Messages.Enums;
-using Microservice.Messages.Infrastructure.Extensions;
-using Microservice.Messages.Infrastructure.Filters;
-using Microservice.Messages.Infrastructure.UnitofWork;
+using Microservice.Core.Messages.Test;
+using Microservice.Core.Enums;
+using Microservice.Core.Infrastructure.Extensions;
+using Microservice.Core.Infrastructure.Filters;
 using AutoMapper;
 using ProductMicroservice.API.Infrasrtucture.Automapper;
 using Swashbuckle.AspNetCore.Swagger;
 using FluentValidation.AspNetCore;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using ProductMicroservice.DAL.Models.SQLServer;
+using ProductMicroservice.DAL.Models.Mongo;
+using Microservice.Core.Infrastructure.UnitofWork.SQL;
+using Microservice.Core.Infrastructure.UnitofWork.Mongo;
 
 namespace ProductMicroservice.API
 {
@@ -62,16 +63,17 @@ namespace ProductMicroservice.API
                 opt.Filters.Add<ControllerExceptionFilter>();
                 opt.Filters.Add<ControllerActionFilter>();
                 opt.Filters.Add<ControllerResultFilter>();
-            }).AddFluentValidation(fv =>
-            {
+            }).AddFluentValidation(fv => {
                 fv.RegisterValidatorsFromAssemblyContaining<Startup>();
             });
 
-            services.AddDbContext<ProductDBContext>(o => {
+            services.AddDbContext<ProductSQLServerDbContext>(o => {
                 o.UseSqlServer(sqlServerUrl);
             });
+            services.AddMongoDbContext<ProductMongoDbContext>(_configuration.GetConnectionString("MongoProductDB"));
 
-            services.AddScoped<IUnitOfWork, UnitOfWork<ProductDBContext>>();
+            services.AddScoped<ISQLUnitOfWork, SQLUnitOfWork<ProductSQLServerDbContext>>();
+            services.AddScoped<IMongoUnitOfWork, MongoUnitOfWork<ProductMongoDbContext>>();
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
             services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
             services.AddAutoMapper(typeof(AutomapperProfile));

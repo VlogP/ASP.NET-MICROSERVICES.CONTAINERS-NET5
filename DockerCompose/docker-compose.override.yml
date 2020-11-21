@@ -46,7 +46,7 @@ services:
     env_file:
       - ./Configurations/.NetMicroservice/.env
     environment:
-      - MICROSERVICE_HOST=reportmicroservice
+      - MICROSERVICE_HOST=reportmicroservice2
       - CONSUL_SERVICE_NAME=reportmicroservice
     ports:
       - "10004:80"
@@ -57,7 +57,7 @@ services:
     env_file:
       - ./Configurations/.NetMicroservice/.env
     environment:
-      - MICROSERVICE_HOST=reportmicroservice
+      - MICROSERVICE_HOST=reportmicroservice3
       - CONSUL_SERVICE_NAME=reportmicroservice
     ports:
       - "10005:80"

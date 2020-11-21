@@ -1,17 +1,17 @@
 ﻿using TempateMicroservice.BLL.Services.Interfaces;
 using MassTransit;
 using MassTransit.Audit;
-using Microservice.Messages.Messages.Test;
-using TempateMicroservice.DAL.Models;
-using TempateMicroservice.DAL.Repositories.Interfaces;
+using Microservice.Core.Messages.Test;
 using System;
 using System.Collections.Generic;
 
 using System.Text;
 using System.Threading.Tasks;
-using Microservice.Messages.Infrastructure.OperationResult;
-using Microservice.Messages.Infrastructure.UnitofWork;
-using TempateMicroservice.DAL.Repositories.Classes;
+using Microservice.Core.Infrastructure.OperationResult;
+using Microservice.Core.Infrastructure.UnitofWork;
+using TempateMicroservice.DAL.Models.SQLServer;
+using TempateMicroservice.DAL.Repositories.SQLServer.Interfaces;
+using Microservice.Core.Infrastructure.UnitofWork.SQL;
 
 namespace TempateMicroservice.BLL.Services.Classes
 {
@@ -19,21 +19,21 @@ namespace TempateMicroservice.BLL.Services.Classes
     {
         private readonly IPublishEndpoint _publishEndpoint;
         private readonly IRequestClient<TestMessageRequest> _client;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ISQLUnitOfWork _sqlUnitOfWork;
 
-        public TempateService(IPublishEndpoint publishEndpoint, IRequestClient<TestMessageRequest> client, IUnitOfWork unitOfWork)
+        public TempateService(IPublishEndpoint publishEndpoint, IRequestClient<TestMessageRequest> client, ISQLUnitOfWork sqlUnitOfWork)
         {
             _publishEndpoint = publishEndpoint;
             _client = client;
-            _unitOfWork = unitOfWork;
+            _sqlUnitOfWork = sqlUnitOfWork;
         }
 
         public OperationResult<object> Add(TemplateModel product)
         {
-            var productRepository = _unitOfWork.GetRepository<ITempateRepository>();
+            var productRepository = _sqlUnitOfWork.GetRepository<ITempateSQLServerRepository>();
 
             var dataResult = productRepository.Add(product);
-            _unitOfWork.Save();
+            _sqlUnitOfWork.Save();
 
             var result = new OperationResult<object>()
             {
@@ -46,7 +46,7 @@ namespace TempateMicroservice.BLL.Services.Classes
 
         async public Task<OperationResult<List<TemplateModel>>> GetAll()
         {
-            var productRepository = _unitOfWork.GetRepository<ITempateRepository>();
+            var productRepository = _sqlUnitOfWork.GetRepository<ITempateSQLServerRepository>();
             List<TestMessageResponse> list = new List<TestMessageResponse>();
 
             for(var index = 0; index <= 10; index++)
