@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProductMicroservice.API.Models
+namespace ProductMicroservice.API.Models.Client
 {
-    public class ProductAPI
+    public class ClientPostAPI
     {
         public string Name { get; set; }
     }

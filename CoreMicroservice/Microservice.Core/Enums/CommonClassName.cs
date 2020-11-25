@@ -10,6 +10,8 @@ namespace Microservice.Core.Enums
         [Display(Name = "Repository")]
         Repository,
         [Display(Name = "Service")]
-        Service
+        Service,
+        [Display(Name = "ElasticSearchMapping")]
+        ElasticSearchMapping
     }
 }

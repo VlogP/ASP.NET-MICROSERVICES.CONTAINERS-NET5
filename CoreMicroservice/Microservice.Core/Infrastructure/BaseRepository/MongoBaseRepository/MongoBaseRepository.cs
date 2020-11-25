@@ -17,9 +17,9 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
         where TDocument : MongoBaseModel
         where TContext : MongoDbContext
     {
-        private readonly TContext _context;
-        private readonly IMongoDatabase _mongoDatabase;
-        private readonly IMongoCollection<TDocument> _mongoCollection;
+        protected readonly TContext _context;
+        protected readonly IMongoDatabase _mongoDatabase;
+        protected readonly IMongoCollection<TDocument> _mongoCollection;
 
         public MongoBaseRepository(TContext context)
         {
@@ -46,7 +46,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -62,7 +62,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -78,7 +78,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -94,7 +94,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -111,7 +111,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -128,7 +128,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -144,7 +144,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -160,7 +160,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -176,7 +176,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -192,7 +192,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -211,7 +211,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             catch (Exception exception)
             {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -228,7 +228,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -247,13 +247,13 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
         }
 
-        public async Task<OperationResult<TDocument>> GetIdAsync(string id)
+        public async Task<OperationResult<TDocument>> GetByIdAsync(string id)
         {
             var result = new OperationResult<TDocument>();
             var objectId = new ObjectId(id);
@@ -266,7 +266,47 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
+            }
+
+            return result;
+        }
+
+        public OperationResult<List<TProjection>> Get<TProjection>(Expression<Func<TDocument, bool>> filterExpression, Expression<Func<TDocument, TProjection>> projectionExpression)
+        {
+            var result = new OperationResult<List<TProjection>>();
+
+            try
+            {
+                var data = _mongoCollection.Find(filterExpression).Project(projectionExpression).ToList();
+                result.Data = data;
+                result.Type = ResultType.Success;
+            }
+            catch (Exception exception)
+            {
+                result.Type = ResultType.Invalid;
+                result.Errors.Add(exception.Message);
+            }
+
+            return result;
+        }
+
+        public OperationResult<TProjection> GetById<TProjection>(string id, Expression<Func<TDocument, TProjection>> projectionExpression)
+        {
+            var result = new OperationResult<TProjection>();
+            var objectId = new ObjectId(id);
+            var filter = Builders<TDocument>.Filter.Eq(doc => doc.Id, objectId);
+
+            try
+            {
+                var data = _mongoCollection.Find(filter).Project(projectionExpression).FirstOrDefault();
+                result.Data = data;
+                result.Type = ResultType.Success;
+            }
+            catch (Exception exception)
+            {
+                result.Type = ResultType.Invalid;
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -282,7 +322,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -298,7 +338,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -317,7 +357,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             catch (Exception exception)
             {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -335,7 +375,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             catch (Exception exception)
             {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -353,7 +393,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             catch (Exception exception)
             {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -371,7 +411,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             catch (Exception exception)
             {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -389,7 +429,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             catch (Exception exception)
             {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -407,7 +447,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             catch (Exception exception)
             {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -425,7 +465,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             catch (Exception exception)
             {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -443,7 +483,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             catch (Exception exception)
             {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -462,7 +502,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             catch (Exception exception)
             {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -481,7 +521,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             catch (Exception exception)
             {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -499,7 +539,7 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             catch (Exception exception)
             {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -517,11 +557,11 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
             catch (Exception exception)
             {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
-        }
+        }      
         #endregion
     }
 }
