@@ -1,4 +1,5 @@
 ﻿using Consul;
+using Microservice.Core.Constants.ConfigurationVariables;
 using Microservice.Core.Constants.EnvironmentVariables;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -16,7 +17,7 @@ namespace Microservice.Core.Infrastructure.Extensions
     {
         public static IServiceCollection AddConsulConfig(this IServiceCollection services, IConfiguration configuration)
         {
-            var consulAddress = configuration[MicroserviceEnvironmentVariables.CONSUL.CONSUL_URL];
+            var consulAddress = configuration[MicroserviceConfigurationVariables.Consul.CONSUL_URL];
             services.AddSingleton<IConsulClient, ConsulClient>(p =>
                 new ConsulClient(consulConfig => {
                     consulConfig.Address = new Uri(consulAddress);
@@ -28,8 +29,8 @@ namespace Microservice.Core.Infrastructure.Extensions
 
         public static async Task<IApplicationBuilder> UseConsul(this IApplicationBuilder app)
         {
-            var host = Environment.GetEnvironmentVariable(MicroserviceEnvironmentVariables.CONSUL.MICROSERVICE_HOST);
-            var serviceName = Environment.GetEnvironmentVariable(MicroserviceEnvironmentVariables.CONSUL.CONSUL_SERVICE_NAME);
+            var host = Environment.GetEnvironmentVariable(MicroserviceEnvironmentVariables.Consul.MICROSERVICE_HOST);
+            var serviceName = Environment.GetEnvironmentVariable(MicroserviceEnvironmentVariables.Consul.CONSUL_SERVICE_NAME);
 
             var consulClient = app.ApplicationServices.GetRequiredService<IConsulClient>();
             var logger = app.ApplicationServices.GetRequiredService<ILoggerFactory>().CreateLogger("ConsulLogger");

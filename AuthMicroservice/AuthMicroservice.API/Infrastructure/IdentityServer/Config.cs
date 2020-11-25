@@ -2,6 +2,7 @@
 using IdentityModel.Client;
 using IdentityServer4;
 using IdentityServer4.Models;
+using Microservice.Core.Constants.ConfigurationVariables;
 using Microservice.Core.Constants.EnvironmentVariables;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace AuthMicroservice.API.Infrastructure.IdentityServer
             return new List<ApiResource>
             {
                 new ApiResource {
-                    Name = configuration[MicroserviceEnvironmentVariables.IdentityServer.USER_API_NAME],
+                    Name = configuration[MicroserviceConfigurationVariables.IdentityServer.USER_API_NAME],
                     DisplayName = "User data resource",
                     ApiSecrets = { new Secret(configuration["IdentityServer:UserApiSecret"].Sha256()) },
                     Scopes = 
@@ -52,11 +53,11 @@ namespace AuthMicroservice.API.Infrastructure.IdentityServer
             {
                 new Client
                 {
-                    ClientId = configuration[MicroserviceEnvironmentVariables.IdentityServer.USER_CLIENT_ID],
+                    ClientId = configuration[MicroserviceConfigurationVariables.IdentityServer.USER_CLIENT_ID],
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     ClientSecrets =
                     {
-                        new Secret(configuration[MicroserviceEnvironmentVariables.IdentityServer.USER_CLIENT_SECRET].Sha256())
+                        new Secret(configuration[MicroserviceConfigurationVariables.IdentityServer.USER_CLIENT_SECRET].Sha256())
                     },
                     AllowedScopes = 
                     {

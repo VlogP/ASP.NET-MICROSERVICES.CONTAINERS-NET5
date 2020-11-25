@@ -33,7 +33,7 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             }
             catch(Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);                
             }
 
             return result;
@@ -50,7 +50,7 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             }
             catch(Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -66,7 +66,7 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             }
             catch(Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             _dbSet.AddRange(entities);
@@ -84,7 +84,7 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             }
             catch(Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -100,7 +100,7 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             }
             catch(Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -116,7 +116,7 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -132,7 +132,7 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -148,7 +148,7 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -165,7 +165,7 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -182,7 +182,7 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -199,7 +199,7 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -216,7 +216,7 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -233,7 +233,7 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -250,7 +250,7 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -266,7 +266,7 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;
@@ -282,7 +282,7 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             }
             catch (Exception exception) {
                 result.Type = ResultType.Invalid;
-                result.Errors = new List<string>() { exception.Message };
+                result.Errors.Add(exception.Message);
             }
 
             return result;

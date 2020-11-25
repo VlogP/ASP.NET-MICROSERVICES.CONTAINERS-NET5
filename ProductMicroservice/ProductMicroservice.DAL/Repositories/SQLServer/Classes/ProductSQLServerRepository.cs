@@ -6,7 +6,6 @@ namespace ProductMicroservice.DAL.Repositories.SQLServer.Classes
 {
     public class ProductSQLServerRepository : SQLBaseRepository<ProductSQLServerDbContext, Product>, IProductSQLServerRepository
     {
-
         public ProductSQLServerRepository(ProductSQLServerDbContext context) : base(context)
         {
         }
