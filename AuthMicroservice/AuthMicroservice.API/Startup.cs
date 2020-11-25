@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using AuthMicroservice.DAL.Models.SQLServer;
 using Microservice.Core.Infrastructure.UnitofWork.SQL;
+using Microservice.Core.Constants.ConfigurationVariables;
 
 namespace AuthMicroservice.API
 {
@@ -70,13 +71,13 @@ namespace AuthMicroservice.API
                 o.UseSqlServer(_configuration.GetConnectionString("SQLServerAuthDB"));
             });
 
-            currentDomain.LoadAssemblies(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], _configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME]);
+            currentDomain.LoadAssemblies(_configuration[MicroserviceConfigurationVariables.MICROSERVICE_DAL_NAME], _configuration[MicroserviceConfigurationVariables.MICROSERVICE_BLL_NAME]);
 
             services.AddIdentityServer(opt =>
                 {
-                    opt.IssuerUri = _configuration[MicroserviceEnvironmentVariables.IdentityServer.ISSUER_URL];
+                    opt.IssuerUri = _configuration[MicroserviceConfigurationVariables.IdentityServer.ISSUER_URL];
                 })
-                .AddSigningCredential(new X509Certificate2(_configuration[MicroserviceEnvironmentVariables.IdentityServer.CERTIFICATE_PATH], _configuration[MicroserviceEnvironmentVariables.IdentityServer.CERTIFICATE_PASSWORD]))
+                .AddSigningCredential(new X509Certificate2(_configuration[MicroserviceConfigurationVariables.IdentityServer.CERTIFICATE_PATH], _configuration[MicroserviceConfigurationVariables.IdentityServer.CERTIFICATE_PASSWORD]))
                 .AddInMemoryApiResources(Config.GetAllApiResources(_configuration))
                 .AddInMemoryApiScopes(Config.GetAllScopes())
                 .AddInMemoryClients(Config.GetClients(_configuration))
@@ -86,8 +87,8 @@ namespace AuthMicroservice.API
             services.AddTransient<IProfileService, ProfileService>();
 
             services.AddScoped<ISQLUnitOfWork, SQLUnitOfWork<AuthSQLServerDbContext>>();
-            services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
-            services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
+            services.AddServices(_configuration[MicroserviceConfigurationVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
+            services.AddServices(_configuration[MicroserviceConfigurationVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
             services.AddAutoMapper(typeof(AutomapperProfile));
 
             services.AddSwaggerGen(swagger =>

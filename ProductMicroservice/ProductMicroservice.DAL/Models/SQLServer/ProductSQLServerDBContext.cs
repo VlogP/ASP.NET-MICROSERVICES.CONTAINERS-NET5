@@ -11,6 +11,15 @@ namespace ProductMicroservice.DAL.Models.SQLServer
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Product>()
+                .HasIndex(p => new { p.BsonId, p.ClientId })
+                .IsUnique();
+        }
+
         public DbSet<Product> Products { get; set; }
+
+        public DbSet<Client> Clients { get; set; }
     }
 }

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ProductMicroservice.BLL.Models.DTO
+namespace ProductMicroservice.BLL.Models.DTO.Client
 {
-    public class ProductDTO
+    public class ClientGetDTO
     {
-        public Guid Id { get; set; } 
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
     }

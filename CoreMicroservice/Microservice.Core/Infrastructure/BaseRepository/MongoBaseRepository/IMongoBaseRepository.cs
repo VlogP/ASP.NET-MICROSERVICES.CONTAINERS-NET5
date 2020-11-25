@@ -12,61 +12,65 @@ namespace Microservice.Core.Infrastructure.BaseRepository.MongoBaseRepository
 {
     public interface IMongoBaseRepository<TDocument> where TDocument : MongoBaseModel
     {
-        OperationResult<List<TDocument>> Get(Expression<Func<TDocument, bool>> filterExpression);
+        public OperationResult<List<TDocument>> Get(Expression<Func<TDocument, bool>> filterExpression);
 
-        Task<OperationResult<List<TDocument>>> GetAsync(Expression<Func<TDocument, bool>> filterExpression);
+        public Task<OperationResult<List<TDocument>>> GetAsync(Expression<Func<TDocument, bool>> filterExpression);
 
-        OperationResult<TDocument> GetById(string id);
+        public OperationResult<TDocument> GetById(string id);
 
-        Task<OperationResult<TDocument>> GetIdAsync(string id);
+        public Task<OperationResult<TDocument>> GetByIdAsync(string id);
 
-        OperationResult<object> Add(IClientSessionHandle clientSession, TDocument document);
+        public OperationResult<List<TProjection>> Get<TProjection>(Expression<Func<TDocument, bool>> filterExpression, Expression<Func<TDocument, TProjection>> projectionExpression);
 
-        OperationResult<object> Add(TDocument document);
+        public OperationResult<TProjection> GetById<TProjection>(string id, Expression<Func<TDocument, TProjection>> projectionExpression);
 
-        Task<OperationResult<object>> AddAsync(TDocument document);
+        public OperationResult<object> Add(IClientSessionHandle clientSession, TDocument document);
 
-        Task<OperationResult<object>> AddAsync(IClientSessionHandle clientSession, TDocument document);
+        public OperationResult<object> Add(TDocument document);
 
-        OperationResult<object> AddMany(List<TDocument> documents);
+        public Task<OperationResult<object>> AddAsync(TDocument document);
 
-        OperationResult<object> AddMany(IClientSessionHandle clientSession, List<TDocument> documents);
+        public Task<OperationResult<object>> AddAsync(IClientSessionHandle clientSession, TDocument document);
 
-        Task<OperationResult<object>> AddManyAsync(List<TDocument> documents);
+        public OperationResult<object> AddMany(List<TDocument> documents);
 
-        Task<OperationResult<object>> AddManyAsync(IClientSessionHandle clientSession, List<TDocument> documents);
+        public OperationResult<object> AddMany(IClientSessionHandle clientSession, List<TDocument> documents);
 
-        OperationResult<object> ReplaceOne(TDocument document);
+        public Task<OperationResult<object>> AddManyAsync(List<TDocument> documents);
 
-        OperationResult<object> ReplaceOne(IClientSessionHandle clientSession, TDocument document);
+        public Task<OperationResult<object>> AddManyAsync(IClientSessionHandle clientSession, List<TDocument> documents);
 
-        Task<OperationResult<object>> ReplaceOneAsync(TDocument document);
+        public OperationResult<object> ReplaceOne(TDocument document);
 
-        Task<OperationResult<object>> ReplaceOneAsync(IClientSessionHandle clientSession, TDocument document);
+        public OperationResult<object> ReplaceOne(IClientSessionHandle clientSession, TDocument document);
 
-        OperationResult<object> DeleteOne(Expression<Func<TDocument, bool>> filterExpression);
+        public Task<OperationResult<object>> ReplaceOneAsync(TDocument document);
 
-        OperationResult<object> DeleteOne(IClientSessionHandle clientSession, Expression<Func<TDocument, bool>> filterExpression);
+        public Task<OperationResult<object>> ReplaceOneAsync(IClientSessionHandle clientSession, TDocument document);
 
-        Task<OperationResult<object>> DeleteOneAsync(Expression<Func<TDocument, bool>> filterExpression);
+        public OperationResult<object> DeleteOne(Expression<Func<TDocument, bool>> filterExpression);
 
-        Task<OperationResult<object>> DeleteOneAsync(IClientSessionHandle clientSession, Expression<Func<TDocument, bool>> filterExpression);
+        public OperationResult<object> DeleteOne(IClientSessionHandle clientSession, Expression<Func<TDocument, bool>> filterExpression);
 
-        OperationResult<object> DeleteById(string id);
+        public Task<OperationResult<object>> DeleteOneAsync(Expression<Func<TDocument, bool>> filterExpression);
 
-        OperationResult<object> DeleteById(IClientSessionHandle clientSession, string id);
+        public Task<OperationResult<object>> DeleteOneAsync(IClientSessionHandle clientSession, Expression<Func<TDocument, bool>> filterExpression);
 
-        Task<OperationResult<object>> DeleteByIdAsync(string id);
+        public OperationResult<object> DeleteById(string id);
 
-        Task<OperationResult<object>> DeleteByIdAsync(IClientSessionHandle clientSession, string id);
+        public OperationResult<object> DeleteById(IClientSessionHandle clientSession, string id);
 
-        OperationResult<object> DeleteMany(Expression<Func<TDocument, bool>> filterExpression);
+        public Task<OperationResult<object>> DeleteByIdAsync(string id);
 
-        OperationResult<object> DeleteMany(IClientSessionHandle clientSession, Expression<Func<TDocument, bool>> filterExpression);
+        public Task<OperationResult<object>> DeleteByIdAsync(IClientSessionHandle clientSession, string id);
 
-        Task<OperationResult<object>> DeleteManyAsync(Expression<Func<TDocument, bool>> filterExpression);
+        public OperationResult<object> DeleteMany(Expression<Func<TDocument, bool>> filterExpression);
 
-        Task<OperationResult<object>> DeleteManyAsync(IClientSessionHandle clientSession, Expression<Func<TDocument, bool>> filterExpression);
+        public OperationResult<object> DeleteMany(IClientSessionHandle clientSession, Expression<Func<TDocument, bool>> filterExpression);
+
+        public Task<OperationResult<object>> DeleteManyAsync(Expression<Func<TDocument, bool>> filterExpression);
+
+        public Task<OperationResult<object>> DeleteManyAsync(IClientSessionHandle clientSession, Expression<Func<TDocument, bool>> filterExpression);
     }
 
 }

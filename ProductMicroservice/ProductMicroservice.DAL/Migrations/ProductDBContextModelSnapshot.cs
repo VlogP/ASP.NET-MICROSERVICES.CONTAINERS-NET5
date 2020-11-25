@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProductMicroservice.DAL.Models.SQLServer;
 
 namespace ProductMicroservice.DAL.Migrations
@@ -14,9 +15,25 @@ namespace ProductMicroservice.DAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.5")
+                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "5.0.0");
+
+            modelBuilder.Entity("ProductMicroservice.DAL.Models.SQLServer.Client", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clients");
+                });
 
             modelBuilder.Entity("ProductMicroservice.DAL.Models.SQLServer.Product", b =>
                 {
@@ -24,13 +41,37 @@ namespace ProductMicroservice.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                    b.Property<string>("BsonId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("BsonId", "ClientId")
+                        .IsUnique()
+                        .HasFilter("[BsonId] IS NOT NULL");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("ProductMicroservice.DAL.Models.SQLServer.Product", b =>
+                {
+                    b.HasOne("ProductMicroservice.DAL.Models.SQLServer.Client", "Client")
+                        .WithMany("Products")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+                });
+
+            modelBuilder.Entity("ProductMicroservice.DAL.Models.SQLServer.Client", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

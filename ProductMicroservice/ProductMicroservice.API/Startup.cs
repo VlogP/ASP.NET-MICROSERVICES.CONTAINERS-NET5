@@ -21,6 +21,10 @@ using ProductMicroservice.DAL.Models.SQLServer;
 using ProductMicroservice.DAL.Models.Mongo;
 using Microservice.Core.Infrastructure.UnitofWork.SQL;
 using Microservice.Core.Infrastructure.UnitofWork.Mongo;
+using Microservice.Core.Constants.ConfigurationVariables;
+using System.Reflection;
+using ProductMicroservice.DAL.Models.ElasticSearch;
+using Microservice.Core.Constants.ElasticSearchIndexes;
 
 namespace ProductMicroservice.API
 {
@@ -36,7 +40,7 @@ namespace ProductMicroservice.API
         public void ConfigureServices(IServiceCollection services)
         {
             var currentDomain = AppDomain.CurrentDomain;
-            var rabbitMQHost = Environment.GetEnvironmentVariable(MicroserviceEnvironmentVariables.Rabbitmq.RABBITMQ_HOST);
+            var rabbitMQHost = Environment.GetEnvironmentVariable(MicroserviceEnvironmentVariables.RabbitMQ.RABBITMQ_HOST);
             var sqlServerUrl = _configuration.GetConnectionString("SQLServerProductDB");
             var openApiSecurityScheme = new OpenApiSecurityScheme {
                 Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
@@ -58,7 +62,7 @@ namespace ProductMicroservice.API
                 }
             };
 
-            currentDomain.LoadAssemblies(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], _configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME]);
+            currentDomain.LoadAssemblies(_configuration[MicroserviceConfigurationVariables.MICROSERVICE_DAL_NAME], _configuration[MicroserviceConfigurationVariables.MICROSERVICE_BLL_NAME]);
             services.AddControllers(opt => {
                 opt.Filters.Add<ControllerExceptionFilter>();
                 opt.Filters.Add<ControllerActionFilter>();
@@ -71,23 +75,25 @@ namespace ProductMicroservice.API
                 o.UseSqlServer(sqlServerUrl);
             });
             services.AddMongoDbContext<ProductMongoDbContext>(_configuration.GetConnectionString("MongoProductDB"));
+            services.AddElasticsearchClient(_configuration, _configuration[MicroserviceConfigurationVariables.MICROSERVICE_DAL_NAME]);
+            services.AddElasticsearchIndex<ProductElasticSearchIndex>(ElasticSearchIndexes.ProductIndex);
 
             services.AddScoped<ISQLUnitOfWork, SQLUnitOfWork<ProductSQLServerDbContext>>();
             services.AddScoped<IMongoUnitOfWork, MongoUnitOfWork<ProductMongoDbContext>>();
-            services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
-            services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
-            services.AddAutoMapper(typeof(AutomapperProfile));
+            services.AddServices(_configuration[MicroserviceConfigurationVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
+            services.AddServices(_configuration[MicroserviceConfigurationVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddMassTransit(massTransitConfig =>
             {
-                massTransitConfig.AddConsumers(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME]);
+                massTransitConfig.AddConsumers(_configuration[MicroserviceConfigurationVariables.MICROSERVICE_BLL_NAME]);
 
                 massTransitConfig.UsingRabbitMq((context, rabbitConfig) => 
                 {
                     rabbitConfig.Host(rabbitMQHost, config => 
                     {
-                        config.Username(_configuration[MicroserviceEnvironmentVariables.Rabbitmq.RABBITMQ_USER]);
-                        config.Password(_configuration[MicroserviceEnvironmentVariables.Rabbitmq.RABBITMQ_PASSWORD]);
+                        config.Username(_configuration[MicroserviceConfigurationVariables.RabbitMQ.RABBITMQ_USER]);
+                        config.Password(_configuration[MicroserviceConfigurationVariables.RabbitMQ.RABBITMQ_PASSWORD]);
                     });            
                 });
 

@@ -8,6 +8,7 @@ using AuthMicroservice.DAL.Repositories.SQLServer.Interfaces;
 using AutoMapper;
 using IdentityModel.Client;
 using MailKit.Net.Smtp;
+using Microservice.Core.Constants.ConfigurationVariables;
 using Microservice.Core.Constants.EnvironmentVariables;
 using Microservice.Core.Infrastructure.OperationResult;
 using Microservice.Core.Infrastructure.UnitofWork.SQL;
@@ -53,9 +54,9 @@ namespace AuthMicroservice.BLL.Services.Classes
             {
                 var response = await client.RequestPasswordTokenAsync(new PasswordTokenRequest
                 {
-                    Address = _configuration[MicroserviceEnvironmentVariables.IdentityServer.ACCESS_TOKEN_URL],
-                    ClientId = _configuration[MicroserviceEnvironmentVariables.IdentityServer.USER_CLIENT_ID],
-                    ClientSecret = _configuration[MicroserviceEnvironmentVariables.IdentityServer.USER_CLIENT_SECRET],
+                    Address = _configuration[MicroserviceConfigurationVariables.IdentityServer.ACCESS_TOKEN_URL],
+                    ClientId = _configuration[MicroserviceConfigurationVariables.IdentityServer.USER_CLIENT_ID],
+                    ClientSecret = _configuration[MicroserviceConfigurationVariables.IdentityServer.USER_CLIENT_SECRET],
                     Scope = "application.read application.write",
                     UserName = userInfo.Email,
                     Password = userInfo.Password
@@ -163,7 +164,7 @@ namespace AuthMicroservice.BLL.Services.Classes
             var subject = "ASP Core Microservice Project";
             var emailMessage = new MimeMessage();
 
-            emailMessage.From.Add(new MailboxAddress(fromName, _configuration[MicroserviceEnvironmentVariables.SMTP.Email]));
+            emailMessage.From.Add(new MailboxAddress(fromName, _configuration[MicroserviceConfigurationVariables.Smtp.EMAIL]));
             emailMessage.To.Add(new MailboxAddress(toName, email));
             emailMessage.Subject = subject;
 
@@ -176,9 +177,9 @@ namespace AuthMicroservice.BLL.Services.Classes
 
             using (var client = new SmtpClient())
             {
-                await client.ConnectAsync(_configuration[MicroserviceEnvironmentVariables.SMTP.Server], 465, true);
+                await client.ConnectAsync(_configuration[MicroserviceConfigurationVariables.Smtp.SERVER], 465, true);
                 client.SslProtocols = System.Security.Authentication.SslProtocols.Tls12;
-                await client.AuthenticateAsync(_configuration[MicroserviceEnvironmentVariables.SMTP.Email], _configuration[MicroserviceEnvironmentVariables.SMTP.Password]);
+                await client.AuthenticateAsync(_configuration[MicroserviceConfigurationVariables.Smtp.EMAIL], _configuration[MicroserviceConfigurationVariables.Smtp.PASSWORD]);
                 await client.SendAsync(emailMessage);
                 await client.DisconnectAsync(true);
             }

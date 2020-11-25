@@ -1,6 +1,7 @@
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using MassTransit;
+using Microservice.Core.Constants.ConfigurationVariables;
 using Microservice.Core.Constants.EnvironmentVariables;
 using Microservice.Core.Enums;
 using Microservice.Core.Infrastructure.Extensions;
@@ -36,7 +37,7 @@ namespace ReportMicroservice.API
         public void ConfigureServices(IServiceCollection services)
         {
             var currentDomain = AppDomain.CurrentDomain;
-            var rabbitMQHost = Environment.GetEnvironmentVariable(MicroserviceEnvironmentVariables.Rabbitmq.RABBITMQ_HOST);
+            var rabbitMQHost = Environment.GetEnvironmentVariable(MicroserviceEnvironmentVariables.RabbitMQ.RABBITMQ_HOST);
             var sqlServerUrl = _configuration.GetConnectionString("SQLServerReportDB");
             var openApiSecurityScheme = new OpenApiSecurityScheme
             {
@@ -59,7 +60,7 @@ namespace ReportMicroservice.API
                 }
             };
 
-            currentDomain.LoadAssemblies(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], _configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME]);
+            currentDomain.LoadAssemblies(_configuration[MicroserviceConfigurationVariables.MICROSERVICE_DAL_NAME], _configuration[MicroserviceConfigurationVariables.MICROSERVICE_BLL_NAME]);
 
             services.AddControllers(opt => {
                 opt.Filters.Add<ControllerExceptionFilter>();
@@ -75,20 +76,20 @@ namespace ReportMicroservice.API
             });
 
             services.AddScoped<ISQLUnitOfWork,SQLUnitOfWork<ReportSQLServerDBContext>>();
-            services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
-            services.AddServices(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
+            services.AddServices(_configuration[MicroserviceConfigurationVariables.MICROSERVICE_DAL_NAME], CommonClassName.Repository);
+            services.AddServices(_configuration[MicroserviceConfigurationVariables.MICROSERVICE_BLL_NAME], CommonClassName.Service);
             services.AddAutoMapper(typeof(AutomapperProfile));
 
             services.AddMassTransit(massTransitConfig =>
             {
-                massTransitConfig.AddConsumers(_configuration[MicroserviceEnvironmentVariables.MICROSERVICE_BLL_NAME]);
+                massTransitConfig.AddConsumers(_configuration[MicroserviceConfigurationVariables.MICROSERVICE_BLL_NAME]);
 
                 massTransitConfig.UsingRabbitMq((context, rabbitConfig) =>
                 {
                     rabbitConfig.Host(rabbitMQHost, config =>
                     {
-                        config.Username(_configuration[MicroserviceEnvironmentVariables.Rabbitmq.RABBITMQ_USER]);
-                        config.Password(_configuration[MicroserviceEnvironmentVariables.Rabbitmq.RABBITMQ_PASSWORD]);
+                        config.Username(_configuration[MicroserviceConfigurationVariables.RabbitMQ.RABBITMQ_USER]);
+                        config.Password(_configuration[MicroserviceConfigurationVariables.RabbitMQ.RABBITMQ_PASSWORD]);
                     });
 
                     rabbitConfig.ReceiveEndpoint("report-listener", endpoingConfig =>

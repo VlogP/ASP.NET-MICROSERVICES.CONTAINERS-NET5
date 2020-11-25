@@ -29,6 +29,9 @@
           "Port": 80
         }
       ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "token"
+      },
       "RouteClaimsRequirement": {
         "role": "User"
       }

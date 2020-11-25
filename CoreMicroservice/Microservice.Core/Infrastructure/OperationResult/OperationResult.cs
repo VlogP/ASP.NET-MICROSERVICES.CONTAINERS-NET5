@@ -8,9 +8,13 @@ using System.Text;
 
 namespace Microservice.Core.Infrastructure.OperationResult
 {
-    public class OperationResult<T> : IOperationResult 
-        where T : class
+    public class OperationResult<T> : IOperationResult
     {
+        public OperationResult()
+        {
+            Errors = new List<string>();
+        }
+
         public ResultType Type { get; set; }
 
         public string Description { get { return Type.GetDisplayName(); } }
