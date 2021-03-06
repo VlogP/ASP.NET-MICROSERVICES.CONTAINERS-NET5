@@ -6,9 +6,11 @@ namespace ProductMicroservice.BLL.Models.DTO.Product
 {
     public class ProductGetDTO
     {
-        public string ClientName { get; set; }
+        public string Id { get; set; }
 
         public Guid ClientId { get; set; }
+
+        public string ClientName { get; set; }
 
         public string Name { get; set; }
 

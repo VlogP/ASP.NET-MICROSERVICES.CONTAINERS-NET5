@@ -72,6 +72,30 @@ services:
       - "11006:443"
     volumes:
       - ../Content/https/:/https:ro
+  filemicroservice:
+    env_file:
+      - ./Configurations/.NetMicroservice/.env
+    environment:
+      - MICROSERVICE_HOST=filemicroservice
+      - CONSUL_SERVICE_NAME=filemicroservice      
+    ports:
+      - "10007:80"
+      - "11007:443"
+    volumes:
+      - ../Content/https/:/https:ro
+      - ../Content/Google/:/var/Google:ro
+  filemicroservice2:
+    env_file:
+      - ./Configurations/.NetMicroservice/.env
+    environment:
+      - MICROSERVICE_HOST=filemicroservice2
+      - CONSUL_SERVICE_NAME=filemicroservice
+    ports:
+      - "10008:80"
+      - "11008:443"
+    volumes:
+      - ../Content/https/:/https:ro
+      - ../Content/Google/:/var/Google:ro
   rabbitmqserver:
     env_file:
       - ./Configurations/RabbitMqServer/.env

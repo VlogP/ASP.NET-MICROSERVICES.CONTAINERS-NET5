@@ -1,5 +1,6 @@
 ﻿using Microservice.Core.Infrastructure.Attributes.Mongo;
 using Microservice.Core.Infrastructure.Mongo.Models;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 

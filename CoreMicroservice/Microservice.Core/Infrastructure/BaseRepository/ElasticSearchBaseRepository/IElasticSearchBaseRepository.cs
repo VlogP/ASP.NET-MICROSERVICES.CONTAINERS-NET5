@@ -8,25 +8,25 @@ namespace Microservice.Core.Infrastructure.BaseRepository.ElasticSearchBaseRepos
 {
     public interface IElasticSearchBaseRepository<TDocument>
     {
-        public OperationResult<object> Add(TDocument document);
+        public OperationResult.OperationResult Add(TDocument document);
 
-        public Task<OperationResult<object>> AddAsync(TDocument document);
+        public Task<OperationResult.OperationResult> AddAsync(TDocument document);
 
-        public OperationResult<object> AddMany(List<TDocument> documents);
+        public OperationResult.OperationResult AddMany(List<TDocument> documents);
 
-        public Task<OperationResult<object>> AddManyAsync(List<TDocument> documents);
+        public Task<OperationResult.OperationResult> AddManyAsync(List<TDocument> documents);
 
-        public OperationResult<object> Delete(TDocument document);
+        public OperationResult.OperationResult Delete(TDocument document);
 
-        public Task<OperationResult<object>> DeleteAsync(TDocument document);
+        public Task<OperationResult.OperationResult> DeleteAsync(TDocument document);
 
-        public OperationResult<object> DeleteMany(List<TDocument> documents);
+        public OperationResult.OperationResult DeleteMany(List<TDocument> documents);
 
-        public Task<OperationResult<object>> DeleteManyAsync(List<TDocument> documents);
+        public Task<OperationResult.OperationResult> DeleteManyAsync(List<TDocument> documents);
 
-        public OperationResult<object> Update(TDocument document);
+        public OperationResult.OperationResult Update(TDocument document);
 
-        public Task<OperationResult<object>> UpdateAsync(TDocument document);
+        public Task<OperationResult.OperationResult> UpdateAsync(TDocument document);
 
     }
 }

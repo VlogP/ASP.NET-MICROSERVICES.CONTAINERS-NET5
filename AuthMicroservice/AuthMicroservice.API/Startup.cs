@@ -22,6 +22,7 @@ using System.Security.Cryptography.X509Certificates;
 using AuthMicroservice.DAL.Models.SQLServer;
 using Microservice.Core.Infrastructure.UnitofWork.SQL;
 using Microservice.Core.Constants.ConfigurationVariables;
+using Microservice.Core.Infrastructure.OpenApi;
 
 namespace AuthMicroservice.API
 {
@@ -37,26 +38,8 @@ namespace AuthMicroservice.API
         public void ConfigureServices(IServiceCollection services)
         {
             var currentDomain = AppDomain.CurrentDomain;
-            var openApiSecurityScheme = new OpenApiSecurityScheme
-            {
-                Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-                Name = "Authorization",
-                In = ParameterLocation.Header,
-                Type = SecuritySchemeType.Http,
-                Scheme = "bearer",
-                BearerFormat = "JWT"
-            };
-            var openApiSecurityRequirement = new OpenApiSecurityRequirement {
-                {
-                    new OpenApiSecurityScheme {
-                        Reference = new OpenApiReference {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
-                        }
-                    },
-                    new List<string>()
-                }
-            };
+            var rabbitMQHost = Environment.GetEnvironmentVariable(MicroserviceEnvironmentVariables.RabbitMQ.RABBITMQ_HOST);
+            var sqlServerUrl = _configuration.GetConnectionString("SQLServerAuthDB");
 
             services.AddControllers(opt => {
                 opt.Filters.Add<ControllerExceptionFilter>();
@@ -68,7 +51,7 @@ namespace AuthMicroservice.API
             });
 
             services.AddDbContext<AuthSQLServerDbContext>(o => {
-                o.UseSqlServer(_configuration.GetConnectionString("SQLServerAuthDB"));
+                o.UseSqlServer(sqlServerUrl);
             });
 
             currentDomain.LoadAssemblies(_configuration[MicroserviceConfigurationVariables.MICROSERVICE_DAL_NAME], _configuration[MicroserviceConfigurationVariables.MICROSERVICE_BLL_NAME]);
@@ -95,8 +78,8 @@ namespace AuthMicroservice.API
             {
                 swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "AuthAPI Documentation" });
                 swagger.AddFluentValidationRules();
-                swagger.AddSecurityDefinition("Bearer", openApiSecurityScheme);
-                swagger.AddSecurityRequirement(openApiSecurityRequirement);
+                swagger.AddSecurityDefinition("Bearer", OpenApiSecurity.OpenApiSecurityScheme);
+                swagger.AddSecurityRequirement(OpenApiSecurity.OpenApiSecurityRequirement);
             });
         }
 

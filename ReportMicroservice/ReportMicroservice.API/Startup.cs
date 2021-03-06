@@ -6,6 +6,7 @@ using Microservice.Core.Constants.EnvironmentVariables;
 using Microservice.Core.Enums;
 using Microservice.Core.Infrastructure.Extensions;
 using Microservice.Core.Infrastructure.Filters;
+using Microservice.Core.Infrastructure.OpenApi;
 using Microservice.Core.Infrastructure.UnitofWork.SQL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,11 +18,10 @@ using Microsoft.OpenApi.Models;
 using ReportMicroservice.API.Infrasrtucture.Automapper;
 using ReportMicroservice.BLL.Consumers;
 using ReportMicroservice.BLL.ResponseConsumers;
+using ReportMicroservice.BLL.ResponseConsumers.FileReport;
 using ReportMicroservice.DAL.Models.SQLServer;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ReportMicroservice.API
 {
@@ -39,26 +39,6 @@ namespace ReportMicroservice.API
             var currentDomain = AppDomain.CurrentDomain;
             var rabbitMQHost = Environment.GetEnvironmentVariable(MicroserviceEnvironmentVariables.RabbitMQ.RABBITMQ_HOST);
             var sqlServerUrl = _configuration.GetConnectionString("SQLServerReportDB");
-            var openApiSecurityScheme = new OpenApiSecurityScheme
-            {
-                Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-                Name = "Authorization",
-                In = ParameterLocation.Header,
-                Type = SecuritySchemeType.Http,
-                Scheme = "bearer",
-                BearerFormat = "JWT"
-            };
-            var openApiSecurityRequirement = new OpenApiSecurityRequirement {
-                {
-                    new OpenApiSecurityScheme {
-                        Reference = new OpenApiReference {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
-                        }
-                    },
-                    new List<string>()
-                }
-            };
 
             currentDomain.LoadAssemblies(_configuration[MicroserviceConfigurationVariables.MICROSERVICE_DAL_NAME], _configuration[MicroserviceConfigurationVariables.MICROSERVICE_BLL_NAME]);
 
@@ -97,6 +77,12 @@ namespace ReportMicroservice.API
                         endpoingConfig.ConfigureConsumer<ReportConsumer>(context);
                         endpoingConfig.ConfigureConsumer<ReportResponseConsumer>(context);
                     });
+
+                    rabbitConfig.ReceiveEndpoint("filereport-listener", endpoingConfig =>
+                    {
+                        endpoingConfig.ConfigureConsumer<FileReportUploadResponseConsumer>(context);
+                        endpoingConfig.ConfigureConsumer<FileReportDownloadResponseConsumer>(context);
+                    });
                 });
             });
 
@@ -108,8 +94,8 @@ namespace ReportMicroservice.API
             {
                 swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "ReportAPI Documentation" });
                 swagger.AddFluentValidationRules();
-                swagger.AddSecurityDefinition("Bearer", openApiSecurityScheme);
-                swagger.AddSecurityRequirement(openApiSecurityRequirement);
+                swagger.AddSecurityDefinition("Bearer", OpenApiSecurity.OpenApiSecurityScheme);
+                swagger.AddSecurityRequirement(OpenApiSecurity.OpenApiSecurityRequirement);
             });
         }
 

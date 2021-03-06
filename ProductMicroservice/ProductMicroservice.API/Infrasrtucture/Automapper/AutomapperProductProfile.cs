@@ -18,6 +18,9 @@ namespace ProductMicroservice.API.Infrasrtucture.Automapper
             CreateMap<string, Guid>()
                 .ConvertUsing(s => Guid.Parse(s));
 
+            CreateMap<ObjectId, string>()
+                .ConvertUsing(s => s.ToString());
+
             CreateMap<DAL.Models.Mongo.Product, ProductGetDTO>()
                .ReverseMap();
 

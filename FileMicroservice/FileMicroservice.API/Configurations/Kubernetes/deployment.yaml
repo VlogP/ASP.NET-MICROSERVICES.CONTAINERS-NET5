@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    app: filemicroservice-app
+  name: filemicroservice-deployment
+  namespace: microservice
+spec:
+  selector:
+    matchLabels:
+      app: filemicroservice-app
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: filemicroservice-app
+    spec:
+      volumes:
+      - name: ssl-certificate
+        configMap:
+          name: ssl-config
+      - name: logs-data
+        persistentVolumeClaim:
+          claimName: logs-pvc
+      - name: filemicroservice-config 
+        configMap:
+          name: filemicroservice-config            
+      initContainers:
+      - name: init-myservice
+        image: busybox:1.28
+        command: ['sh', '-c', "until wget http://consul:8500/v1/status/leader; do echo waiting for consul; sleep 2; done"]
+      containers:
+      - name: filemicroservice
+        image: vlogp/filemicroservice:development
+        imagePullPolicy: Always
+        envFrom:
+          - configMapRef:
+              name: dotnet-env-config
+        env:
+          - name: MICROSERVICE_HOST
+            valueFrom:
+                fieldRef:
+                    fieldPath: status.podIP
+          - name: CONSUL_SERVICE_NAME
+            value: "filemicroservice"
+        volumeMounts:
+        - mountPath: /https/aspnetapp.pfx
+          name: ssl-certificate
+          subPath: aspnetapp.pfx
+        - mountPath: /app/Logs
+          name: logs-data
+        - mountPath: /var/Google/asp-core-microse-1613935947018-7c3b1e9e37a0.json
+          name: filemicroservice-config
+          subPath: asp-core-microse-1613935947018-7c3b1e9e37a0.json
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        resources: 
+           requests:
+                memory: "64Mi"
+                cpu: "50m"
+           limits:
+                memory: "512Mi"
+                cpu: "750m"      
