@@ -17,6 +17,10 @@ configMapGenerator:
   - ASPNETCORE_Kestrel__Certificates__Default__Password="12345"
   - ASPNETCORE_Kestrel__Certificates__Default__Path="/https/aspnetapp.pfx"
   - ASPNETCORE_URLS="https://+:443;http://+:80"
+- name: filemicroservice-config
+  namespace: microservice
+  files: 
+  - ./Content/Google/asp-core-microse-1613935947018-7c3b1e9e37a0.json
 
 resources:
 - ./ProductMicroservice/ProductMicroservice.API/Configurations/Kubernetes/deployment.yaml
@@ -29,3 +33,5 @@ resources:
 - ./AuthMicroservice/AuthMicroservice.API/Configurations/Kubernetes/deployment.yaml
 - ./Kubernetes/Consul/service.yaml
 - ./Kubernetes/Consul/deployment.yaml
+- ./FileMicroservice/FileMicroservice.API/Configurations/Kubernetes/service.yaml
+- ./FileMicroservice/FileMicroservice.API/Configurations/Kubernetes/deployment.yaml

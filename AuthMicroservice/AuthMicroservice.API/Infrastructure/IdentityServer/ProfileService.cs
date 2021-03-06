@@ -33,7 +33,6 @@ namespace AuthMicroservice.API.Infrastructure.IdentityServer
             try
             {
                 context.IsActive = true;
-
             }
             catch (Exception ex)
             {

@@ -10,6 +10,7 @@ using Ocelot.Administration;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Provider.Consul;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace APIGateway
@@ -26,26 +27,27 @@ namespace APIGateway
         public void ConfigureServices(IServiceCollection services)
         {
             var authenticationProviderKey = "token";
-
             //Validate JWT using JWT library
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
+            Action<JwtBearerOptions> jwtOptions = opt => {
+                opt.Authority = _configuration[MicroserviceConfigurationVariables.IdentityServer.SERVER_URL];
+                opt.Audience = _configuration[MicroserviceConfigurationVariables.IdentityServer.USER_API_NAME];
+                opt.RequireHttpsMetadata = false;
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true
+                };
+            };
+
             services
                 .AddAuthentication(opt => {
                     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                     opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
-                .AddJwtBearer(authenticationProviderKey, opt => {
-                    opt.Authority = _configuration[MicroserviceConfigurationVariables.IdentityServer.SERVER_URL];
-                    opt.Audience = _configuration[MicroserviceConfigurationVariables.IdentityServer.USER_API_NAME];
-                    opt.RequireHttpsMetadata = false;
-                    opt.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidateLifetime = true
-                    };
-                });
+                .AddJwtBearer(authenticationProviderKey, jwtOptions);
 
             //Validate JWT using Identity Server 4 introspection endpoing
             /*services.AddDistributedMemoryCache();
@@ -69,12 +71,7 @@ namespace APIGateway
             services.AddSwaggerForOcelot(_configuration);
             services.AddOcelot()
                 .AddConsul()
-                .AddAdministration("/administration", opt => {
-                    opt.ApiName = _configuration[MicroserviceConfigurationVariables.IdentityServer.USER_API_NAME];
-                    opt.Authority = _configuration[MicroserviceConfigurationVariables.IdentityServer.SERVER_URL];
-                    opt.ApiSecret = _configuration[MicroserviceConfigurationVariables.IdentityServer.USER_API_SECRET];
-                    opt.RequireHttpsMetadata = false;
-                });
+                .AddAdministration("/administration", jwtOptions);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

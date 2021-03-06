@@ -10,5 +10,7 @@ namespace Microservice.Core.Infrastructure.OperationResult
         public ResultType Type { get; set; }
 
         public List<string> Errors { get; set; }
+
+        public bool IsSuccess { get; }
     }
 }

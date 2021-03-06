@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata minClientVersion="2.12">
     <id>Microservice.Core.SDK</id>
-    <version>1.1.1</version>
+    <version>1.2.4</version>
     <title>Microservice SDK</title>
     <authors>Vladislav</authors>
     <owners>Vladislav</owners>
@@ -10,27 +10,28 @@
     <description>Microservice SDK</description>
 	<dependencies>
 		<group targetFramework=".NETStandard2.1">
-			<dependency id="AutoMapper.Extensions.Microsoft.DependencyInjection" version="8.1.0" exclude="Build,Analyzers" />
+			<dependency id="AutoMapper.Extensions.Microsoft.DependencyInjection" version="8.1.1" exclude="Build,Analyzers" />
 			<dependency id="Consul" version="1.6.1.1" exclude="Build,Analyzers" />
-			<dependency id="FluentValidation.DependencyInjectionExtensions" version="9.3.0" exclude="Build,Analyzers" />
-			<dependency id="MassTransit.AspNetCore" version="7.0.7" exclude="Build,Analyzers" />
-			<dependency id="MassTransit.Extensions.DependencyInjection" version="7.0.7" exclude="Build,Analyzers" />
-			<dependency id="MassTransit.RabbitMQ" version="7.0.7" exclude="Build,Analyzers" />
-			<dependency id="MicroElements.Swashbuckle.FluentValidation" version="4.0.0" exclude="Build,Analyzers" />
+			<dependency id="FluentValidation.DependencyInjectionExtensions" version="9.5.1" exclude="Build,Analyzers" />
+			<dependency id="MassTransit.AspNetCore" version="7.1.6" exclude="Build,Analyzers" />
+			<dependency id="MassTransit.Extensions.DependencyInjection" version="7.1.6" exclude="Build,Analyzers" />
+			<dependency id="MassTransit.RabbitMQ" version="7.1.6" exclude="Build,Analyzers" />
+			<dependency id="MicroElements.Swashbuckle.FluentValidation" version="4.2.0" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.AspNetCore.Mvc.Abstractions" version="2.2.0" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.AspNetCore.Mvc.Core" version="2.2.5" exclude="Build,Analyzers" />
-			<dependency id="Microsoft.EntityFrameworkCore" version="5.0.0" exclude="Build,Analyzers" />
-			<dependency id="Microsoft.EntityFrameworkCore.Relational" version="5.0.0" exclude="Build,Analyzers" />
-			<dependency id="Microsoft.EntityFrameworkCore.SqlServer" version="5.0.0" exclude="Build,Analyzers" />
+			<dependency id="Microsoft.EntityFrameworkCore" version="5.0.3" exclude="Build,Analyzers" />
+			<dependency id="Microsoft.EntityFrameworkCore.Relational" version="5.0.3" exclude="Build,Analyzers" />
+			<dependency id="Microsoft.EntityFrameworkCore.SqlServer" version="5.0.3" exclude="Build,Analyzers" />
+			<dependency id="Microsoft.EntityFrameworkCore.Tools" version="5.0.3" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="5.0.0" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.Extensions.Hosting.Abstractions" version="5.0.0" exclude="Build,Analyzers" />
-			<dependency id="MongoDB.Driver" version="2.11.4" exclude="Build,Analyzers" />
-			<dependency id="NEST" version="7.10.0" exclude="Build,Analyzers" />
-			<dependency id="NLog.Web.AspNetCore" version="4.9.3" exclude="Build,Analyzers" />
-			<dependency id="Npgsql.EntityFrameworkCore.PostgreSQL" version="5.0.0" exclude="Build,Analyzers" />
+			<dependency id="MongoDB.Driver" version="2.11.6" exclude="Build,Analyzers" />
+			<dependency id="NEST" version="7.11.1" exclude="Build,Analyzers" />
+			<dependency id="NLog.Web.AspNetCore" version="4.11.0" exclude="Build,Analyzers" />
+			<dependency id="Npgsql.EntityFrameworkCore.PostgreSQL" version="5.0.2" exclude="Build,Analyzers" />
 			<dependency id="Pomelo.EntityFrameworkCore.MySql" version="5.0.0-alpha.2" exclude="Build,Analyzers" />
-			<dependency id="Swashbuckle.AspNetCore.Swagger" version="5.6.3" exclude="Build,Analyzers" />
-			<dependency id="Swashbuckle.AspNetCore.SwaggerGen" version="5.6.3" exclude="Build,Analyzers" />
+			<dependency id="Swashbuckle.AspNetCore.Swagger" version="6.0.7" exclude="Build,Analyzers" />
+			<dependency id="Swashbuckle.AspNetCore.SwaggerGen" version="6.0.7" exclude="Build,Analyzers" />
 			<dependency id="System.ComponentModel.Annotations" version="5.0.0" exclude="Build,Analyzers" />
 		</group>
 	</dependencies>	

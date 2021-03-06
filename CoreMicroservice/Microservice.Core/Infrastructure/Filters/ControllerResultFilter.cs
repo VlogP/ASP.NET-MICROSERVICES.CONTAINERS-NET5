@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Microservice.Core.Infrastructure.Filters
 {
-    public class ControllerResultFilter : IAsyncResultFilter
+    public class ControllerResultFilter: Attribute, IAsyncResultFilter
     {
         public async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
         {
             var objectResult = context.Result as ObjectResult;
             var fluentValidationResult = objectResult?.Value as ValidationProblemDetails;
-            var operationResult = new OperationResult<object>();
+            var operationResult = new OperationResult.OperationResult();
 
             if (fluentValidationResult != null)
             {

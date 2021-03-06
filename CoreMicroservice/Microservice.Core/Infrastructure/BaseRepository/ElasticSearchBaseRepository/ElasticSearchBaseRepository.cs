@@ -21,9 +21,9 @@ namespace Microservice.Core.Infrastructure.BaseRepository.ElasticSearchBaseRepos
             _elasticSearchIndex = elasticSearchIndex;
         }
 
-        public OperationResult<object> Add(TDocument document)
+        public OperationResult.OperationResult Add(TDocument document)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult.OperationResult();
 
             try {
                 _elasticClient.Index(document, request => request.Index(_elasticSearchIndex.IndexName));
@@ -37,9 +37,9 @@ namespace Microservice.Core.Infrastructure.BaseRepository.ElasticSearchBaseRepos
             return result;
         }
 
-        public async Task<OperationResult<object>> AddAsync(TDocument document)
+        public async Task<OperationResult.OperationResult> AddAsync(TDocument document)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult.OperationResult();
 
             try {
                 await _elasticClient.IndexAsync(document, request => request.Index(_elasticSearchIndex.IndexName));
@@ -53,9 +53,9 @@ namespace Microservice.Core.Infrastructure.BaseRepository.ElasticSearchBaseRepos
             return result;
         }
 
-        public OperationResult<object> AddMany(List<TDocument> documents)
+        public OperationResult.OperationResult AddMany(List<TDocument> documents)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult.OperationResult();
 
             try {
                 _elasticClient.IndexMany(documents, _elasticSearchIndex.IndexName);
@@ -69,9 +69,9 @@ namespace Microservice.Core.Infrastructure.BaseRepository.ElasticSearchBaseRepos
             return result;
         }
 
-        public async Task<OperationResult<object>> AddManyAsync(List<TDocument> documents)
+        public async Task<OperationResult.OperationResult> AddManyAsync(List<TDocument> documents)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult.OperationResult();
 
             try {
                 await _elasticClient.IndexManyAsync(documents, _elasticSearchIndex.IndexName);
@@ -85,9 +85,9 @@ namespace Microservice.Core.Infrastructure.BaseRepository.ElasticSearchBaseRepos
             return result;
         }
 
-        public OperationResult<object> Delete(TDocument document)
+        public OperationResult.OperationResult Delete(TDocument document)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult.OperationResult();
 
             try {
                 _elasticClient.Delete<TDocument>(document, request => request.Index(_elasticSearchIndex.IndexName));
@@ -101,9 +101,9 @@ namespace Microservice.Core.Infrastructure.BaseRepository.ElasticSearchBaseRepos
             return result;
         }
 
-        public async Task<OperationResult<object>> DeleteAsync(TDocument document)
+        public async Task<OperationResult.OperationResult> DeleteAsync(TDocument document)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult.OperationResult();
 
             try {
                 await _elasticClient.DeleteAsync<TDocument>(document, request => request.Index(_elasticSearchIndex.IndexName));
@@ -117,9 +117,9 @@ namespace Microservice.Core.Infrastructure.BaseRepository.ElasticSearchBaseRepos
             return result;
         }
 
-        public OperationResult<object> DeleteMany(List<TDocument> documents)
+        public OperationResult.OperationResult DeleteMany(List<TDocument> documents)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult.OperationResult();
 
             try {
                 _elasticClient.DeleteMany(documents, _elasticSearchIndex.IndexName);
@@ -133,9 +133,9 @@ namespace Microservice.Core.Infrastructure.BaseRepository.ElasticSearchBaseRepos
             return result;
         }
 
-        public async Task<OperationResult<object>> DeleteManyAsync(List<TDocument> documents)
+        public async Task<OperationResult.OperationResult> DeleteManyAsync(List<TDocument> documents)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult.OperationResult();
 
             try {
                 await _elasticClient.DeleteManyAsync(documents, _elasticSearchIndex.IndexName);
@@ -150,9 +150,9 @@ namespace Microservice.Core.Infrastructure.BaseRepository.ElasticSearchBaseRepos
             return result;
         }
 
-        public OperationResult<object> Update(TDocument document)
+        public OperationResult.OperationResult Update(TDocument document)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult.OperationResult();
 
             try {
                  _elasticClient.Update<TDocument>(document, request => {
@@ -170,9 +170,9 @@ namespace Microservice.Core.Infrastructure.BaseRepository.ElasticSearchBaseRepos
             return result;
         }
 
-        public async Task<OperationResult<object>> UpdateAsync(TDocument document)
+        public async Task<OperationResult.OperationResult> UpdateAsync(TDocument document)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult.OperationResult();
 
             try {
                 await _elasticClient.UpdateAsync<TDocument>(document, updateRequest => { 

@@ -3,7 +3,7 @@ using ReportMicroservice.DAL.Models.SQLServer;
 
 namespace ReportMicroservice.DAL.Repositories.Interfaces.SQLServer
 {
-    public interface IReportSQLServerRepository : ISQLBaseRepository<Report> 
+    public interface IReportSQLServerRepository: ISQLBaseRepository<Report> 
     {
     }
 }

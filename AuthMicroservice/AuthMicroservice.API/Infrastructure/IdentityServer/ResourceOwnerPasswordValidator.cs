@@ -33,7 +33,7 @@ namespace AuthMicroservice.API.Infrastructure.IdentityServer
                     Role = user?.Data.Role?.Name
                 };
 
-                if (user.Type == ResultType.Success)
+                if (user.IsSuccess)
                 {
                     context.Result = new GrantValidationResult(
                         subject: user.Data.Id.ToString(),
@@ -53,7 +53,7 @@ namespace AuthMicroservice.API.Infrastructure.IdentityServer
             }
         }
 
-        public static Claim[] GetUserClaims(UserClaims claims)
+        private Claim[] GetUserClaims(UserClaims claims)
         {
             return new Claim[]
             {

@@ -56,8 +56,8 @@ namespace ProductMicroservice.BLL.Services.Classes
 
             if (isClientExist)
             {
-                var bsonId = ObjectId.GenerateNewId();
                 newProduct.Tags?.Add(client.Name);
+                var bsonId = ObjectId.GenerateNewId();
                 var sqlServerProduct = _mapper.Map<Product>(newProduct);
                 var mongoProduct = _mapper.Map<DAL.Models.Mongo.Product>(newProduct);
                 var elasticProduct = _mapper.Map<DAL.Models.ElasticSearch.Product>(newProduct);
@@ -70,7 +70,7 @@ namespace ProductMicroservice.BLL.Services.Classes
                 result.Errors = mongoResult.Errors;
                 result.Type = mongoResult.Type;
 
-                if (mongoResult.Type == ResultType.Success)
+                if (mongoResult.IsSuccess)
                 {
                     sqlServerProduct.Id = Guid.NewGuid();
                     sqlServerProduct.BsonId = bsonId.ToString();
@@ -79,7 +79,7 @@ namespace ProductMicroservice.BLL.Services.Classes
                     result.Errors = sqlServerResult.Errors;
                     result.Type = sqlServerResult.Type;
 
-                    if (sqlServerResult.Type == ResultType.Success)
+                    if (sqlServerResult.IsSuccess)
                     {
                         elasticProduct.Id = bsonId.ToString();
 
@@ -87,7 +87,7 @@ namespace ProductMicroservice.BLL.Services.Classes
                         result.Errors = elasticResult.Errors;
                         result.Type = elasticResult.Type;
 
-                        if (elasticResult.Type == ResultType.Success)
+                        if (elasticResult.IsSuccess)
                         {
                             result.Type = ResultType.Success;
                             result.Data = new ProductPostDTO

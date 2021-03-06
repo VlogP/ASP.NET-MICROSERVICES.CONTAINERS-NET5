@@ -7,6 +7,9 @@ using AuthMicroservice.BLL.Models.DTO.User;
 using AuthMicroservice.BLL.Services.Interfaces;
 using System.Web;
 using AuthMicroservice.API.Models.User;
+using AuthMicroservice.BLL.Models.DTO.Token;
+using Microsoft.AspNetCore.Http;
+using System;
 
 namespace AuthMicroservice.API.Controllers
 {
@@ -23,7 +26,7 @@ namespace AuthMicroservice.API.Controllers
 
         [HttpPost]
         [Route("token")]
-        [Produces(typeof(OperationResult<string>))]
+        [Produces(typeof(OperationResult<TokenDTO>))]
         public async Task<ActionResult> GetToken([FromBody] UserLoginAPI userInfo)
         {
             var result = await _authService.GetToken(new UserLogin 
@@ -31,6 +34,19 @@ namespace AuthMicroservice.API.Controllers
                 Email = userInfo.Email,
                 Password = userInfo.Password
             });
+
+            if (result.IsSuccess)
+            {
+                var cookieOption = new CookieOptions
+                {
+                    MaxAge = TimeSpan.FromSeconds(result.Data.ExpiresIn),
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict
+                };
+
+                HttpContext.Response.Cookies.Append("ASP.NET.Auth.Microservice.Access.Token", result.Data.AccessToken, cookieOption);
+                HttpContext.Response.Cookies.Append("ASP.NET.Auth.Microservice.Refresh.Token", result.Data.RefreshToken, cookieOption);
+            }
 
             return Ok(result);
         }
@@ -51,7 +67,7 @@ namespace AuthMicroservice.API.Controllers
 
         [HttpGet]
         [Route("activate")]
-        [Produces(typeof(OperationResult<object>))]
+        [Produces(typeof(OperationResult))]
         public ActionResult ActivateUser([FromQuery] UserActivationAPI activation)
         {
             var result = _authService.ActivateUser(activation.ActivationCode, activation.ActivationEmail);

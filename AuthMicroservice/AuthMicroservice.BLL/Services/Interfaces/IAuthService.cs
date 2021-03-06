@@ -1,4 +1,5 @@
-﻿using AuthMicroservice.BLL.Models.DTO.User;
+﻿using AuthMicroservice.BLL.Models.DTO.Token;
+using AuthMicroservice.BLL.Models.DTO.User;
 using AuthMicroservice.BLL.Models.User;
 using Microservice.Core.Infrastructure.OperationResult;
 using System;
@@ -10,10 +11,10 @@ namespace AuthMicroservice.BLL.Services.Interfaces
 {
     public interface IAuthService
     {
-        Task<OperationResult<string>> GetToken(UserLogin userInfo);
+        Task<OperationResult<TokenDTO>> GetToken(UserLogin userInfo);
 
         Task<OperationResult<UserDTO>> Add(UserRegister newUser);
 
-        OperationResult<object> ActivateUser(string activationCode, string activationEmail);
+        OperationResult ActivateUser(string activationCode, string activationEmail);
     }
 }

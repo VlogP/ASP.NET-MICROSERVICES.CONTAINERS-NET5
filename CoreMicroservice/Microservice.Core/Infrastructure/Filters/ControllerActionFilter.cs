@@ -1,11 +1,12 @@
 ﻿using Microservice.Core.Infrastructure.OperationResult;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 using System.Collections.Generic;
 
 namespace Microservice.Core.Infrastructure.Filters
 {
-    public class ControllerActionFilter : IActionFilter
+    public class ControllerActionFilter : Attribute, IActionFilter
     {
         public ControllerActionFilter()
         {
@@ -26,7 +27,7 @@ namespace Microservice.Core.Infrastructure.Filters
             {
                 var errorList = new List<string>();
                 errorList.Add("Controller didn't return objectResult data");
-                var data = new OperationResult<object>();
+                var data = new OperationResult.OperationResult();
                 data.Type = ResultType.Invalid;
                 data.Errors = errorList;
 

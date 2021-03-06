@@ -61,8 +61,6 @@ spec:
             secretKeyRef:
               name: rabbit-secret
               key: RABBITMQ_ERLANG_COOKIE
-        - name: K8S_HOSTNAME_SUFFIX
-          value: .rabbitmq-headless-service.$(RABBIT_POD_NAMESPACE).svc.cluster.local
         volumeMounts:
         - name: rabbitmq-data
           mountPath: /var/lib/rabbitmq/mnesia
