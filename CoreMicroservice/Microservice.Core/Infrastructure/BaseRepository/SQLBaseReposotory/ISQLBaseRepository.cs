@@ -21,24 +21,24 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
 
         public Task<OperationResult<TEntity>> UpdateAsync(TEntity entity);
 
-        public OperationResult<object> UpdateMany(List<TEntity> entities);
+        public OperationResult.OperationResult UpdateMany(List<TEntity> entities);
 
-        public Task<OperationResult<object>> UpdateManyAsync(List<TEntity> entities);
+        public Task<OperationResult.OperationResult> UpdateManyAsync(List<TEntity> entities);
 
-        public OperationResult<object> Delete(TEntity entity);
+        public OperationResult.OperationResult Delete(TEntity entity);
 
-        public Task<OperationResult<object>> DeleteAsync(TEntity entity);
+        public Task<OperationResult.OperationResult> DeleteAsync(TEntity entity);
 
-        public OperationResult<object> DeleteMany(List<TEntity> entities);
+        public OperationResult.OperationResult DeleteMany(List<TEntity> entities);
 
-        public Task<OperationResult<object>> DeleteManyAsync(List<TEntity> entities);
+        public Task<OperationResult.OperationResult> DeleteManyAsync(List<TEntity> entities);
 
         public OperationResult<TEntity> Add(TEntity entity);
 
         public Task<OperationResult<TEntity>> AddAsync(TEntity entity);
 
-        public OperationResult<object> AddMany(List<TEntity> entities);
+        public OperationResult.OperationResult AddMany(List<TEntity> entities);
 
-        public Task<OperationResult<object>> AddManyAsync(List<TEntity> entities);
+        public Task<OperationResult.OperationResult> AddManyAsync(List<TEntity> entities);
     }
 }

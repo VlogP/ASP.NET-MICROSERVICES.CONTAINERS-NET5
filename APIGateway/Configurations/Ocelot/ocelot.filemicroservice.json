@@ -1,0 +1,64 @@
+﻿{
+  "Routes": [
+    {
+      "SwaggerKey": "filemicroservice",
+      "ServiceName": "filemicroservice",
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 10,
+        "Limit": 5
+      },
+      "UpstreamPathTemplate": "/api/file/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "DownstreamPathTemplate": "/api/file/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "filemicroservice",
+          "Port": 80
+        }
+      ]
+    },
+    {
+      "SwaggerKey": "filemicroservice",
+      "ServiceName": "filemicroservice",
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 10,
+        "Limit": 5
+      },
+      "UpstreamPathTemplate": "/api/file/",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "DownstreamPathTemplate": "/api/file",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "filemicroservice",
+          "Port": 80
+        }
+      ]
+    }
+  ]
+}

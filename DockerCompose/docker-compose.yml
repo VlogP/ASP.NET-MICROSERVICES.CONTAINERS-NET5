@@ -69,6 +69,26 @@ services:
       dockerfile: AuthMicroservice.API/Dockerfile
       args:
         ENVIRONMENT: ${ENVIRONMENT}
+  filemicroservice:
+    container_name: filemicroservice
+    image: ${DOCKERHUBID}/filemicroservice:${TAG}
+    build:
+      context: ../FileMicroservice
+      dockerfile: FileMicroservice.API/Dockerfile
+      args:
+        ENVIRONMENT: ${ENVIRONMENT}
+    depends_on:
+      - "consul"        
+  filemicroservice2:
+    container_name: filemicroservice2
+    image: ${DOCKERHUBID}/filemicroservice:${TAG}
+    build:
+      context: ../FileMicroservice
+      dockerfile: FileMicroservice.API/Dockerfile
+      args:
+        ENVIRONMENT: ${ENVIRONMENT}
+    depends_on:
+      - "consul"        
   rabbitmqserver:
     container_name: rabbitmqserver
     image: rabbitmq:3.8.9-management

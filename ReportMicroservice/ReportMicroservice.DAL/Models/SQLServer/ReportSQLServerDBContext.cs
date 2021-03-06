@@ -9,8 +9,10 @@ namespace ReportMicroservice.DAL.Models.SQLServer
     {
         public ReportSQLServerDBContext(DbContextOptions<ReportSQLServerDBContext> options) : base(options)
         {
+            
         }
 
         public DbSet<Report> Reports { get; set; }
+        public DbSet<FileReport> FileReports { get; set; }
     }
 }

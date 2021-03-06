@@ -29,6 +29,16 @@
           "Url": "http://authmicroservice:80/swagger/v1/swagger.json"
         }
       ]
+    },
+    {
+      "Key": "filemicroservice",
+      "Config": [
+        {
+          "Name": "FileAPI",
+          "Version": "v1",
+          "Url": "http://filemicroservice:80/swagger/v1/swagger.json"
+        }
+      ]
     }
   ]
 }

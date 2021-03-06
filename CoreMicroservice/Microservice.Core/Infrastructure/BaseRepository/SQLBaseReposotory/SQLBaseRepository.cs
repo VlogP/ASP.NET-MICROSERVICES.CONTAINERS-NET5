@@ -56,9 +56,9 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             return result;
         }
 
-        public OperationResult<object> AddMany(List<TEntity> entities)
+        public OperationResult.OperationResult AddMany(List<TEntity> entities)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult.OperationResult();
 
             try {
                 _dbSet.AddRange(entities);
@@ -74,9 +74,9 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             return result;
         }
 
-        public async Task<OperationResult<object>> AddManyAsync(List<TEntity> entities)
+        public async Task<OperationResult.OperationResult> AddManyAsync(List<TEntity> entities)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult.OperationResult();
 
             try {
                 await _dbSet.AddRangeAsync(entities);
@@ -90,9 +90,9 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             return result;
         }
 
-        public OperationResult<object> Delete(TEntity entity)
+        public OperationResult.OperationResult Delete(TEntity entity)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult.OperationResult();
             
             try {
                 _dbSet.Remove(entity);
@@ -106,9 +106,9 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             return result;
         }
 
-        public async Task<OperationResult<object>> DeleteAsync(TEntity entity)
+        public async Task<OperationResult.OperationResult> DeleteAsync(TEntity entity)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult.OperationResult();
 
             try {
                 await Task.Run(() => _dbSet.Remove(entity));
@@ -122,9 +122,9 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             return result;
         }
 
-        public OperationResult<object> DeleteMany(List<TEntity> entities)
+        public OperationResult.OperationResult DeleteMany(List<TEntity> entities)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult.OperationResult();
 
             try {
                 _dbSet.RemoveRange(entities);
@@ -138,9 +138,9 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             return result;
         }
 
-        public async Task<OperationResult<object>> DeleteManyAsync(List<TEntity> entities)
+        public async Task<OperationResult.OperationResult> DeleteManyAsync(List<TEntity> entities)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult.OperationResult();
 
             try {
                 await Task.Run(() => _dbSet.RemoveRange(entities));
@@ -256,9 +256,9 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             return result;
         }
 
-        public OperationResult<object> UpdateMany(List<TEntity> entities)
+        public OperationResult.OperationResult UpdateMany(List<TEntity> entities)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult.OperationResult();
 
             try {
                 _dbSet.UpdateRange(entities);
@@ -272,9 +272,9 @@ namespace Microservice.Core.Infrastructure.SQLBaseRepository
             return result;
         }
 
-        public async Task<OperationResult<object>> UpdateManyAsync(List<TEntity> entities)
+        public async Task<OperationResult.OperationResult> UpdateManyAsync(List<TEntity> entities)
         {
-            var result = new OperationResult<object>();
+            var result = new OperationResult.OperationResult();
 
             try {
                 await Task.Run(() => _dbSet.UpdateRange(entities));

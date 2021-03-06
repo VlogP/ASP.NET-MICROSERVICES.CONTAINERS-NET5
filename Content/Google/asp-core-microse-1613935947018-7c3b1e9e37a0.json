@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "asp-core-microse-1613935947018",
+  "private_key_id": "7c3b1e9e37a05831a4d65a794acc79ab6bac1bd0",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDusNA+c33gaMDJ\nD5mxxsY4j9HlOhU5sdvekNECC5/QDT6ErdecL6NXvLBH5VjjnX2q4v20R7HyQbZN\nzCtM2tLO2UCSSGels6MCDGvlnkfO5rdDl9WDVZgy1auJz7L9f0Eu1y8ESM+XEoBR\nSHLLe9gftIyMbl1X0Ud8abwGC6zYyXIteMe+BH0/o8YVarxgbvvc8oipxMyagjV1\nflgvEAHSYFS+disBMmqFtBdCwtTUbqexryMSzqqnQu350+AWi6NMHlBpXep0KOGR\nwiLddzSQ7xNPh+m5XrX3X3W+CFC5ygszSougM0jrBJcJV21pwwLKaajTw5PPHg8V\nXFUaBj6XAgMBAAECggEAWq4tzywNTG4/n6MfntyHfgGVmmKAodSiVWHrJb3Izz/Y\n2os4+ItYoQJ8bjQBmyfAEGYAQLdkMUcpvVCtupr/r7n1wB1l0xv199dEPo3tdftM\n8I8EfMrN8bIfY1HXDFuGJgd2Q0huJVTQDxFZG1lHeHQdWVSsfapyYB/DYQCagBj8\nQskhe/M81AM54LRD+968jXM8q5EciMA0okgu8ZaZqChmpW9ClM/Zti2NUp4q6/dH\npsQkrBR7f/cmIoY4qlF/GUeYEZ9Iw3a4EkBcUr67++gM5ghdkT62/wM+GBSSutJ1\nqfwyvOgJfI4EvDxCVSJCa3Mo2/ZyYWov9zhfAmzu8QKBgQD6VLD55+mayDPYRaTo\neLYf86jcMSsuTAyjUBSGegG7DOIXSuxrZ0ZSApoQFU7XErdmaPQotFsLXFh04Oid\nJhm4VSOYGHdhAMcqcHMJC9Gl3MJO/ferQ4HUFhoUfecULdfJxF/ZhDD3wulfDBm5\nqhJx5IXgJ6E0EDwBG7w/otfLfQKBgQD0GKM9GLQ+ARIjXFibFfE9q46fjHeQQ0PQ\nBJXAalTMPnMLhhu1+gNOmEpBaatf4uIiepmWh2cvdie2F93Xcjjb520KmamKWQtv\nGviKnwHsSJWNXvqK+5D/wxnwAxbdLXFlrs9rqqxlodmGO3UIpI9RmvWRh29SEnLp\nv2KIosHGowKBgQCx/Gd8uETjVXdvTU1MMQ+lNjSYoqkGGPJfZ7/AQZ1bZnSWhSIF\n138rLkhmKRBOYTNfMD5xdpLJSBZou8UIfx+IbZiKOtMeeFQju6I/C1U7rfPGAFMJ\nRU1ZA4H1kfMr6NBl2CciXBgJAV+2wb7EwMSukAIT93lpsCVJ0HOPd3QhbQKBgQDa\n6xHUJMjaZyl2T0ckaCyBK9DxJRDCcKFr+gC4nmTI/SU+65sEvWKj5Y+LVRMfHyPC\n2oPO7kdL2MNK2+LZbBa0mr0/6YqVisDnd5/66xrVaE/Ah7NaXL6xs7AagxrJaQ0v\nrfVXUa3mRJ8LdV3ET5o+DSU6zOW5DNTE8SGU+6ug0wKBgQCTXrXrbk5nUQGqT4zq\nK/h6qloQQ+njZ8NmeZyv9Zk9xHuCqQl5wXDDB/ODsjFk19D0CsHcx4oCR+Jm3O2g\nIjzHBYAJ8NBiYZAZ9d+5ODK3sFKVYc1Nvx7FRXeQc+ywWKgebVtS1hVRdPP3CTN6\nuuQ9sABvUnstlnHllShfbrJzgw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "asp-core-microservice@asp-core-microse-1613935947018.iam.gserviceaccount.com",
+  "client_id": "102525961947154707990",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/asp-core-microservice%40asp-core-microse-1613935947018.iam.gserviceaccount.com"
+}

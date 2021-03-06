@@ -1,4 +1,5 @@
-﻿using AuthMicroservice.BLL.Models.DTO.User;
+﻿using AuthMicroservice.BLL.Models.DTO.Token;
+using AuthMicroservice.BLL.Models.DTO.User;
 using AuthMicroservice.BLL.Models.User;
 using AuthMicroservice.BLL.Services.Interfaces;
 using AuthMicroservice.DAL.Infrastructure.Enums;
@@ -36,46 +37,52 @@ namespace AuthMicroservice.BLL.Services.Classes
             _mapper = mapper;
         }
 
-        public async Task<OperationResult<string>> GetToken(UserLogin userInfo)
+        public async Task<OperationResult<TokenDTO>> GetToken(UserLogin userInfo)
         {
-            var client = new HttpClient();
-            var token = "";
+            TokenResponse response = new TokenResponse();
             var isTokenReceived = false;
             var errorsList = new List<string>();
-            var result = new OperationResult<string>();
+            var result = new OperationResult<TokenDTO>();
             var userRepository = _sqlUnitOfWork.GetRepository<IUserSQLServerRepository>();
 
             var dataResult = userRepository
                 .GetUserWithRole(userInfo.Email, userInfo.Password);
 
-            var user = dataResult.Type == ResultType.Success ? dataResult.Data : null;
+            var user = dataResult.IsSuccess ? dataResult.Data : null;
 
             if (user != null && user.IsActivated)
             {
-                var response = await client.RequestPasswordTokenAsync(new PasswordTokenRequest
+                using (var client = new HttpClient())
                 {
-                    Address = _configuration[MicroserviceConfigurationVariables.IdentityServer.ACCESS_TOKEN_URL],
-                    ClientId = _configuration[MicroserviceConfigurationVariables.IdentityServer.USER_CLIENT_ID],
-                    ClientSecret = _configuration[MicroserviceConfigurationVariables.IdentityServer.USER_CLIENT_SECRET],
-                    Scope = "application.read application.write",
-                    UserName = userInfo.Email,
-                    Password = userInfo.Password
-                });
+                    response = await client.RequestPasswordTokenAsync(new PasswordTokenRequest
+                    {
+                        Address = _configuration[MicroserviceConfigurationVariables.IdentityServer.ACCESS_TOKEN_URL],
+                        ClientId = _configuration[MicroserviceConfigurationVariables.IdentityServer.USER_CLIENT_ID],
+                        ClientSecret = _configuration[MicroserviceConfigurationVariables.IdentityServer.USER_CLIENT_SECRET],
+                        Scope = "application.read application.write offline_access",
+                        UserName = userInfo.Email,
+                        Password = userInfo.Password
+                    });
 
-                if (response.IsError)
-                {
-                    errorsList.Add(response.ErrorDescription);
+                    if (response.IsError)
+                    {
+                        errorsList.Add(response.ErrorDescription);
+                    }
                 }
-
-                token = response.AccessToken;
             }
 
-            isTokenReceived = !string.IsNullOrEmpty(token);
+            isTokenReceived = !string.IsNullOrEmpty(response.AccessToken);
 
             if (isTokenReceived)
             {
-                result.Data = token;
-                result.Type = ResultType.Success;                
+                result.Data = new TokenDTO
+                {
+                    AccessToken = response.AccessToken,
+                    RefreshToken = response.RefreshToken ?? "Refresh token",
+                    ExpiresIn = response.ExpiresIn
+                };
+
+                result.Type = ResultType.Success;
             }
             else
             {
@@ -114,9 +121,7 @@ namespace AuthMicroservice.BLL.Services.Classes
                 result.Data = _mapper.Map<UserDTO>(userData.Data);
                 result.Type = userResult.Type;
 
-                var isSuccess = userResult.Type == ResultType.Success;
-
-                if (isSuccess)
+                if (userResult.IsSuccess)
                 {
                     await SendEmailAsync(userData.Data.Email, userData.Data.ActivationCode);
                 }
@@ -130,10 +135,10 @@ namespace AuthMicroservice.BLL.Services.Classes
             return result;
         }
 
-        public OperationResult<object> ActivateUser(string activationCode, string activationEmail)
+        public OperationResult ActivateUser(string activationCode, string activationEmail)
         {
             var userRepository = _sqlUnitOfWork.GetRepository<IUserSQLServerRepository>();
-            var result = new OperationResult<object>();
+            var result = new OperationResult();
 
             var userResult = userRepository.Get(item => item.Email.Equals(activationEmail));
             var user = userResult.Data.FirstOrDefault();

@@ -9,7 +9,7 @@ using ProductMicroservice.BLL.Services.Interfaces;
 namespace ProductMicroservice.API.Controllers
 {
     [ApiController]
-    [Route("api/Product/Client")]
+    [Route("api/product/client")]
     public class ClientController : ControllerBase
     {
         private readonly IClientService _clientService;

@@ -65,5 +65,18 @@ namespace Microservice.Core.Constants.ConfigurationVariables
 
             public const string PASSWORD = "ElasticSearch:Password";
         }
+
+        public static class Google
+        {
+            public const string CREDENTIALS = "Google:Credentials";
+
+            public const string STORAGE_PATH = "Google:Storage";
+
+            public const string USERNAME = "Google:Username";
+
+            public const string APPLICATION = "Google:ApplicationName";
+
+            public const string PARRENT_FOLDER_ID = "Google:FolderId";
+        }
     }
 }

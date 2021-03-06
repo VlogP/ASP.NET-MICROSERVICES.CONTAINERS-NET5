@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using Microservice.Core.Infrastructure.OperationResult;
+using Microservice.Core.Infrastructure.UnitofWork.SQL;
 using Microservice.Core.Messages.Test;
 using System;
 using System.Collections.Generic;
